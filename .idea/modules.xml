@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Alfredvc.iml" filepath="$PROJECT_DIR$/Alfredvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ConstraintSatisfaction/ConstraintSatisfaction.iml" filepath="$PROJECT_DIR$/ConstraintSatisfaction/ConstraintSatisfaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FunctionParser/ConstraintParser.iml" filepath="$PROJECT_DIR$/FunctionParser/ConstraintParser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Grid2D/Grid2D.iml" filepath="$PROJECT_DIR$/Grid2D/Grid2D.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SearchAlgorithm/search_algorithm.iml" filepath="$PROJECT_DIR$/SearchAlgorithm/search_algorithm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
+    </modules>
+  </component>
+</project>
