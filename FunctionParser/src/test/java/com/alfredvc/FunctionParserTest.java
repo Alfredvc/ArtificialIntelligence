@@ -108,4 +108,13 @@ public class FunctionParserTest
     private double func(double x, double y, double z, double f){
         return(x*y + y + z*z + x*f);
     }
+
+    @Test
+    public void testBooleanFuction(){
+        Function booleanFunction = FunctionParser.fromString("(boolean=Integer:x,y,z)-> x + y < z");
+        Object[] args = {Integer.valueOf(3), Integer.valueOf(2), Integer.valueOf(15)};
+        assertThat(booleanFunction.evaluateToBoolean(args), is(true));
+        Object[] args2 = {Integer.valueOf(4), Integer.valueOf(7), Integer.valueOf(10)};
+        assertThat(booleanFunction.evaluateToBoolean(args2), is(false));
+    }
 }

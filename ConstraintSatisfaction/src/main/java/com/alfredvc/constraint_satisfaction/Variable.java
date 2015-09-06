@@ -1,5 +1,6 @@
-package com.alfredvc;
+package com.alfredvc.constraint_satisfaction;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,7 +11,7 @@ public class Variable<T> {
     private String name;
 
     public Variable(Set<T> domain, String name) {
-        this.domain = domain;
+        this.domain = new HashSet<>(domain);
         this.name = name;
     }
 
@@ -28,5 +29,13 @@ public class Variable<T> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Variable{" +
+                "domain=" + domain +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

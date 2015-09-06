@@ -1,4 +1,7 @@
-package com.alfredvc;
+package com.alfredvc.constraint_satisfaction;
+
+
+import com.alfredvc.Function;
 
 import java.util.LinkedHashSet;
 
@@ -10,13 +13,13 @@ public class Constraint {
     private final LinkedHashSet<String> variableSet;
     private Function function;
 
-    public Constraint(LinkedHashSet<String> variableSet, Function function) {
-        this.variableSet = variableSet;
+    public Constraint(Function function) {
+        this.variableSet = function.getVariableSet();
         this.function = function;
     }
 
-    public double evaluate (Object[] args) {
-        return function.evaluateToDouble(args);
+    public boolean evaluate (Object[] args) {
+        return function.evaluateToBoolean(args);
     }
 
     public LinkedHashSet<String> getVariableSet(){

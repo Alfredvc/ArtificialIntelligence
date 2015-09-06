@@ -1,6 +1,5 @@
-package com.alfredvc;
+package com.alfredvc.constraint_satisfaction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
