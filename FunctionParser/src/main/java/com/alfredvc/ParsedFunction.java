@@ -7,12 +7,12 @@ import java.util.LinkedHashSet;
  * If the specified return type is an Object, use evaluate() and parametrize this interface with the return type;
  *
  * For example: for a double return type
- * ParsedFunction func = FunctionParser.fromString("(double=Double:x,y,z,f)->(x + y + z + f)");
+ * ParsedFunction func = FunctionParser.fromString("double(Double x,y,z,f)->(x + y + z + f)");
  * Object[] args = {Double.valueOf(1.0), Double.valueOf(2.0), Double.valueOf(3.0), Double.valueOf(4.0)};
  * double result = func.evaluateToDouble(args);
  *
  * For example: for a java.util.Point return type;
- * ParsedFunction<Point> func = FunctionParser.fromString("(java.awt.Point=java.awt.Point:a,b)->return new java.awt.Point(a.x + b.x,a.y + b.y);");
+ * ParsedFunction<Point> func = FunctionParser.fromString("java.awt.Point(java.awt.Point a,b)->return new java.awt.Point(a.x + b.x,a.y + b.y);");
  * Object[] args = {new Point(3, 5), new Point(5, 2)};
  * Point result = func.evaluate(args);
  *

@@ -32,8 +32,8 @@ public class ConstraintSatisfactionTest {
         Variable<Integer> x = new Variable<>("x", set1);
         Variable<Integer> y = new Variable<>("y", set2);
         Variable<Integer> z = new Variable<>("z", set3);
-        Constraint c1 = new Constraint(FunctionParser.fromString("(boolean=Integer:x,y)-> x > y"));
-        Constraint c2 = new Constraint(FunctionParser.fromString("(boolean=Integer:x,y,z)-> x + y > z"));
+        Constraint c1 = new Constraint(FunctionParser.fromString("boolean(Integer x,y)-> x > y"));
+        Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
 
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1,c2), Arrays.asList(x, y, z));
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();

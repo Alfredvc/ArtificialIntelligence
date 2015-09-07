@@ -20,14 +20,22 @@ import java.util.Set;
 /**
  * Class used to parse strings into ParsedFunction objects.
  *
+ * Since only Object types can be passed as arguments then
+ * functions with primitive parameter types are not allowed.
+ * Return types can however be primitive types.
+ * For example double(double f)->(3*f) is NOT valid
+ * use the Object type instead double(Double f)->(3*f)
  *
- * Given strings must be in one of the forms:
- *      (returnType=parameterType:param1,param2)-> EXPRESSION
- *      (returnType=parameterType:param1,param2)-> return EXPRESSION;
+ *
+ * Given strings have a similar syntax to Java functions:
+ *      returnType(parameterType param1,param2)-> EXPRESSION
+ *      returnType(parameterType param1,param2)-> return EXPRESSION;
+ *      returnType(parameterType1 param1,param2, parameterType2 param3, param 4)-> EXPRESSION
+ *      returnType(parameterType1 param1, parameterType1 param2, parameterType2 param3, param 4)-> EXPRESSION
  *
  * For example:
- *      (double=Double:x,y,z,f)->(x + y + z + f)
- *      (double=java.util.List:l)->double tot = 1; for(java.util.Iterator iterator = ((java.util.List) l).iterator(); iterator.hasNext(); ){ Object o = iterator.next();tot*=((Double)o).doubleValue();} return tot;
+ *      double(Double x,y,z,f)->(x + y + z + f)
+ *      double(java.util.List l)->double tot = 1; for(java.util.Iterator iterator = ((java.util.List) l).iterator(); iterator.hasNext(); ){ Object o = iterator.next();tot*=((Double)o).doubleValue();} return tot;
  *
  */
 public class FunctionParser
@@ -93,24 +101,34 @@ public class FunctionParser
             //TODO: validate functionString.
             String argsName = "o"+System.currentTimeMillis();
             LinkedHashSet<String> variables = new LinkedHashSet<>();
-            String paramsString = functionString.split("\\(")[1].split("\\)")[0];
-            String[] tempSplit = paramsString.split("=");
-            String returnType = tempSplit.length > 1 ? tempSplit[0] : DEFAULT_RETURN_TYPE;
-            paramsString = tempSplit[tempSplit.length - 1];
+            String[] tempSplit = functionString.split("\\(");
+            String returnType = tempSplit[0].equals("") ? DEFAULT_RETURN_TYPE : tempSplit[0].trim();
+            String paramsString = tempSplit[1].split("\\)")[0].trim();
+
             List<String> types = new ArrayList<>();
             String methodBody = getMethodBody(functionString);
-            String[] typesAndVariables = paramsString.split("\\|");
+            String[] typesAndVariables = paramsString.split("\\,");
             int varNr = 0;
+            String currentType = null;
+            String currentVar;
             for (String typeAndVariables : typesAndVariables) {
-                String type = typeAndVariables.split("\\:")[0].trim();
-                types.add(type);
-                String[] params = typeAndVariables.split("\\:")[typeAndVariables.split("\\:").length - 1].split(",");
-                //Order must be preserved
-                for (String param : params) {
-                    variables.add(param.trim());
-                    methodBody = methodBody.replaceAll(BEHIND + param.trim() + AHEAD, getReplaceForVariableAndType(param.trim(),type, varNr, argsName));
-                    varNr++;
+                String trimed = typeAndVariables.trim();
+                String[] typeAndVariableSplit = trimed.split("\\s+");
+                if (typeAndVariableSplit.length == 2) {
+                    currentType = typeAndVariableSplit[0];
+                    types.add(currentType);
+                    currentVar = typeAndVariableSplit[1];
+                } else if (typeAndVariableSplit.length == 1) {
+                    currentVar = typeAndVariableSplit[0];
+                } else {
+                    throw new IllegalArgumentException("Too many arguments near " + typeAndVariables);
                 }
+                if (currentType == null) {
+                    throw new IllegalArgumentException("No argument type found in " + typeAndVariables);
+                }
+                variables.add(currentVar);
+                methodBody = methodBody.replaceAll(BEHIND + currentVar + AHEAD, getReplaceForVariableAndType(currentVar,currentType, varNr, argsName));
+                varNr++;
             }
 
 
