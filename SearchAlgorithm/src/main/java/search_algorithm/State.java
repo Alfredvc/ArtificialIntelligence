@@ -14,7 +14,7 @@ public abstract class State<T extends State> {
 
     public abstract int getArcCost();
 
-    public abstract int getCostFrom(State state);
+    public abstract int getCostFrom(T state);
 
     /**
      * Must be unique for every unique state.

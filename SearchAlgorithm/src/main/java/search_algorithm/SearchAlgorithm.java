@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 /**
- * Abtract class representing a search algorithm, in the general form of A*
+ * Abstract class representing a search algorithm, in the general form of A*
  */
 public abstract class SearchAlgorithm {
     private final int maxNodes;

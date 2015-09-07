@@ -1,6 +1,7 @@
 package com.alfredvc.constraint_satisfaction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,21 +19,6 @@ public class Variable<T> implements Comparable<Variable<T>> {
     public Variable(String name, List<T> domain) {
         this.name = name;
         this.domain = new ArraySet<>(domain);
-    }
-
-    /**
-     * Returns a copy of the given variable, creates new list to be used internally.
-     */
-    public Variable(Variable<T> variable) {
-        this(variable.getName(), new ArraySet<>(variable.getDomain()));
-    }
-
-    /**
-     * Returns a copy of the given variable, uses the given list internally.
-     */
-    public Variable(Variable<T> variable, ArraySet<T> newDomain) {
-        this.name = variable.getName();
-        this.domain = newDomain;
     }
 
     public List<T> getDomain() {
@@ -64,11 +50,23 @@ public class Variable<T> implements Comparable<Variable<T>> {
         return this.name.equals(v.name) && this.domain.size() == v.domain.size() && domain.stream().allMatch(d -> v.domain.contains(d));
     }
 
+    /**
+     * Not tested for uniqueness
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (domain != null ? domain.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Variable{" +
                 "name='" + name + '\'' +
-                ", domain=" + domain +
+                ", domain=" + Arrays.toString(domain.toArray()) +
                 '}';
     }
 }

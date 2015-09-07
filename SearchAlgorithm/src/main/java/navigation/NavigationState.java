@@ -145,8 +145,8 @@ public class NavigationState extends State<NavigationState> {
     }
 
     @Override
-    public int getCostFrom(State state) {
-        return manhattanDistance(location, ((NavigationState) state).getLocation());
+    public int getCostFrom(NavigationState state) {
+        return manhattanDistance(location, (state).getLocation());
     }
 
     @Override

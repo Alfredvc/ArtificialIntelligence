@@ -20,14 +20,21 @@ public class ArraySet<T> implements List<T>, Set<T> {
     private final List<T> innerList;
     private final Set<T> innerSet;
 
+    private ArraySet(List<T> innerList, Set<T> innerSet) {
+        this.innerList = innerList;
+        this.innerSet = innerSet;
+    }
+
     public ArraySet() {
-        this.innerList = new ArrayList<>();
-        this.innerSet = new HashSet<>();
+        this(new ArrayList<>(), new HashSet<>());
     }
 
     public ArraySet(Collection<? extends T> list) {
-        this.innerList = new ArrayList<>(list);
-        this.innerSet = new HashSet<>(list);
+        this(new ArrayList<>(list), new HashSet<>(list));
+    }
+
+    public static <F> ArraySet<F> withBackingList(List<F> innerList) {
+        return new ArraySet<>(innerList, new HashSet<>(innerList));        
     }
 
     @Override
@@ -57,7 +64,7 @@ public class ArraySet<T> implements List<T>, Set<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        return innerList.toArray(a);
     }
 
     @Override
