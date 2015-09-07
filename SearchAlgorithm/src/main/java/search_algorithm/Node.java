@@ -6,25 +6,25 @@ import java.util.List;
 /**
  * Created by Alfredvc on 8/27/2015.
  */
-public final class Node {
-    private final State state;
+public final class Node<T extends State> {
+    private final T state;
     private final int h;
     private int g;
     private int f;
     private boolean isOpen;
-    private Node parent;
-    private List<Node> children;
+    private Node<T> parent;
+    private List<Node<T>> children;
 
     private List<FChangeListener> fChangeListeners;
 
-    public Node(State state, int g) {
+    public Node(T state, int g) {
         this.children = new ArrayList<>();
         this.state = state;
         this.h = state.getH();
         setG(g);
     }
 
-    public State getState() {
+    public T getState() {
         return state;
     }
 
@@ -57,19 +57,19 @@ public final class Node {
         this.isOpen = isOpen;
     }
 
-    public Node getParent() {
+    public Node<T> getParent() {
         return parent;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(Node<T> parent) {
         this.parent = parent;
     }
 
-    public List<Node> getChildren() {
+    public List<Node<T>> getChildren() {
         return children;
     }
 
-    public void addChild(Node child) {
+    public void addChild(Node<T> child) {
         this.children.add(child);
     }
 
@@ -81,7 +81,7 @@ public final class Node {
         return this.state.isASolution();
     }
 
-    public List<State> generateSuccessors() {
+    public List<T> generateSuccessors() {
         return this.state.generateSuccessors();
     }
 
@@ -123,7 +123,7 @@ public final class Node {
         }
     }
 
-    public int getCostFrom(Node node) {
+    public int getCostFrom(Node<T> node) {
         return this.state.getCostFrom(node.getState());
     }
 

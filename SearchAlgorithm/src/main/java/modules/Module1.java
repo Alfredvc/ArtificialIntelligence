@@ -242,7 +242,7 @@ public class Module1 {
     }
 
     private void start() {
-        SearchAlgorithm searchAlgorithm;
+        SearchAlgorithm<NavigationState> searchAlgorithm;
         switch (radioButtons.getSelection().getMnemonic()) {
             case ASTAR:
                 searchAlgorithm = new AStar(state, Integer.MAX_VALUE);

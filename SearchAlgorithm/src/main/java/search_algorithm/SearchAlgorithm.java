@@ -12,11 +12,11 @@ import java.util.Map;
 /**
  * Abstract class representing a search algorithm, in the general form of A*
  */
-public abstract class SearchAlgorithm {
+public abstract class SearchAlgorithm<T extends State> {
     private final int maxNodes;
-    private Map<Integer, Node> closedNodes;
+    private Map<Integer, Node<T>> closedNodes;
     private Agenda agenda;
-    private Map<Integer, Node> generatedStates;
+    private Map<Integer, Node<T>> generatedStates;
     private int generatedNodes;
     private List<NodePopListener> nodePopListeners;
     private List<NodePrePushListener> nodePrePushListeners;
@@ -38,7 +38,7 @@ public abstract class SearchAlgorithm {
     }
 
     public SearchAlgorithmResult search() {
-        Node currentParent = null;
+        Node<T> currentParent = null;
         while (generatedNodes < maxNodes) {
             if (agenda == null || agenda.isEmpty()) {
                 return SearchAlgorithmResult.failed();
@@ -49,13 +49,13 @@ public abstract class SearchAlgorithm {
             if (currentParent.isASolution()) {
                 return SearchAlgorithmResult.succeeded(currentParent, generatedNodes);
             }
-            List<State> successorStates = currentParent.generateSuccessors();
-            for (State state : successorStates) {
-                Node currentSuccessor;
+            List<T> successorStates = currentParent.generateSuccessors();
+            for (T state : successorStates) {
+                Node<T> currentSuccessor;
                 if (generatedStates.containsKey(state.hashCode())) {
                     currentSuccessor = generatedStates.get(state.hashCode());
                 } else {
-                    currentSuccessor = new Node(state, currentParent.getG() + state.getArcCost());
+                    currentSuccessor = new Node<>(state, currentParent.getG() + state.getArcCost());
                     generatedNodes++;
                 }
                 currentParent.addChild(currentSuccessor);
@@ -77,7 +77,7 @@ public abstract class SearchAlgorithm {
         return SearchAlgorithmResult.succeeded(currentParent, generatedNodes);
     }
 
-    private boolean openOrClosed(Node node) {
+    private boolean openOrClosed(Node<T> node) {
         boolean inClosedNodes = closedNodes.containsKey(node.hashCode());
         if (inClosedNodes) {
             if (!node.equals(closedNodes.get(node.hashCode()))) {
@@ -87,18 +87,18 @@ public abstract class SearchAlgorithm {
         return (agenda.contains(node) || closedNodes.containsKey(node.hashCode()));
     }
 
-    private void attachAndEval(Node child, Node parent) {
+    private void attachAndEval(Node<T> child, Node<T> parent) {
         child.setParent(parent);
         child.setG(parent.getG() + child.getCostFrom(parent));
     }
 
-    private void closeNode(Node node) {
+    private void closeNode(Node<T> node) {
         node.setOpen(false);
         closedNodes.put(node.hashCode(), node);
     }
 
-    private void propagatePathImprovements(Node parent) {
-        for (Node child : parent.getChildren()) {
+    private void propagatePathImprovements(Node<T> parent) {
+        for (Node<T> child : parent.getChildren()) {
             int costToChild = child.getCostFrom(parent);
             if (parent.getG() + costToChild < child.getG()) {
                 child.setParent(parent);
@@ -108,7 +108,7 @@ public abstract class SearchAlgorithm {
         }
     }
 
-    private void fireNodePopped(Node node) {
+    private void fireNodePopped(Node<T> node) {
         nodePopListeners.stream().peek(l -> l.onNodeEvaluated(node));
     }
 
@@ -124,7 +124,7 @@ public abstract class SearchAlgorithm {
         void onNodeEvaluated(Node node);
     }
 
-    private void fireNodePrePushed(Node node) {
+    private void fireNodePrePushed(Node<T> node) {
         nodePrePushListeners.stream().peek(l -> l.onNodePrePush(node));
     }
 

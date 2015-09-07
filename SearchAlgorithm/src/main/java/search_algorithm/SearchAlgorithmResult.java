@@ -3,23 +3,24 @@ package search_algorithm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alfredvc on 8/29/2015.
  */
-public class SearchAlgorithmResult {
-    private final Node finalNode;
+public class SearchAlgorithmResult<T extends State> {
+    private final Node<T> finalNode;
     private final int generatedNodes;
     private final int nodeCount;
     private final Status status;
-    private final List<Node> solution;
+    private final List<Node<T>> solution;
 
-    private SearchAlgorithmResult(Node finalNode, int generatedNodes, Status status) {
+    private SearchAlgorithmResult(Node<T> finalNode, int generatedNodes, Status status) {
         this.finalNode = finalNode;
         this.generatedNodes = generatedNodes;
         int nodeCount = 0;
         if (finalNode != null) {
-            Node currentNode = finalNode;
+            Node<T> currentNode = finalNode;
             while (currentNode.getParent() != null) {
                 nodeCount++;
                 currentNode = currentNode.getParent();
@@ -36,14 +37,14 @@ public class SearchAlgorithmResult {
         return new SearchAlgorithmResult(null, -1, Status.FAILED);
     }
 
-    public static SearchAlgorithmResult succeeded(Node finalNode, int generatedNodes) {
+    public static <F extends State> SearchAlgorithmResult succeeded(Node<F> finalNode, int generatedNodes) {
         return new SearchAlgorithmResult(finalNode, generatedNodes, Status.SUCCEEDED);
     }
 
-    public static List<Node> generateSolution(Node finalNode) {
+    public static <F extends State> List<Node<F>> generateSolution(Node<F> finalNode) {
         if (finalNode == null) return Collections.emptyList();
-        List<Node> solution = new ArrayList<>();
-        Node currentNode = finalNode;
+        List<Node<F>> solution = new ArrayList<>();
+        Node<F> currentNode = finalNode;
         while (currentNode.getParent() != null) {
             solution.add(currentNode);
             currentNode = currentNode.getParent();
@@ -61,7 +62,7 @@ public class SearchAlgorithmResult {
         return generatedNodes;
     }
 
-    public Node getFinalNode() {
+    public Node<T> getFinalNode() {
         return finalNode;
     }
 
@@ -69,7 +70,7 @@ public class SearchAlgorithmResult {
         return nodeCount;
     }
 
-    public List<Node> getSolution() {
+    public List<Node<T>> getSolution() {
         return solution;
     }
 
