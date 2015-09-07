@@ -28,8 +28,8 @@ public class ConstraintSatisfaction<T> {
         }
         this.constraints = constraints;
         this.variables = map;
-        System.out.println(this.variables);
         this.reviseQueue = new LinkedList<>();
+        //TODO: Optimize by picking the constraint with the fewest variables, maybe also the variables with smallest domain??
         for (Constraint constraint : this.constraints) {
             this.reviseQueue.addAll(Revise.forConstraint(constraint));
         }
@@ -41,7 +41,7 @@ public class ConstraintSatisfaction<T> {
             currentRevise = reviseQueue.poll();
             performRevise(currentRevise);
         }
-        return new ConstraintSatisfactionResult<>(variables.entrySet().stream().map( s -> s.getValue()).collect(Collectors.toList()));
+        return new ConstraintSatisfactionResult<>(variables);
     }
 
     private void performRevise(Revise revise) {
@@ -73,10 +73,6 @@ public class ConstraintSatisfaction<T> {
         revises.stream().peek(r -> reviseQueue.add(r));
     }
 
-    private boolean evaluateAllCombinations(Constraint constraint) {
-        return evaluateAllCombinations(constraint,"", null);
-    }
-
     /**
      * Evaluates all combinations of all variables in the given constraint, except for the currentVariable
      * whose value is kept at currentValue.
@@ -87,51 +83,50 @@ public class ConstraintSatisfaction<T> {
      * @return the result of all the evaluations ored together.
      */
     private boolean evaluateAllCombinations(Constraint constraint, String currentVariable, T currentValue) {
-        boolean doCurrent = currentValue.equals("");
-        Object[] args = new Object[constraint.getVariableSet().size()];
-        int variableCount = constraint.getVariableSet().size();
-        int combinationCount = constraint.getVariableSet().stream()
+        int variableCount = constraint.getVariableArraySet().size();
+        int combinationCount = constraint.getVariableArraySet().stream()
                 .filter(n -> !currentVariable.equals(n))
                 .map(v -> variables.get(v).getDomain().size())
                 .reduce(1, (a, b) -> a * b);
-        int[] combinations = new int[variableCount];
-        int[] values = new int[variableCount];
-        int i = 0;
+        int[] alternateEvery = new int[variableCount];
+        int[] domainSize = new int[variableCount];
+        List<String> vars = constraint.getVariableArraySet();
         int indexOfCurrentVariable = -1;
-        for(String var : constraint.getVariableSet()) {
-            if (currentVariable.equals(var) && !doCurrent) {
-                combinations[i] = 1;
-                values[i] = 1;
+        for (int i = 0; i < variableCount; i++) {
+            if (vars.get(i).equals(currentVariable)) {
+                domainSize[i] = 1;
                 indexOfCurrentVariable = i;
-                i++;
-                continue;
+            } else {
+                domainSize[i] = variables.get(vars.get(i)).getDomain().size();
             }
-            combinations[i] = 1;
-            values[i] = variables.get(var).getDomain().size();
-            for(int a = 0; a < i; a++) {
-                combinations[i] *= combinations[a];
-            }
-            i++;
         }
+
+        //We alternate the first argument on every iteration
+        alternateEvery[0] = 1;
+        for (int i = 1; i < variableCount; i++) {
+            alternateEvery[i] = alternateEvery[i - 1] * domainSize[i - 1];
+        }
+
         if (indexOfCurrentVariable == -1) {
             throw new IllegalStateException("Current variable " + currentVariable + " not found as argument of constraint " + constraint);
         }
-        boolean toReturn = false;
         Iterator[] iterators = new Iterator[variableCount];
-        T[] storedValues = (T[])new Object[variableCount];
-        i = 0;
-        for (String varName : constraint.getVariableSet()) {
+        for (int i = 0; i < variableCount; i++) {
+            String varName = constraint.getVariableArraySet().get(i);
+            if (varName.equals(currentVariable)) continue;
             iterators[i] = Iterables.cycle(variables.get(varName).getDomain()).iterator();
         }
+        Object[] args = new Object[variableCount];
+        boolean toReturn = false;
         for (int n = 0; n < combinationCount; n++) {
-            for (int index = 0; index < constraint.getVariableSet().size(); index++) {
-                if (index == indexOfCurrentVariable && !doCurrent){
+            for (int index = 0; index < variableCount; index++) {
+                if (index == indexOfCurrentVariable){
                     args[index] = currentValue;
                     continue;
                 }
-                //TODO: update iterator, or dont. ( n % values[index] ) / combinations[index]
-                //if (shouldUpdate) doUpdate
-                args[index] = storedValues[index];
+                if (n % alternateEvery[index] == 0) {
+                    args[index] = iterators[index].next();
+                }
             }
             boolean eval = constraint.evaluate(args);
             toReturn = toReturn || eval;

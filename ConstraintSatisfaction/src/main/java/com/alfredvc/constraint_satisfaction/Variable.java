@@ -7,12 +7,12 @@ import java.util.List;
  * Created by erpa_ on 9/5/2015.
  */
 public class Variable<T> {
-    private List<T> domain;
     private String name;
+    private List<T> domain;
 
-    public Variable(List<T> domain, String name) {
-        this.domain = new ArrayList<>(domain);
+    public Variable(String name, List<T> domain) {
         this.name = name;
+        this.domain = domain;
     }
 
     public List<T> getDomain() {
@@ -34,8 +34,8 @@ public class Variable<T> {
     @Override
     public String toString() {
         return "Variable{" +
-                "domain=" + domain +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", domain=" + domain +
                 '}';
     }
 }

@@ -2,25 +2,26 @@ package com.alfredvc.constraint_satisfaction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erpa_ on 9/6/2015.
  */
 public class ConstraintSatisfactionResult<T> {
-    private final List<Variable<T>> variables;
+    private final Map<String, Variable<T>> variables;
 
-    public ConstraintSatisfactionResult(List<Variable<T>> variables) {
+    public ConstraintSatisfactionResult(Map<String, Variable<T>> variables) {
         this.variables = variables;
     }
 
-    public List<Variable<T>> getVariables() {
+    public Map<String,Variable<T>> getVariables() {
         return variables;
     }
 
     @Override
     public String toString() {
         return "ConstraintSatisfactionResult{" +
-                "variables=" + Arrays.toString(variables.toArray()) +
+                "variables=" + Arrays.toString(variables.entrySet().toArray()) +
                 '}';
     }
 }

@@ -24,7 +24,7 @@ public class Revise {
     }
 
     public static List<Revise> forConstraint(Constraint constraint, String skipVariable) {
-        List<Revise> toReturn = constraint.getVariableSet()
+        List<Revise> toReturn = constraint.getVariableArraySet()
                 .stream()
                 .filter(v -> !v.equals(skipVariable))
                 .map(varName -> new Revise(varName, constraint))
