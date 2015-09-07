@@ -2,6 +2,7 @@ package com.alfredvc.constraint_satisfaction;
 
 import com.google.common.collect.Iterables;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,9 +18,11 @@ public class ConstraintSatisfaction<T> {
     private final List<Constraint> constraints;
     private final Queue<Revise> reviseQueue;
     private Map<String, Variable<T>> variables;
+    private List<Variable<T>> variableList;
 
     public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> variables) {
         Map<String, Variable<T>> map = getVariableMap(variables);
+        this.variableList = new ArrayList<>(variables);
         this.constraints = constraints;
         this.variables = map;
         this.reviseQueue = new LinkedList<>();
@@ -37,7 +40,7 @@ public class ConstraintSatisfaction<T> {
         return map;
     }
 
-    public void setVariables(List<Variable<T>> newVariables) {
+    private void setVariables(List<Variable<T>> newVariables) {
         if (variables.entrySet().size() != newVariables.size()) {
             throw new IllegalArgumentException("Size of given variable list does not match current variable amount");
         }
@@ -47,13 +50,19 @@ public class ConstraintSatisfaction<T> {
         variables = getVariableMap(newVariables);
     }
 
-    public ConstraintSatisfactionResult<T> filterDomain() {
+    public ConstraintSatisfactionResult<T> solve(){
+        filterDomain();
+        ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(new ArraySet<>(variableList));
+        if (state.isASolution()) return new ConstraintSatisfactionResult<>(variables);
+
+    }
+
+    private void filterDomain() {
         Revise currentRevise;
         while (!reviseQueue.isEmpty()) {
             currentRevise = reviseQueue.poll();
             performRevise(currentRevise);
         }
-        return new ConstraintSatisfactionResult<>(variables);
     }
 
     private void performRevise(Revise revise) {
