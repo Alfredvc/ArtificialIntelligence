@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="Finished implementing ConstraintSatisfactionState">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStar.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/a_star/AStarTest.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/a_star/AStarTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Agenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Agenda.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFS.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFS.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/modules/Module1.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/modules/Module1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithmResult.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithmResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/Test.java" afterPath="$PROJECT_DIR$/test/src/Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
+    <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Alfredvc.iws" />
@@ -95,8 +71,8 @@
       <file leaf-file-name="Node.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.120567374">
-              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.8138298">
+              <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -962,7 +938,7 @@
       <workItem from="1441565456841" duration="7394000" />
       <workItem from="1441618692365" duration="14638000" />
       <workItem from="1441638017458" duration="1095000" />
-      <workItem from="1441639129375" duration="7711000" />
+      <workItem from="1441639129375" duration="7740000" />
     </task>
     <task id="LOCAL-00001" summary="ConstraintSatisfaction correctly executes a simple happy day test">
       <created>1441627386433</created>
@@ -1012,11 +988,17 @@
       <option name="project" value="LOCAL" />
       <updated>1441646045842</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added listener to SearchAlgorithm that fires before nodes are added to the agenda">
+      <created>1441646872018</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1441646872018</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77783000" />
+    <option name="totallyTimeSpent" value="77812000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1094,7 +1076,8 @@
     <MESSAGE value="Added generic type to State, removed unused field from State" />
     <MESSAGE value="Refactored all to adhere to google java style. Added custom iterators for ArraySet." />
     <MESSAGE value="Finished implementing ConstraintSatisfactionState" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished implementing ConstraintSatisfactionState" />
+    <MESSAGE value="Added listener to SearchAlgorithm that fires before nodes are added to the agenda" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added listener to SearchAlgorithm that fires before nodes are added to the agenda" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1545,8 +1528,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.120567374">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.8138298">
+          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
           <folding />
         </state>
       </provider>
