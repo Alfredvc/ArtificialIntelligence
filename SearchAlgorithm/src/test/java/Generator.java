@@ -10,14 +10,25 @@ public class Generator {
     @Ignore
     @Test
     public void printGeneratedBoard() {
-        System.out.println(generateBoard(499, 499, 5000));
+        System.out.println(generateBoard(500, 500, 5000));
     }
-    public static String generateBoard(int xMax, int yMax, int obstacleCount) {
+    public static String generateBoard(int xSize, int ySize, int obstacleCount) {
         Random random = new Random();
         StringBuilder builder = new StringBuilder();
+        builder.append("(")
+                .append(xSize)
+                .append(",")
+                .append(ySize)
+                .append(")")
+                .append("(0,0)")
+                .append("(")
+                .append(xSize - 1)
+                .append(",")
+                .append(ySize - 1)
+                .append(")");
         for(int i = 0; i < obstacleCount; i++) {
-            int x = random.nextInt(xMax - 5);
-            int y = random.nextInt(yMax - 5);
+            int x = random.nextInt(xSize - 5);
+            int y = random.nextInt(ySize - 5);
             builder.append('(')
                     .append(x)
                     .append(',')

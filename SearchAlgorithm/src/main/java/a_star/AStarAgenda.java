@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 /**
  * Created by erpa_ on 8/27/2015.
  */
-public class AStarAgenda extends Agenda implements Node.FChangeListener {
+class AStarAgenda extends Agenda implements Node.FChangeListener {
 
     private PriorityQueue<Node> nodes;
 

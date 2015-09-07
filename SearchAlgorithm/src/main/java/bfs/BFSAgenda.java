@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * Created by erpa_ on 8/29/2015.
  */
-public class BFSAgenda extends Agenda {
+class BFSAgenda extends Agenda {
 
     private LinkedList<Node> nodes;
 

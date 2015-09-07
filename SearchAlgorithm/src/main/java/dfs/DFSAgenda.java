@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * Created by erpa_ on 8/29/2015.
  */
-public class DFSAgenda extends Agenda {
+class DFSAgenda extends Agenda {
 
     private LinkedList<Node> nodes;
 

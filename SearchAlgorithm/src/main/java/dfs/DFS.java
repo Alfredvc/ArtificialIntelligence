@@ -1,6 +1,5 @@
 package dfs;
 
-import bfs.BFSAgenda;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.State;
 
