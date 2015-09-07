@@ -1,25 +1,25 @@
 package com.alfredvc.constraint_satisfaction;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by erpa_ on 9/5/2015.
  */
 public class Variable<T> {
-    private Set<T> domain;
+    private List<T> domain;
     private String name;
 
-    public Variable(Set<T> domain, String name) {
-        this.domain = new HashSet<>(domain);
+    public Variable(List<T> domain, String name) {
+        this.domain = new ArrayList<>(domain);
         this.name = name;
     }
 
-    public Set<T> getDomain() {
+    public List<T> getDomain() {
         return domain;
     }
 
-    public void setDomain(Set<T> domain) {
+    public void setDomain(List<T> domain) {
         this.domain = domain;
     }
 
