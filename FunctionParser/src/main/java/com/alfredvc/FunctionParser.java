@@ -20,30 +20,21 @@ import java.util.Set;
 /**
  * Class used to parse strings into ParsedFunction objects.
  *
- * Since only Object types can be passed as arguments then
- * functions with primitive parameter types are not allowed.
- * Return types can however be primitive types.
- * For example double(double f)->(3*f) is NOT valid
- * use the Object type instead double(Double f)->(3*f)
+ * Since only Object types can be passed as arguments then functions with primitive parameter types
+ * are not allowed. Return types can however be primitive types. For example double(double f)->(3*f)
+ * is NOT valid use the Object type instead double(Double f)->(3*f)
  *
  *
- * Given strings have a similar syntax to Java functions:
- *      returnType(parameterType param1,param2)-> EXPRESSION
- *      returnType(parameterType param1,param2)-> return EXPRESSION;
- *      returnType(parameterType1 param1,param2, parameterType2 param3, param 4)-> EXPRESSION
- *      returnType(parameterType1 param1, parameterType1 param2, parameterType2 param3, param 4)-> EXPRESSION
+ * Given strings have a similar syntax to Java functions: returnType(parameterType param1,param2)->
+ * EXPRESSION returnType(parameterType param1,param2)-> return EXPRESSION; returnType(parameterType1
+ * param1,param2, parameterType2 param3, param 4)-> EXPRESSION returnType(parameterType1 param1,
+ * parameterType1 param2, parameterType2 param3, param 4)-> EXPRESSION
  *
- * For example:
- *      double(Double x,y,z,f)->(x + y + z + f)
- *      double(java.util.List l)->double tot = 1; for(java.util.Iterator iterator = ((java.util.List) l).iterator(); iterator.hasNext(); ){ Object o = iterator.next();tot*=((Double)o).doubleValue();} return tot;
- *
+ * For example: double(Double x,y,z,f)->(x + y + z + f) double(java.util.List l)->double tot = 1;
+ * for(java.util.Iterator iterator = ((java.util.List) l).iterator(); iterator.hasNext(); ){ Object
+ * o = iterator.next();tot*=((Double)o).doubleValue();} return tot;
  */
-public class FunctionParser
-{
-    private FunctionParser(){
-        //Intentionally empty.
-    }
-
+public class FunctionParser {
     public static final String DEFAULT_RETURN_TYPE = "Object";
     public static final String BEHIND = "(?<=\\(|\\)|\\.|\\*|\\+|\\-|\\/|\\s|^|\\%|\\?|;|\\{|\\}|,)";
     public static final String AHEAD = "(?=\\(|\\)|\\.|\\*|\\+|\\-|\\/|\\s|$|\\%|;|\\?|\\{|\\}|,)";
@@ -51,6 +42,9 @@ public class FunctionParser
      * Map of the supported primitive types
      */
     public static final Set<String> supportedPrimitives;
+    private static final Map<String, String> primitiveToClass;
+    private static final Map<String, String> classToPrimitive;
+
     static {
         Set<String> set = new HashSet<>();
         set.add("double");
@@ -61,7 +55,7 @@ public class FunctionParser
         set.add("short");
         supportedPrimitives = Collections.unmodifiableSet(set);
     }
-    private static final Map<String, String> primitiveToClass;
+
     static {
         Map<String, String> map = new HashMap<>();
         map.put("double", "Double");
@@ -72,7 +66,7 @@ public class FunctionParser
         map.put("short", "Short");
         primitiveToClass = Collections.unmodifiableMap(map);
     }
-    private static final Map<String,String> classToPrimitive;
+
     static {
         Map<String, String> map = new HashMap<>();
         map.put("Double", "double");
@@ -84,22 +78,28 @@ public class FunctionParser
         classToPrimitive = Collections.unmodifiableMap(map);
     }
 
+    private FunctionParser() {
+        //Intentionally empty.
+    }
+
     /**
-     * Parses strings into functions, the functions that can be parsed are subject to the same limitations
-     * as in the Javaassist library. For more information on these visit http://jboss-javassist.github.io/.
+     * Parses strings into functions, the functions that can be parsed are subject to the same
+     * limitations as in the Javaassist library. For more information on these visit
+     * http://jboss-javassist.github.io/.
      *
-     * The returned class will override the relevant evaluate method of the ParsedFunction interface with a
-     * method that is equivalent to the given functionString. All other evaluate methods return an
-     * Unsupported operation exception.
+     * The returned class will override the relevant evaluate method of the ParsedFunction interface
+     * with a method that is equivalent to the given functionString. All other evaluate methods
+     * return an Unsupported operation exception.
      *
      * @param functionString the string to be parsed
      * @return a class implementing the ParsedFunction interface
-     * @throws IllegalArgumentException are thrown with nested Javaassist exceptions, most of these exeptions are due to errors in the functionString.
+     * @throws IllegalArgumentException are thrown with nested Javaassist exceptions, most of these
+     *                                  exeptions are due to errors in the functionString.
      */
-    public static ParsedFunction fromString(String functionString)  {
+    public static ParsedFunction fromString(String functionString) {
         try {
             //TODO: validate functionString.
-            String argsName = "o"+System.currentTimeMillis();
+            String argsName = "o" + System.currentTimeMillis();
             LinkedHashSet<String> variables = new LinkedHashSet<>();
             String[] tempSplit = functionString.split("\\(");
             String returnType = tempSplit[0].equals("") ? DEFAULT_RETURN_TYPE : tempSplit[0].trim();
@@ -127,7 +127,7 @@ public class FunctionParser
                     throw new IllegalArgumentException("No argument type found in " + typeAndVariables);
                 }
                 variables.add(currentVar);
-                methodBody = methodBody.replaceAll(BEHIND + currentVar + AHEAD, getReplaceForVariableAndType(currentVar,currentType, varNr, argsName));
+                methodBody = methodBody.replaceAll(BEHIND + currentVar + AHEAD, getReplaceForVariableAndType(currentVar, currentType, varNr, argsName));
                 varNr++;
             }
 
@@ -151,7 +151,7 @@ public class FunctionParser
             addHelperMethods(evalClass);
 
             Class clazz = evalClass.toClass();
-            ParsedFunction obj  = (ParsedFunction) clazz.newInstance();
+            ParsedFunction obj = (ParsedFunction) clazz.newInstance();
             clazz.getMethod("setVariableSet", java.util.LinkedHashSet.class).invoke(obj, variables);
             clazz.getMethod("setFunctionString", java.lang.String.class).invoke(obj, functionString);
             return obj;
@@ -195,10 +195,10 @@ public class FunctionParser
     private static String getMethodString(String argsName, String returnType, String methodBody) {
         String methodString;
 
-        if (methodBody.split(BEHIND +"return"+ AHEAD).length > 1) {
-            methodString = "public "+ getMethodNameAndReturnType(returnType)+"(Object[] "+argsName+"){"+methodBody+"}";
+        if (methodBody.split(BEHIND + "return" + AHEAD).length > 1) {
+            methodString = "public " + getMethodNameAndReturnType(returnType) + "(Object[] " + argsName + "){" + methodBody + "}";
         } else {
-            methodString = "public "+ getMethodNameAndReturnType(returnType)+"(Object[] "+argsName+"){return (("+returnType+")(" + methodBody+"));}";
+            methodString = "public " + getMethodNameAndReturnType(returnType) + "(Object[] " + argsName + "){return ((" + returnType + ")(" + methodBody + "));}";
         }
         return methodString;
     }
@@ -212,18 +212,17 @@ public class FunctionParser
         String returnType = type;
         if (classToPrimitive.containsKey(type)) {
             returnType = classToPrimitive.get(type);
-            toReplace = "((("+type+") "+argsName+"["+varNr+"])."+returnType+"Value())";
+            toReplace = "(((" + type + ") " + argsName + "[" + varNr + "])." + returnType + "Value())";
         } else {
-            toReplace = "(("+type+") "+ argsName+"["+varNr+"])";
+            toReplace = "((" + type + ") " + argsName + "[" + varNr + "])";
         }
         return toReplace;
     }
 
 
-
-    private static String getMethodNameAndReturnType(String returnType){
+    private static String getMethodNameAndReturnType(String returnType) {
         if (supportedPrimitives.contains(returnType)) {
-            return returnType+" "+"evaluateTo"+primitiveToClass.get(returnType);
+            return returnType + " " + "evaluateTo" + primitiveToClass.get(returnType);
         } else {
             return "Object evaluateToObject";
         }

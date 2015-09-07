@@ -15,14 +15,6 @@ public class Revise {
         this.constraint = constraint;
     }
 
-    public String getVariableName() {
-        return variableName;
-    }
-
-    public Constraint getConstraint() {
-        return constraint;
-    }
-
     public static List<Revise> forConstraint(Constraint constraint, String skipVariable) {
         List<Revise> toReturn = constraint.getVariableArraySet()
                 .stream()
@@ -34,5 +26,13 @@ public class Revise {
 
     public static List<Revise> forConstraint(Constraint constraint) {
         return forConstraint(constraint, "");
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public Constraint getConstraint() {
+        return constraint;
     }
 }

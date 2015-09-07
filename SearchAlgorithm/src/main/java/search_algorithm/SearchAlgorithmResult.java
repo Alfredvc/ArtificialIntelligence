@@ -14,19 +14,11 @@ public class SearchAlgorithmResult {
     private final Status status;
     private final List<Node> solution;
 
-    public static SearchAlgorithmResult failed(){
-        return new SearchAlgorithmResult(null, -1, Status.FAILED);
-    }
-
-    public static SearchAlgorithmResult succeeded(Node finalNode, int generatedNodes) {
-        return new SearchAlgorithmResult(finalNode, generatedNodes, Status.SUCCEEDED);
-    }
-
     private SearchAlgorithmResult(Node finalNode, int generatedNodes, Status status) {
         this.finalNode = finalNode;
         this.generatedNodes = generatedNodes;
         int nodeCount = 0;
-        if (finalNode != null){
+        if (finalNode != null) {
             Node currentNode = finalNode;
             while (currentNode.getParent() != null) {
                 nodeCount++;
@@ -38,6 +30,27 @@ public class SearchAlgorithmResult {
         }
         this.status = status;
         this.solution = SearchAlgorithmResult.generateSolution(finalNode);
+    }
+
+    public static SearchAlgorithmResult failed() {
+        return new SearchAlgorithmResult(null, -1, Status.FAILED);
+    }
+
+    public static SearchAlgorithmResult succeeded(Node finalNode, int generatedNodes) {
+        return new SearchAlgorithmResult(finalNode, generatedNodes, Status.SUCCEEDED);
+    }
+
+    public static List<Node> generateSolution(Node finalNode) {
+        if (finalNode == null) return Collections.emptyList();
+        List<Node> solution = new ArrayList<>();
+        Node currentNode = finalNode;
+        while (currentNode.getParent() != null) {
+            solution.add(currentNode);
+            currentNode = currentNode.getParent();
+        }
+        solution.add(currentNode);
+        Collections.reverse(solution);
+        return solution;
     }
 
     public Status getStatus() {
@@ -52,7 +65,7 @@ public class SearchAlgorithmResult {
         return finalNode;
     }
 
-    public int getSolutionLength(){
+    public int getSolutionLength() {
         return nodeCount;
     }
 
@@ -60,21 +73,8 @@ public class SearchAlgorithmResult {
         return solution;
     }
 
-    public enum Status{
+    public enum Status {
         FAILED,
         SUCCEEDED
-    }
-
-    public static List<Node> generateSolution(Node finalNode) {
-        if (finalNode == null) return Collections.emptyList();
-        List<Node> solution = new ArrayList<>();
-        Node currentNode = finalNode;
-        while (currentNode.getParent() != null) {
-            solution.add(currentNode);
-            currentNode = currentNode.getParent();
-        }
-        solution.add(currentNode);
-        Collections.reverse(solution);
-        return solution;
     }
 }

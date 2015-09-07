@@ -1,6 +1,7 @@
 package search_algorithm;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by erpa_ on 8/27/2015.
@@ -9,26 +10,27 @@ public abstract class Agenda {
 
     private Map<Integer, Node> currentNodes;
 
-    protected Agenda(){
+    protected Agenda() {
         this.currentNodes = new HashMap<>();
     }
 
     public boolean contains(Node node) {
         boolean containsKey = currentNodes.containsKey(node.hashCode());
         if (containsKey) {
-            if (!node.equals(currentNodes.get(node.hashCode()))){
+            if (!node.equals(currentNodes.get(node.hashCode()))) {
                 throw new IllegalStateException("Different nodes have same hash code.");
             }
         }
         return containsKey;
     }
 
-    public Node pop(){
+    public Node pop() {
         Node toReturn = internalGet();
         currentNodes.remove(toReturn.hashCode());
         return toReturn;
     }
-    public void add(Node node){
+
+    public void add(Node node) {
         currentNodes.put(node.hashCode(), node);
         internalAdd(node);
     }

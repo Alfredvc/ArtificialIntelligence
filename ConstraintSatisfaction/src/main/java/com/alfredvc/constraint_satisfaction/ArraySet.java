@@ -45,13 +45,9 @@ public class ArraySet<T> implements List<T>, Set<T> {
         return innerSet.contains(o);
     }
 
-    /**
-     * Removing
-     * @return
-     */
     @Override
     public Iterator<T> iterator() {
-        return new NoRemoveIterator<>(innerList.iterator());
+        return new ArraySetIterator<>(innerList, innerSet);
     }
 
     @Override
@@ -123,7 +119,7 @@ public class ArraySet<T> implements List<T>, Set<T> {
 
     @Override
     public T set(int index, T element) {
-        if (innerSet.contains(element)){
+        if (innerSet.contains(element)) {
             return null;
         } else {
             T removed = innerList.set(index, element);
@@ -158,22 +154,22 @@ public class ArraySet<T> implements List<T>, Set<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        return innerList.listIterator();
+        return new ArraySetListIterator<>(innerList, innerSet);
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        return innerList.listIterator(index);
+        return new ArraySetListIterator<>(innerList, innerSet, index);
     }
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        return innerList.subList(fromIndex, toIndex);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Spliterator<T> spliterator() {
-        throw new UnsupportedOperationException("Spliterators currently not supported.");
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -196,16 +192,35 @@ public class ArraySet<T> implements List<T>, Set<T> {
         innerList.sort(c);
     }
 
-    private class NoRemoveIterator<T> implements Iterator<T> {
-        private final Iterator<T> innerIterator;
+    @Override
+    public int hashCode() {
+        return innerList.hashCode();
+    }
 
-        public NoRemoveIterator(Iterator<T> innerIterator) {
-            this.innerIterator = innerIterator;
+    @Override
+    public boolean equals(Object obj) {
+        return innerList.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return innerList.toString();
+    }
+
+    private class ArraySetIterator<T> implements Iterator<T> {
+
+        private final ListIterator<T> innerIterator;
+        private final Set<T> backingSet;
+
+        public ArraySetIterator(List<T> backingList, Set<T> backingSet) {
+            this.backingSet = backingSet;
+            this.innerIterator = backingList.listIterator();
         }
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("Cannot remove elements from this iterator");
+            backingSet.remove(innerIterator.previous());
+            innerIterator.remove();
         }
 
         @Override
@@ -221,6 +236,68 @@ public class ArraySet<T> implements List<T>, Set<T> {
         @Override
         public void forEachRemaining(Consumer<? super T> action) {
             innerIterator.forEachRemaining(action);
+        }
+    }
+
+    private class ArraySetListIterator<T> implements ListIterator<T> {
+
+        private final List<T> backingList;
+        private final Set<T> backingSet;
+        private final ListIterator<T> backingIterator;
+
+        public ArraySetListIterator(List<T> backingList, Set<T> backingSet, int index) {
+            this.backingList = backingList;
+            this.backingSet = backingSet;
+            this.backingIterator = backingList.listIterator();
+        }
+
+        public ArraySetListIterator(List<T> backingList, Set<T> backingSet) {
+            this(backingList, backingSet, 0);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return backingIterator.hasNext();
+        }
+
+        @Override
+        public T next() {
+            return backingIterator.next();
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return backingIterator.hasPrevious();
+        }
+
+        @Override
+        public T previous() {
+            return backingIterator.previous();
+        }
+
+        @Override
+        public int nextIndex() {
+            return backingIterator.nextIndex();
+        }
+
+        @Override
+        public int previousIndex() {
+            return backingIterator.previousIndex();
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void set(T t) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void add(T t) {
+            throw new UnsupportedOperationException();
         }
     }
 }

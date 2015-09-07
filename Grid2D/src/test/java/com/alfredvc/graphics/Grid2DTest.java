@@ -2,12 +2,8 @@ package com.alfredvc.graphics;
 
 import org.junit.Test;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import java.awt.Color;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -17,11 +13,10 @@ import static org.junit.Assert.assertThat;
 /**
  * Unit test for simple Grid2D.
  */
-public class Grid2DTest
-{
+public class Grid2DTest {
     @Test
-    public void grid2DTest_1(){
-        Random r =  new Random();
+    public void grid2DTest_1() {
+        Random r = new Random();
         int size = 100;
         Color backgroundColor = Color.blue;
         Color pointColor = Color.red;
@@ -38,8 +33,8 @@ public class Grid2DTest
         }
 
         List<Point> points = new ArrayList<>();
-        for (int i = 0 ; i < size*size / 10; i++) {
-            points.add(new Point(r.nextInt(size-1),r.nextInt(size-1)));
+        for (int i = 0; i < size * size / 10; i++) {
+            points.add(new Point(r.nextInt(size - 1), r.nextInt(size - 1)));
         }
         grid2D.setPoints(points, pointColor);
 

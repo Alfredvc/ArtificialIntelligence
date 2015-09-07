@@ -1,7 +1,6 @@
 package com.alfredvc.constraint_satisfaction;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +13,7 @@ public class ConstraintSatisfactionResult<T> {
         this.variables = variables;
     }
 
-    public Map<String,Variable<T>> getVariables() {
+    public Map<String, Variable<T>> getVariables() {
         return variables;
     }
 

@@ -1,13 +1,13 @@
 package a_star;
 
-import navigation.NavigationState;
 import org.junit.Test;
-import search_algorithm.Node;
-import search_algorithm.SearchAlgorithmResult;
 
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Optional;
+
+import navigation.NavigationState;
+import search_algorithm.Node;
+import search_algorithm.SearchAlgorithmResult;
 
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,53 +19,53 @@ import static org.junit.Assert.assertThat;
  */
 public class AStarTest {
     @Test
-    public void aStarNavigationTest_noObstacles(){
-        Point parent1 = new Point(0,0);
-        Point parent2_1 = new Point(1,0);
-        Point parent2_2 = new Point(0,1);
-        Point goal = new Point(1,1);
+    public void aStarNavigationTest_noObstacles() {
+        Point parent1 = new Point(0, 0);
+        Point parent2_1 = new Point(1, 0);
+        Point parent2_2 = new Point(0, 1);
+        Point goal = new Point(1, 1);
 
         boolean[][] obstacles = {{false, false},
-                                 {false, false}};
-        NavigationState navigationState = new NavigationState(new Point(0,0), new Point(1,1), 2, 2, obstacles);
+                {false, false}};
+        NavigationState navigationState = new NavigationState(new Point(0, 0), new Point(1, 1), 2, 2, obstacles);
         AStar aStar = new AStar(navigationState, Integer.MAX_VALUE);
         SearchAlgorithmResult result = aStar.search();
         assertThat(result.getStatus(), is(SearchAlgorithmResult.Status.SUCCEEDED));
         Node finalNode = result.getFinalNode();
-        assertThat(((NavigationState)finalNode.getState()).getLocation(), equalTo(goal));
-        assertThat(((NavigationState)finalNode.getParent().getState()).getLocation(), anyOf(equalTo(parent2_1), equalTo(parent2_2)));
-        assertThat(((NavigationState)finalNode.getParent().getParent().getState()).getLocation(), equalTo(parent1));
+        assertThat(((NavigationState) finalNode.getState()).getLocation(), equalTo(goal));
+        assertThat(((NavigationState) finalNode.getParent().getState()).getLocation(), anyOf(equalTo(parent2_1), equalTo(parent2_2)));
+        assertThat(((NavigationState) finalNode.getParent().getParent().getState()).getLocation(), equalTo(parent1));
     }
 
     @Test
-    public void aStarNavigationTest_oneObstacles(){
-        Point parent1 = new Point(0,0);
-        Point parent2_1 = new Point(1,0);
-        Point goal = new Point(1,1);
+    public void aStarNavigationTest_oneObstacles() {
+        Point parent1 = new Point(0, 0);
+        Point parent2_1 = new Point(1, 0);
+        Point goal = new Point(1, 1);
 
-        boolean[][] obstacles = NavigationState.obstacleArrayFromObstaclePoints(Arrays.asList(new Point(0,1)), 2, 2);
+        boolean[][] obstacles = NavigationState.obstacleArrayFromObstaclePoints(Arrays.asList(new Point(0, 1)), 2, 2);
 
-        NavigationState navigationState = new NavigationState(new Point(0,0), new Point(1,1), 2, 2, obstacles);
+        NavigationState navigationState = new NavigationState(new Point(0, 0), new Point(1, 1), 2, 2, obstacles);
         AStar aStar = new AStar(navigationState, Integer.MAX_VALUE);
         SearchAlgorithmResult result = aStar.search();
         assertThat(result.getStatus(), is(SearchAlgorithmResult.Status.SUCCEEDED));
         Node finalNode = result.getFinalNode();
-        assertThat(((NavigationState)finalNode.getState()).getLocation(), equalTo(goal));
-        assertThat(((NavigationState)finalNode.getParent().getState()).getLocation(), equalTo(parent2_1));
-        assertThat(((NavigationState)finalNode.getParent().getParent().getState()).getLocation(), equalTo(parent1));
+        assertThat(((NavigationState) finalNode.getState()).getLocation(), equalTo(goal));
+        assertThat(((NavigationState) finalNode.getParent().getState()).getLocation(), equalTo(parent2_1));
+        assertThat(((NavigationState) finalNode.getParent().getParent().getState()).getLocation(), equalTo(parent1));
     }
 
     @Test
-    public void aStarNavigationTest_notSolvable(){
-        boolean[][] obstacles = NavigationState.obstacleArrayFromObstaclePoints(Arrays.asList(new Point(0,1), new Point(1,0)), 2, 2);
-        NavigationState navigationState = new NavigationState(new Point(0,0), new Point(1,1), 2, 2, obstacles);
+    public void aStarNavigationTest_notSolvable() {
+        boolean[][] obstacles = NavigationState.obstacleArrayFromObstaclePoints(Arrays.asList(new Point(0, 1), new Point(1, 0)), 2, 2);
+        NavigationState navigationState = new NavigationState(new Point(0, 0), new Point(1, 1), 2, 2, obstacles);
         AStar aStar = new AStar(navigationState, Integer.MAX_VALUE);
         SearchAlgorithmResult result = aStar.search();
         assertThat(result.getStatus(), is(SearchAlgorithmResult.Status.FAILED));
     }
 
     @Test
-    public void aStarNavigationTest_exampleScenario(){
+    public void aStarNavigationTest_exampleScenario() {
         String input = "(6,6)\n" +
                 "(1,0) (5,5)\n" +
                 "(3,2,2,2)\n" +
@@ -87,7 +87,7 @@ public class AStarTest {
     }
 
     @Test
-    public void aStarNavigationTest_scenario1(){
+    public void aStarNavigationTest_scenario1() {
         String input = "(10, 10) (0, 0) (9, 9) (2, 3, 5, 5) (8, 8, 2, 1)";
 
         int expectedNodeCount = 19;
@@ -105,7 +105,7 @@ public class AStarTest {
     }
 
     @Test
-    public void aStarNavigationTest_scenario2(){
+    public void aStarNavigationTest_scenario2() {
         String input = "(20, 20) (19, 3) (2, 18) (5, 5, 10, 10) (1, 2, 4, 1)";
 
         int expectedNodeCount = 33;

@@ -1,30 +1,9 @@
 package modules;
 
-import a_star.AStar;
-import bfs.BFS;
 import com.alfredvc.graphics.Grid2D;
 import com.alfredvc.graphics.Grid2DBuilder;
-import dfs.DFS;
-import navigation.NavigationState;
-import search_algorithm.Node;
-import search_algorithm.SearchAlgorithm;
-import search_algorithm.SearchAlgorithmResult;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,11 +11,26 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import a_star.AStar;
+import bfs.BFS;
+import dfs.DFS;
+import navigation.NavigationState;
+import search_algorithm.Node;
+import search_algorithm.SearchAlgorithm;
+import search_algorithm.SearchAlgorithmResult;
+
 /**
  * Created by erpa_ on 8/28/2015.
  */
 public class Module1 {
 
+    private static final int MAX_NODES = 1000000;
+    private static final int ASTAR = 0;
+    private static final int BFS = 1;
+    private static final int DFS = 2;
     JRadioButton aStarRadioButton;
     JRadioButton BFSRadioButton;
     JRadioButton DFSRadioButton;
@@ -51,23 +45,12 @@ public class Module1 {
     JPanel container;
     NavigationState state;
     GridController gridController;
-
     JLabel nodeCount;
     JLabel solutionLength;
     JTextField refreshPeriod;
 
-    private static final int MAX_NODES = 1000000;
 
-    private static final int ASTAR = 0;
-    private static final int BFS = 1;
-    private static final int DFS = 2;
-
-
-    public static void main(String args[]){
-        new Module1().run();
-    }
-
-    public Module1(){
+    public Module1() {
         container = new JPanel();
         container.setLayout(new GridBagLayout());
 
@@ -204,8 +187,11 @@ public class Module1 {
         gridController = new GridController();
     }
 
+    public static void main(String args[]) {
+        new Module1().run();
+    }
 
-    public void run(){
+    public void run() {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame("Module 1");
             frame.add(container);
@@ -215,7 +201,7 @@ public class Module1 {
         });
     }
 
-    private void load(){
+    private void load() {
         reset();
         String text = textArea.getText();
 
@@ -223,7 +209,7 @@ public class Module1 {
 
         placeholderGrid.setVisible(false);
 
-        for(int i = 0; i < container.getComponentCount(); i++) {
+        for (int i = 0; i < container.getComponentCount(); i++) {
             if (container.getComponent(i).equals(grid2D)) {
                 container.remove(i);
             }
@@ -247,7 +233,7 @@ public class Module1 {
 
     }
 
-    private void reset(){
+    private void reset() {
         if (grid2D != null) grid2D.setVisible(false);
         if (placeholderGrid != null) placeholderGrid.setVisible(true);
         nodeCount.setText("0");
@@ -255,7 +241,7 @@ public class Module1 {
         gridController.cancel();
     }
 
-    private void start(){
+    private void start() {
         SearchAlgorithm searchAlgorithm;
         switch (radioButtons.getSelection().getMnemonic()) {
             case ASTAR:
@@ -273,13 +259,13 @@ public class Module1 {
         searchAlgorithm.addNodeEvaluateListener(gridController);
         gridController.run(grid2D, Integer.parseInt(refreshPeriod.getText()));
         SearchAlgorithmResult result = searchAlgorithm.search();
-        nodeCount.setText(result.getGeneratedNodes()+"");
+        nodeCount.setText(result.getGeneratedNodes() + "");
         solutionLength.setText(result.getSolutionLength() + "");
     }
 
-    private class GridController implements SearchAlgorithm.NodeEvaluateListener{
-        private Timer timer;
+    private class GridController implements SearchAlgorithm.NodeEvaluateListener {
         private final LinkedList<List<Point>> solutionsToDraw;
+        private Timer timer;
         private TimerTask updateTask;
 
         public GridController() {
@@ -298,12 +284,26 @@ public class Module1 {
             solutionsToDraw.offerLast(toAdd);
         }
 
+        public void run(Grid2D grid2D, int refreshPeriod) {
+            this.timer = new Timer();
+            this.updateTask = new UpdateTask(grid2D, solutionsToDraw, timer);
+            this.timer.scheduleAtFixedRate(updateTask, 0, refreshPeriod);
+        }
+
+        public void cancel() {
+            if (this.timer != null) {
+                this.timer.cancel();
+                this.timer.purge();
+            }
+            this.solutionsToDraw.clear();
+        }
+
         private class UpdateTask extends TimerTask {
             private final Grid2D grid2D;
             private final LinkedList<List<Point>> solutionsToDraw;
-            private List<Point> lastAddedPoints;
             private final AtomicInteger atomicInteger;
             private final Timer timer;
+            private List<Point> lastAddedPoints;
 
             public UpdateTask(Grid2D grid2D, LinkedList<List<Point>> solutionsToDraw, Timer timer) {
                 this.grid2D = grid2D;
@@ -315,7 +315,7 @@ public class Module1 {
 
             @Override
             public void run() {
-                if (!solutionsToDraw.isEmpty()){
+                if (!solutionsToDraw.isEmpty()) {
                     atomicInteger.incrementAndGet();
                     this.grid2D.setPoints(lastAddedPoints, Color.white);
                     lastAddedPoints = solutionsToDraw.pollFirst();
@@ -326,20 +326,6 @@ public class Module1 {
                     timer.purge();
                 }
             }
-        }
-
-        public void run(Grid2D grid2D, int refreshPeriod) {
-            this.timer = new Timer();
-            this.updateTask = new UpdateTask(grid2D, solutionsToDraw, timer);
-            this.timer.scheduleAtFixedRate(updateTask, 0, refreshPeriod);
-        }
-
-        public void cancel(){
-            if (this.timer != null) {
-                this.timer.cancel();
-                this.timer.purge();
-            }
-            this.solutionsToDraw.clear();
         }
     }
 }

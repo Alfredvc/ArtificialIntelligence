@@ -1,25 +1,21 @@
 package com.alfredvc.graphics;
 
 
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.util.List;
+
+import javax.swing.*;
 
 /**
  * Hello world!
- *
  */
-public final class Grid2D extends JPanel
-{
+public final class Grid2D extends JPanel {
+    private static final int DEFAULT_REFRESH_PERIOD = 100; //ms
     private final int xSize;
     private final int ySize;
-    private static final int DEFAULT_REFRESH_PERIOD = 100; //ms
     private final int gridSizePixels;
-    private Color[][] grid;
     private final Color defaultBackgroundColor;
+    private Color[][] grid;
 
     public Grid2D(int ySize, int xSize, int gridSizePixels, Color defaultBackgroundColor) {
         this.ySize = ySize;
@@ -38,7 +34,7 @@ public final class Grid2D extends JPanel
         int rectWidth = getWidth() / ySize;
         int rectHeight = getHeight() / xSize;
 
-        for (int x = 0; x < xSize; x++){
+        for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 g.setColor(grid[x][ySize - 1 - y]);
                 g.fillRect(x * rectWidth, y * rectHeight, rectWidth, rectHeight);
@@ -58,7 +54,7 @@ public final class Grid2D extends JPanel
     }
 
     private void paintBackground() {
-        for (int x = 0; x < xSize; x++){
+        for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 grid[x][y] = defaultBackgroundColor;
             }

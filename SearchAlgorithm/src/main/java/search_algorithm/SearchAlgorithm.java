@@ -1,5 +1,9 @@
 package search_algorithm;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erpa_ on 8/27/2015.
@@ -9,10 +13,10 @@ import java.util.*;
  * Abtract class representing a search algorithm, in the general form of A*
  */
 public abstract class SearchAlgorithm {
+    private final int maxNodes;
     private Map<Integer, Node> closedNodes;
     private Agenda agenda;
     private Map<Integer, Node> generatedStates;
-    private final int maxNodes;
     private int generatedNodes;
     private List<NodeEvaluateListener> nodeEvaluateListeners;
 
@@ -31,7 +35,7 @@ public abstract class SearchAlgorithm {
         this.nodeEvaluateListeners = new ArrayList<>();
     }
 
-    public SearchAlgorithmResult search(){
+    public SearchAlgorithmResult search() {
         Node currentParent = null;
         while (generatedNodes < maxNodes) {
             if (agenda == null || agenda.isEmpty()) {
@@ -70,7 +74,7 @@ public abstract class SearchAlgorithm {
         return SearchAlgorithmResult.succeeded(currentParent, generatedNodes);
     }
 
-    private boolean openOrClosed(Node node){
+    private boolean openOrClosed(Node node) {
         boolean inClosedNodes = closedNodes.containsKey(node.hashCode());
         if (inClosedNodes) {
             if (!node.equals(closedNodes.get(node.hashCode()))) {
@@ -80,7 +84,7 @@ public abstract class SearchAlgorithm {
         return (agenda.contains(node) || closedNodes.containsKey(node.hashCode()));
     }
 
-    private void attachAndEval(Node child, Node parent){
+    private void attachAndEval(Node child, Node parent) {
         child.setParent(parent);
         child.setG(parent.getG() + child.getCostFrom(parent));
     }
@@ -115,7 +119,7 @@ public abstract class SearchAlgorithm {
         this.nodeEvaluateListeners.remove(nodeEvaluateListeners);
     }
 
-    public interface NodeEvaluateListener{
+    public interface NodeEvaluateListener {
         void onNodeEvaluated(Node node);
     }
 }

@@ -18,11 +18,11 @@ public class Constraint {
         this.parsedFunction = parsedFunction;
     }
 
-    public boolean evaluate (Object[] args) {
+    public boolean evaluate(Object[] args) {
         return parsedFunction.evaluateToBoolean(args);
     }
 
-    public List<String> getVariableArraySet(){
+    public List<String> getVariableArraySet() {
         return this.variableSet;
     }
 }

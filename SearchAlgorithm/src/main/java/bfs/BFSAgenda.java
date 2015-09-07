@@ -1,10 +1,10 @@
 package bfs;
 
+import java.util.LinkedList;
+
 import search_algorithm.Agenda;
 import search_algorithm.Node;
 import search_algorithm.State;
-
-import java.util.LinkedList;
 
 /**
  * Created by erpa_ on 8/29/2015.

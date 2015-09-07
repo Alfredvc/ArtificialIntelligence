@@ -1,8 +1,8 @@
 package com.alfredvc.constraint_satisfaction;
 
-import search_algorithm.State;
-
 import java.util.List;
+
+import search_algorithm.State;
 
 /**
  * Created by erpa_ on 9/7/2015.

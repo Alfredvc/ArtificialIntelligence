@@ -2,7 +2,6 @@ package com.alfredvc.constraint_satisfaction;
 
 import com.google.common.collect.Iterables;
 
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,13 +11,12 @@ import java.util.Queue;
 
 /**
  * General constraint satisfaction solving algorithm
- *
  */
 public class ConstraintSatisfaction<T> {
 
-    private Map<String, Variable<T>> variables;
     private final List<Constraint> constraints;
     private final Queue<Revise> reviseQueue;
+    private Map<String, Variable<T>> variables;
 
     public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> variables) {
         Map<String, Variable<T>> map = getVariableMap(variables);
@@ -39,7 +37,7 @@ public class ConstraintSatisfaction<T> {
         return map;
     }
 
-    public void setVariables(List<Variable<T>> newVariables){
+    public void setVariables(List<Variable<T>> newVariables) {
         if (variables.entrySet().size() != newVariables.size()) {
             throw new IllegalArgumentException("Size of given variable list does not match current variable amount");
         }
@@ -49,7 +47,7 @@ public class ConstraintSatisfaction<T> {
         variables = getVariableMap(newVariables);
     }
 
-    public ConstraintSatisfactionResult<T> filterDomain(){
+    public ConstraintSatisfactionResult<T> filterDomain() {
         Revise currentRevise;
         while (!reviseQueue.isEmpty()) {
             currentRevise = reviseQueue.poll();
@@ -88,12 +86,9 @@ public class ConstraintSatisfaction<T> {
     }
 
     /**
-     * Evaluates all combinations of all variables in the given constraint, except for the currentVariable
-     * whose value is kept at currentValue.
+     * Evaluates all combinations of all variables in the given constraint, except for the
+     * currentVariable whose value is kept at currentValue.
      *
-     * @param constraint
-     * @param currentVariable
-     * @param currentValue
      * @return the result of all the evaluations ored together.
      */
     private boolean evaluateAllCombinations(Constraint constraint, String currentVariable, T currentValue) {
@@ -134,7 +129,7 @@ public class ConstraintSatisfaction<T> {
         boolean toReturn = false;
         for (int n = 0; n < combinationCount; n++) {
             for (int index = 0; index < variableCount; index++) {
-                if (index == indexOfCurrentVariable){
+                if (index == indexOfCurrentVariable) {
                     args[index] = currentValue;
                     continue;
                 }

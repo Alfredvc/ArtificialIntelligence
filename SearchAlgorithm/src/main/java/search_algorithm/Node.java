@@ -8,8 +8,8 @@ import java.util.List;
  */
 public final class Node {
     private final State state;
-    private int g;
     private final int h;
+    private int g;
     private int f;
     private boolean isOpen;
     private Node parent;
@@ -37,7 +37,7 @@ public final class Node {
         calculateF();
     }
 
-    private void calculateF(){
+    private void calculateF() {
         int previousF = this.f;
         this.f = this.g + this.h;
         if (previousF == this.f) {
@@ -81,11 +81,11 @@ public final class Node {
         return this.state.isASolution();
     }
 
-    public List<State> generateSuccessors(){
+    public List<State> generateSuccessors() {
         return this.state.generateSuccessors();
     }
 
-    public int getArcCost(){
+    public int getArcCost() {
         return this.state.getArcCost();
     }
 
@@ -102,7 +102,7 @@ public final class Node {
         if (!(obj instanceof Node)) {
             return false;
         }
-        return state.equals(((Node)obj).getState());
+        return state.equals(((Node) obj).getState());
     }
 
     public void addFChangedListener(FChangeListener listener) {
@@ -123,10 +123,6 @@ public final class Node {
         }
     }
 
-    public interface FChangeListener {
-        void fChanged(Node node);
-    }
-
     public int getCostFrom(Node node) {
         return this.state.getCostFrom(node.getState());
     }
@@ -134,5 +130,9 @@ public final class Node {
     @Override
     public String toString() {
         return state.toString();
+    }
+
+    public interface FChangeListener {
+        void fChanged(Node node);
     }
 }

@@ -2,9 +2,12 @@ package com.alfredvc.constraint_satisfaction;
 
 
 import com.alfredvc.FunctionParser;
+
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ConstraintSatisfactionTest {
 
     @Test
-    public void simpleHappyDayTest(){
+    public void simpleHappyDayTest() {
         List<Integer> xDomain = new ArrayList<>();
         xDomain.add(3);
         List<Integer> yDomain = new ArrayList<>();
@@ -35,7 +38,7 @@ public class ConstraintSatisfactionTest {
         Constraint c1 = new Constraint(FunctionParser.fromString("boolean(Integer x,y)-> x > y"));
         Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
 
-        ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1,c2), Arrays.asList(x, y, z));
+        ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2), Arrays.asList(x, y, z));
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.filterDomain();
 
         assertThat(result.getVariables().get("x").getDomain(), is(xDomain));

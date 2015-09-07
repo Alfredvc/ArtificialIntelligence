@@ -1,11 +1,11 @@
 package a_star;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 import search_algorithm.Agenda;
 import search_algorithm.Node;
 import search_algorithm.State;
-
-import java.util.Comparator;
-import java.util.PriorityQueue;
 
 /**
  * Created by erpa_ on 8/27/2015.
@@ -15,7 +15,7 @@ class AStarAgenda extends Agenda implements Node.FChangeListener {
     private PriorityQueue<Node> nodes;
 
     public AStarAgenda(State initialState) {
-        this. nodes = new PriorityQueue<>(new NodeComparator());
+        this.nodes = new PriorityQueue<>(new NodeComparator());
         this.add(new Node(initialState, 0));
     }
 

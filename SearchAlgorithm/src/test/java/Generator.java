@@ -7,11 +7,6 @@ import java.util.Random;
  * Created by erpa_ on 9/3/2015.
  */
 public class Generator {
-    @Ignore
-    @Test
-    public void printGeneratedBoard() {
-        System.out.println(generateBoard(500, 500, 5000));
-    }
     public static String generateBoard(int xSize, int ySize, int obstacleCount) {
         Random random = new Random();
         StringBuilder builder = new StringBuilder();
@@ -26,7 +21,7 @@ public class Generator {
                 .append(",")
                 .append(ySize - 1)
                 .append(")");
-        for(int i = 0; i < obstacleCount; i++) {
+        for (int i = 0; i < obstacleCount; i++) {
             int x = random.nextInt(xSize - 5);
             int y = random.nextInt(ySize - 5);
             builder.append('(')
@@ -40,5 +35,11 @@ public class Generator {
                     .append(')');
         }
         return builder.toString();
+    }
+
+    @Ignore
+    @Test
+    public void printGeneratedBoard() {
+        System.out.println(generateBoard(500, 500, 5000));
     }
 }

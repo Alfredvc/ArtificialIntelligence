@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsIn.isIn;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 
 /**
@@ -19,10 +19,10 @@ import static org.junit.Assert.*;
  */
 public class NavigationStateTest {
     @Test
-    public void generateSuccessorTest_1(){
+    public void generateSuccessorTest_1() {
         boolean[][] obstacles = {{false, false},
-                                {false, false}};
-        NavigationState navigationState = new NavigationState(new Point(0,0), new Point(1,1), 2, 2, obstacles);
+                {false, false}};
+        NavigationState navigationState = new NavigationState(new Point(0, 0), new Point(1, 1), 2, 2, obstacles);
         List<NavigationState> states = navigationState.generateSuccessors();
         assertThat(states.size(), is(2));
         assertThat(states.get(0).getLocation().x, is(1));
@@ -33,11 +33,11 @@ public class NavigationStateTest {
     }
 
     @Test
-    public void generateSuccessorTest_2(){
+    public void generateSuccessorTest_2() {
         boolean[][] obstacles = {{false, false, false},
-                                {false, false, false},
-                                {false, false, false}};
-        NavigationState navigationState = new NavigationState(new Point(1,1), new Point(1,1), 3, 3, obstacles);
+                {false, false, false},
+                {false, false, false}};
+        NavigationState navigationState = new NavigationState(new Point(1, 1), new Point(1, 1), 3, 3, obstacles);
         List<NavigationState> states = navigationState.generateSuccessors();
         assertThat(states.size(), is(4));
         assertThat(states.get(0).getLocation().x, is(2));
@@ -54,15 +54,15 @@ public class NavigationStateTest {
     }
 
     @Test
-    public void generateSuccessorTest_3(){
+    public void generateSuccessorTest_3() {
         boolean[][] obstacles = {{false, false, false},
-                                {false, false, true},
-                                {false, true, false}};
+                {false, false, true},
+                {false, true, false}};
 
         Point state1 = new Point(0, 1);
         Point state2 = new Point(1, 0);
 
-        NavigationState navigationState = new NavigationState(new Point(1,1), new Point(1,1), 3, 3, obstacles);
+        NavigationState navigationState = new NavigationState(new Point(1, 1), new Point(1, 1), 3, 3, obstacles);
         List<NavigationState> states = navigationState.generateSuccessors();
         assertThat(states.size(), is(2));
         assertThat(states.get(0).getLocation(), is(state1));
@@ -70,7 +70,7 @@ public class NavigationStateTest {
     }
 
     @Test
-    public void generateFromTextTest(){
+    public void generateFromTextTest() {
         String input = "(6,6)\n" +
                 "(1,0) (5,5)\n" +
                 "(3,2,2,2)\n" +
@@ -79,8 +79,8 @@ public class NavigationStateTest {
                 "(2,5,2,1)";
         int xSize = 6;
         int ySize = 6;
-        Point start = new Point(1,0);
-        Point goal = new Point(5,5);
+        Point start = new Point(1, 0);
+        Point goal = new Point(5, 5);
         int expectedObstacleCount = 17;
         NavigationState navigationState = NavigationState.fromString(input);
         assertThat(navigationState.getxSize(), is(xSize));
@@ -90,7 +90,7 @@ public class NavigationStateTest {
         int obstacleCount = 0;
         for (boolean[] row : navigationState.getObstacles()) {
             for (boolean cell : row) {
-                if (cell)  {
+                if (cell) {
                     obstacleCount++;
                 }
             }
@@ -99,9 +99,9 @@ public class NavigationStateTest {
     }
 
     @Test
-    public void generateSuccessorsTest_4(){
+    public void generateSuccessorsTest_4() {
         List<Point> expectedSuccessors = Arrays.asList(
-            new Point(0,0),  new Point(1,1)
+                new Point(0, 0), new Point(1, 1)
         );
         String input = "(6,6)\n" +
                 "(1,0) (5,5)\n" +
@@ -117,7 +117,7 @@ public class NavigationStateTest {
     }
 
     @Test
-    public void hashCodeTest(){
+    public void hashCodeTest() {
         int xySize = 10000;
         int count = 1000000;
         boolean[][] obstacles = {{false}};
@@ -125,7 +125,7 @@ public class NavigationStateTest {
         HashMap<Integer, NavigationState> navigationStates = new HashMap<>();
         for (int i = 0; i < count; i++) {
             Point toAdd = new Point(random.nextInt(xySize), random.nextInt(xySize));
-            NavigationState navigationState = new NavigationState(toAdd, toAdd, 1,1, obstacles);
+            NavigationState navigationState = new NavigationState(toAdd, toAdd, 1, 1, obstacles);
             if (navigationStates.containsKey(navigationState.hashCode())) {
                 NavigationState existing = navigationStates.get(navigationState.hashCode());
                 if (!(existing).equals(navigationState)) {

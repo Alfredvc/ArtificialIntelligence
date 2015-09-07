@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="">
+    <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="Added generic type to State, removed unused field from State">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/a_star/AStarTest.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/a_star/AStarTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Agenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Agenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" afterPath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" afterPath="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid2D/src/main/java/com/alfredvc/graphics/Grid2D.java" afterPath="$PROJECT_DIR$/Grid2D/src/main/java/com/alfredvc/graphics/Grid2D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid2D/src/test/java/com/alfredvc/graphics/Grid2DTest.java" afterPath="$PROJECT_DIR$/Grid2D/src/test/java/com/alfredvc/graphics/Grid2DTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/modules/Module1.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/modules/Module1.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java" afterPath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithmResult.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithmResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/Test.java" afterPath="$PROJECT_DIR$/test/src/Test.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/pom.xml" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionParser/pom.xml" afterPath="$PROJECT_DIR$/FunctionParser/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid2D/pom.xml" afterPath="$PROJECT_DIR$/Grid2D/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/pom.xml" afterPath="$PROJECT_DIR$/SearchAlgorithm/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/it3105/pom.xml" afterPath="$PROJECT_DIR$/it3105/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Alfredvc.iws" />
@@ -43,22 +70,12 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="20" column="75" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#283#284#0" expanded="true" />
                 <element signature="e#307#308#0" expanded="true" />
                 <element signature="e#357#358#0" expanded="true" />
                 <element signature="e#439#440#0" expanded="true" />
+                <marker date="1441639279247" expanded="true" signature="54:101" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -67,20 +84,100 @@
         <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
+              <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Node.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+              <folding>
+                <element signature="e#573#574#0" expanded="true" />
+                <element signature="e#601#602#0" expanded="true" />
+                <element signature="e#650#651#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArraySet.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.29259896">
+              <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+              <folding>
+                <element signature="e#3812#3813#0" expanded="true" />
+                <element signature="e#3869#3870#0" expanded="true" />
+                <element signature="e#4234#4235#0" expanded="true" />
+                <element signature="e#4267#4268#0" expanded="true" />
+                <element signature="e#4310#4311#0" expanded="true" />
+                <element signature="e#4353#4354#0" expanded="true" />
+                <element signature="e#4408#4409#0" expanded="true" />
+                <element signature="e#4452#4453#0" expanded="true" />
+                <element signature="e#4498#4499#0" expanded="true" />
+                <element signature="e#4541#4542#0" expanded="true" />
+                <element signature="e#6049#6050#0" expanded="true" />
+                <element signature="e#6105#6106#0" expanded="true" />
+                <element signature="e#6150#6151#0" expanded="true" />
+                <element signature="e#6203#6204#0" expanded="true" />
+                <element signature="e#6261#6262#0" expanded="true" />
+                <element signature="e#6321#6322#0" expanded="true" />
+                <element signature="e#6370#6371#0" expanded="true" />
+                <element signature="e#6427#6428#0" expanded="true" />
+                <element signature="e#6479#6480#0" expanded="true" />
+                <element signature="e#6537#6538#0" expanded="true" />
+                <element signature="e#6593#6594#0" expanded="true" />
+                <element signature="e#6655#6656#0" expanded="true" />
+                <element signature="e#6705#6706#0" expanded="true" />
+                <element signature="e#6770#6771#0" expanded="true" />
+                <element signature="e#6820#6821#0" expanded="true" />
+                <element signature="e#6885#6886#0" expanded="true" />
+                <element signature="e#6935#6936#0" expanded="true" />
+                <element signature="e#7000#7001#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConstraintSatisfaction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Node.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
+      <file leaf-file-name="ConstraintSatisfactionTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38037866">
-              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
-                <element signature="e#2674#2675#0" expanded="true" />
-                <element signature="e#2736#2737#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Variable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1098#1099#0" expanded="true" />
+                <element signature="e#1134#1135#0" expanded="true" />
+                <element signature="e#1232#1233#0" expanded="true" />
+                <element signature="e#1264#1265#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,7 +187,7 @@
         <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+              <caret line="56" column="28" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -100,10 +197,33 @@
         <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
-                <element signature="e#1272#1273#0" expanded="true" />
-                <element signature="e#1296#1297#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#3050#3051#0" expanded="false" />
+                <element signature="e#3103#3104#0" expanded="false" />
+                <element signature="e#3135#3136#0" expanded="false" />
+                <element signature="e#3191#3192#0" expanded="false" />
+                <element signature="e#3246#3247#0" expanded="false" />
+                <element signature="e#3310#3311#0" expanded="false" />
+                <element signature="e#3344#3345#0" expanded="false" />
+                <element signature="e#3380#3381#0" expanded="false" />
+                <element signature="e#3410#3411#0" expanded="false" />
+                <element signature="e#3437#3438#0" expanded="false" />
+                <element signature="e#3550#3551#0" expanded="false" />
+                <element signature="e#3579#3580#0" expanded="false" />
+                <element signature="e#3620#3621#0" expanded="false" />
+                <element signature="e#3652#3653#0" expanded="false" />
+                <element signature="e#4656#4657#0" expanded="false" />
+                <element signature="e#4684#4685#0" expanded="false" />
+                <element signature="e#4713#4714#0" expanded="false" />
+                <element signature="e#4741#4742#0" expanded="false" />
+                <element signature="e#4786#4787#0" expanded="false" />
+                <element signature="e#4810#4811#0" expanded="false" />
+                <element signature="e#4867#4868#0" expanded="false" />
+                <element signature="e#4958#4959#0" expanded="false" />
+                <element signature="e#5660#5661#0" expanded="false" />
+                <element signature="e#5733#5734#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -157,14 +277,12 @@
         <option value="$PROJECT_DIR$/SearchAlgorithm/pom.xml" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/Constraint.java" />
         <option value="$PROJECT_DIR$/FunctionParser/pom.xml" />
-        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" />
         <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/Function.java" />
         <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java" />
         <option value="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" />
         <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" />
-        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" />
@@ -173,13 +291,15 @@
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java" />
         <option value="$PROJECT_DIR$/it3105/pom.xml" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/pom.xml" />
-        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
-        <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
-        <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" />
+        <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" />
+        <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
+        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
+        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
+        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
       </list>
     </option>
   </component>
@@ -206,8 +326,14 @@
           <option name="myItemId" value="" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
+      </PATH>
+      <PATH>
         <PATH_ELEMENT>
-          <option name="myItemId" value="SearchAlgorithm" />
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ai" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -217,18 +343,12 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="SearchAlgorithm" />
+          <option name="myItemId" value="ai" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="Lifecycle" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
       </PATH>
     </treeState>
@@ -265,7 +385,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -281,162 +402,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SearchAlgorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SearchAlgorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SearchAlgorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="navigation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SearchAlgorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="search_algorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SearchAlgorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="navigation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Alfredvc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SearchAlgorithm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -504,8 +469,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -967,7 +931,8 @@
       <workItem from="1441387669116" duration="45081000" />
       <workItem from="1441565456841" duration="7394000" />
       <workItem from="1441618692365" duration="14638000" />
-      <workItem from="1441638017458" duration="651000" />
+      <workItem from="1441638017458" duration="1095000" />
+      <workItem from="1441639129375" duration="2113000" />
     </task>
     <task id="LOCAL-00001" summary="ConstraintSatisfaction correctly executes a simple happy day test">
       <created>1441627386433</created>
@@ -999,11 +964,17 @@
       <option name="project" value="LOCAL" />
       <updated>1441634308586</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added generic type to State, removed unused field from State">
+      <created>1441638712101</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1441638712101</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69628000" />
+    <option name="totallyTimeSpent" value="72185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1014,25 +985,25 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36038962" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09381663" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0858209" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3409091" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3409091" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18550107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26705757" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5248918" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32792208" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1078,7 +1049,8 @@
     <MESSAGE value="Changed the format of the strings supplied to FunctionParser in order to replicate the signature of Java methods" />
     <MESSAGE value="Changed the visibility of the different agenda implementations to package private. Enhanced the generator with full board generation." />
     <MESSAGE value="Implemented comparable and equals for the Variable class, needed for ConstraintSatisfactionState&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented comparable and equals for the Variable class, needed for ConstraintSatisfactionState&#10;" />
+    <MESSAGE value="Added generic type to State, removed unused field from State" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added generic type to State, removed unused field from State" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1089,8 +1061,14 @@
           <properties />
           <option name="timeStamp" value="83" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java</url>
+          <line>3</line>
+          <properties />
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="85" />
+      <option name="time" value="86" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1124,10 +1102,10 @@
           <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#1679#1680#0" expanded="false" />
-            <element signature="e#1714#1715#0" expanded="false" />
-            <element signature="e#8794#8795#0" expanded="false" />
-            <element signature="e#8859#8860#0" expanded="false" />
+            <element signature="e#5619#5620#0" expanded="false" />
+            <element signature="e#5654#5655#0" expanded="false" />
+            <element signature="e#8428#8429#0" expanded="false" />
+            <element signature="e#8493#8494#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1137,7 +1115,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1154,20 +1132,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
           <folding>
-            <element signature="e#503#504#0" expanded="true" />
-            <element signature="e#581#582#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#825#826#0" expanded="true" />
-            <element signature="e#859#860#0" expanded="true" />
-            <element signature="e#888#889#0" expanded="true" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#969#970#0" expanded="true" />
-            <element signature="e#1000#1001#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
-            <element signature="e#1067#1068#0" expanded="true" />
-            <element signature="e#1099#1100#0" expanded="true" />
-            <element signature="e#1156#1157#0" expanded="true" />
-            <element signature="e#1206#1207#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1098#1099#0" expanded="true" />
+            <element signature="e#1134#1135#0" expanded="true" />
+            <element signature="e#1232#1233#0" expanded="true" />
+            <element signature="e#1264#1265#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1249,10 +1218,10 @@
           <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#1679#1680#0" expanded="false" />
-            <element signature="e#1714#1715#0" expanded="false" />
-            <element signature="e#8794#8795#0" expanded="false" />
-            <element signature="e#8859#8860#0" expanded="false" />
+            <element signature="e#5619#5620#0" expanded="false" />
+            <element signature="e#5654#5655#0" expanded="false" />
+            <element signature="e#8428#8429#0" expanded="false" />
+            <element signature="e#8493#8494#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1308,64 +1277,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="195" column="24" selection-start-line="195" selection-start-column="24" selection-end-line="195" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#834#835#0" expanded="true" />
-            <element signature="e#873#874#0" expanded="true" />
-            <element signature="e#919#920#0" expanded="true" />
-            <element signature="e#961#962#0" expanded="true" />
-            <element signature="e#1016#1017#0" expanded="true" />
-            <element signature="e#1059#1060#0" expanded="true" />
-            <element signature="e#1157#1158#0" expanded="true" />
-            <element signature="e#1224#1225#0" expanded="true" />
-            <element signature="e#1271#1272#0" expanded="true" />
-            <element signature="e#1313#1314#0" expanded="true" />
-            <element signature="e#1367#1368#0" expanded="true" />
-            <element signature="e#1394#1395#0" expanded="true" />
-            <element signature="e#1806#1807#0" expanded="true" />
-            <element signature="e#1852#1853#0" expanded="true" />
-            <element signature="e#2109#2110#0" expanded="true" />
-            <element signature="e#2137#2138#0" expanded="true" />
-            <element signature="e#2372#2373#0" expanded="true" />
-            <element signature="e#2429#2430#0" expanded="true" />
-            <element signature="e#2574#2575#0" expanded="true" />
-            <element signature="e#2617#2618#0" expanded="true" />
-            <element signature="e#3255#3256#0" expanded="true" />
-            <element signature="e#3298#3299#0" expanded="true" />
-            <element signature="e#3352#3353#0" expanded="true" />
-            <element signature="e#3399#3400#0" expanded="true" />
-            <element signature="e#3458#3459#0" expanded="true" />
-            <element signature="e#3505#3506#0" expanded="true" />
-            <element signature="e#3573#3574#0" expanded="true" />
-            <element signature="e#3625#3626#0" expanded="true" />
-            <element signature="e#3697#3698#0" expanded="true" />
-            <element signature="e#3757#3758#0" expanded="true" />
-            <element signature="e#3957#3958#0" expanded="true" />
-            <element signature="e#3998#3999#0" expanded="true" />
-            <element signature="e#4053#4054#0" expanded="true" />
-            <element signature="e#4102#4103#0" expanded="true" />
-            <element signature="e#4171#4172#0" expanded="true" />
-            <element signature="e#4212#4213#0" expanded="true" />
-            <element signature="e#4275#4276#0" expanded="true" />
-            <element signature="e#4308#4309#0" expanded="true" />
-            <element signature="e#4483#4484#0" expanded="true" />
-            <element signature="e#4541#4542#0" expanded="true" />
-            <element signature="e#4591#4592#0" expanded="true" />
-            <element signature="e#4699#4700#0" expanded="true" />
-            <element signature="e#4753#4754#0" expanded="true" />
-            <element signature="e#4807#4808#0" expanded="true" />
-            <element signature="e#4852#4853#0" expanded="true" />
-            <element signature="e#4903#4904#0" expanded="true" />
-            <element signature="e#4989#4990#0" expanded="true" />
-            <element signature="e#5051#5052#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1413,9 +1324,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1433,6 +1341,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.49741825">
           <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1449,25 +1360,7 @@
           <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding>
             <element signature="e#201#202#0" expanded="true" />
-            <element signature="e#266#267#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6020236">
-          <caret line="48" column="49" selection-start-line="48" selection-start-column="49" selection-end-line="48" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7217538">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1510,29 +1403,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-          <folding>
-            <element signature="e#503#504#0" expanded="true" />
-            <element signature="e#581#582#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#825#826#0" expanded="true" />
-            <element signature="e#859#860#0" expanded="true" />
-            <element signature="e#888#889#0" expanded="true" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#969#970#0" expanded="true" />
-            <element signature="e#1000#1001#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
-            <element signature="e#1067#1068#0" expanded="true" />
-            <element signature="e#1099#1100#0" expanded="true" />
-            <element signature="e#1156#1157#0" expanded="true" />
-            <element signature="e#1206#1207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4174107">
@@ -1556,19 +1426,34 @@
     <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
-            <element signature="e#1272#1273#0" expanded="true" />
-            <element signature="e#1296#1297#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3050#3051#0" expanded="false" />
+            <element signature="e#3103#3104#0" expanded="false" />
+            <element signature="e#3135#3136#0" expanded="false" />
+            <element signature="e#3191#3192#0" expanded="false" />
+            <element signature="e#3246#3247#0" expanded="false" />
+            <element signature="e#3310#3311#0" expanded="false" />
+            <element signature="e#3344#3345#0" expanded="false" />
+            <element signature="e#3380#3381#0" expanded="false" />
+            <element signature="e#3410#3411#0" expanded="false" />
+            <element signature="e#3437#3438#0" expanded="false" />
+            <element signature="e#3550#3551#0" expanded="false" />
+            <element signature="e#3579#3580#0" expanded="false" />
+            <element signature="e#3620#3621#0" expanded="false" />
+            <element signature="e#3652#3653#0" expanded="false" />
+            <element signature="e#4656#4657#0" expanded="false" />
+            <element signature="e#4684#4685#0" expanded="false" />
+            <element signature="e#4713#4714#0" expanded="false" />
+            <element signature="e#4741#4742#0" expanded="false" />
+            <element signature="e#4786#4787#0" expanded="false" />
+            <element signature="e#4810#4811#0" expanded="false" />
+            <element signature="e#4867#4868#0" expanded="false" />
+            <element signature="e#4958#4959#0" expanded="false" />
+            <element signature="e#5660#5661#0" expanded="false" />
+            <element signature="e#5733#5734#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1577,11 +1462,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="75" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#283#284#0" expanded="true" />
             <element signature="e#307#308#0" expanded="true" />
             <element signature="e#357#358#0" expanded="true" />
             <element signature="e#439#440#0" expanded="true" />
+            <marker date="1441639279247" expanded="true" signature="54:101" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1589,18 +1474,98 @@
     <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <caret line="56" column="28" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38037866">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
           <folding>
-            <element signature="e#2674#2675#0" expanded="true" />
-            <element signature="e#2736#2737#0" expanded="true" />
+            <element signature="e#573#574#0" expanded="true" />
+            <element signature="e#601#602#0" expanded="true" />
+            <element signature="e#650#651#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1098#1099#0" expanded="true" />
+            <element signature="e#1134#1135#0" expanded="true" />
+            <element signature="e#1232#1233#0" expanded="true" />
+            <element signature="e#1264#1265#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29259896">
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding>
+            <element signature="e#3812#3813#0" expanded="true" />
+            <element signature="e#3869#3870#0" expanded="true" />
+            <element signature="e#4234#4235#0" expanded="true" />
+            <element signature="e#4267#4268#0" expanded="true" />
+            <element signature="e#4310#4311#0" expanded="true" />
+            <element signature="e#4353#4354#0" expanded="true" />
+            <element signature="e#4408#4409#0" expanded="true" />
+            <element signature="e#4452#4453#0" expanded="true" />
+            <element signature="e#4498#4499#0" expanded="true" />
+            <element signature="e#4541#4542#0" expanded="true" />
+            <element signature="e#6049#6050#0" expanded="true" />
+            <element signature="e#6105#6106#0" expanded="true" />
+            <element signature="e#6150#6151#0" expanded="true" />
+            <element signature="e#6203#6204#0" expanded="true" />
+            <element signature="e#6261#6262#0" expanded="true" />
+            <element signature="e#6321#6322#0" expanded="true" />
+            <element signature="e#6370#6371#0" expanded="true" />
+            <element signature="e#6427#6428#0" expanded="true" />
+            <element signature="e#6479#6480#0" expanded="true" />
+            <element signature="e#6537#6538#0" expanded="true" />
+            <element signature="e#6593#6594#0" expanded="true" />
+            <element signature="e#6655#6656#0" expanded="true" />
+            <element signature="e#6705#6706#0" expanded="true" />
+            <element signature="e#6770#6771#0" expanded="true" />
+            <element signature="e#6820#6821#0" expanded="true" />
+            <element signature="e#6885#6886#0" expanded="true" />
+            <element signature="e#6935#6936#0" expanded="true" />
+            <element signature="e#7000#7001#0" expanded="true" />
           </folding>
         </state>
       </provider>
