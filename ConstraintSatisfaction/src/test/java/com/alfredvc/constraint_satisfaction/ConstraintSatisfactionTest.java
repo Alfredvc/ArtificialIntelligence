@@ -42,6 +42,4 @@ public class ConstraintSatisfactionTest {
         assertThat(result.getVariables().get("y").getDomain(), is(yDomain));
         assertThat(result.getVariables().get("z").getDomain(), is(zDomain));
     }
-
-
 }

@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Class used to parse strings into Function objects.
+ * Class used to parse strings into ParsedFunction objects.
  *
  *
  * Given strings must be in one of the forms:
@@ -80,15 +80,15 @@ public class FunctionParser
      * Parses strings into functions, the functions that can be parsed are subject to the same limitations
      * as in the Javaassist library. For more information on these visit http://jboss-javassist.github.io/.
      *
-     * The returned class will override the relevant evaluate method of the Function interface with a
+     * The returned class will override the relevant evaluate method of the ParsedFunction interface with a
      * method that is equivalent to the given functionString. All other evaluate methods return an
      * Unsupported operation exception.
      *
      * @param functionString the string to be parsed
-     * @return a class implementing the Function interface
+     * @return a class implementing the ParsedFunction interface
      * @throws IllegalArgumentException are thrown with nested Javaassist exceptions, most of these exeptions are due to errors in the functionString.
      */
-    public static Function fromString(String functionString)  {
+    public static ParsedFunction fromString(String functionString)  {
         try {
             //TODO: validate functionString.
             String argsName = "o"+System.currentTimeMillis();
@@ -116,9 +116,12 @@ public class FunctionParser
 
             ClassPool pool = ClassPool.getDefault();
             CtClass evalClass = pool.makeClass("Eval" + System.currentTimeMillis());
+
             evalClass.addField(new CtField(pool.get("java.util.LinkedHashSet"), "variableSet", evalClass));
+            evalClass.addField(new CtField(pool.get("java.lang.String"), "functionString", evalClass));
+
             evalClass.setInterfaces(
-                    new CtClass[]{pool.makeClass("com.alfredvc.Function")});
+                    new CtClass[]{pool.makeClass("com.alfredvc.ParsedFunction")});
 
 
             String methodString = getMethodString(argsName, returnType, methodBody);
@@ -126,17 +129,13 @@ public class FunctionParser
 
             evalClass.addMethod(
                     CtNewMethod.make(methodString, evalClass));
-            evalClass.addMethod(
-                    CtNewMethod.make("public java.util.LinkedHashSet getVariableSet(){return this.variableSet;}", evalClass)
-            );
 
-            evalClass.addMethod(
-                    CtNewMethod.make("public void setVariableSet(java.util.LinkedHashSet s){this.variableSet = s;}", evalClass)
-            );
+            addHelperMethods(evalClass);
 
             Class clazz = evalClass.toClass();
-            Function obj  = (Function) clazz.newInstance();
+            ParsedFunction obj  = (ParsedFunction) clazz.newInstance();
             clazz.getMethod("setVariableSet", java.util.LinkedHashSet.class).invoke(obj, variables);
+            clazz.getMethod("setFunctionString", java.lang.String.class).invoke(obj, functionString);
             return obj;
         } catch (CannotCompileException e) {
             throw new IllegalArgumentException(e);
@@ -151,6 +150,28 @@ public class FunctionParser
         } catch (InvocationTargetException e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    private static void addHelperMethods(CtClass evalClass) throws CannotCompileException {
+        evalClass.addMethod(
+                CtNewMethod.make("public java.util.LinkedHashSet getVariableSet(){return this.variableSet;}", evalClass)
+        );
+
+        evalClass.addMethod(
+                CtNewMethod.make("public java.lang.String getFunctionString(){return this.functionString;}", evalClass)
+        );
+
+        evalClass.addMethod(
+                CtNewMethod.make("public java.lang.String toString(){return \"ParsedFunction[\" + this.functionString + \"]\";}", evalClass)
+        );
+
+        evalClass.addMethod(
+                CtNewMethod.make("public void setVariableSet(java.util.LinkedHashSet s){this.variableSet = s;}", evalClass)
+        );
+
+        evalClass.addMethod(
+                CtNewMethod.make("public void setFunctionString(java.lang.String s){this.functionString = s;}", evalClass)
+        );
     }
 
     private static String getMethodString(String argsName, String returnType, String methodBody) {
@@ -186,7 +207,7 @@ public class FunctionParser
         if (supportedPrimitives.contains(returnType)) {
             return returnType+" "+"evaluateTo"+primitiveToClass.get(returnType);
         } else {
-            return "Object evaluateInternal";
+            return "Object evaluateToObject";
         }
     }
 }

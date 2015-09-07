@@ -1,7 +1,7 @@
 package com.alfredvc.constraint_satisfaction;
 
 
-import com.alfredvc.Function;
+import com.alfredvc.ParsedFunction;
 
 import java.util.List;
 
@@ -11,15 +11,15 @@ import java.util.List;
 public class Constraint {
 
     private final List<String> variableSet;
-    private Function function;
+    private ParsedFunction parsedFunction;
 
-    public Constraint(Function function) {
-        this.variableSet = new ArraySet<>(function.getVariableSet());
-        this.function = function;
+    public Constraint(ParsedFunction parsedFunction) {
+        this.variableSet = new ArraySet<>(parsedFunction.getVariableSet());
+        this.parsedFunction = parsedFunction;
     }
 
     public boolean evaluate (Object[] args) {
-        return function.evaluateToBoolean(args);
+        return parsedFunction.evaluateToBoolean(args);
     }
 
     public List<String> getVariableArraySet(){

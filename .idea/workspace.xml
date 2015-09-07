@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" />
+      <change type="MOVED" beforePath="C:\Users\erpa_\IdeaProjects\Alfredvc\FunctionParser\src\main\java\com\alfredvc\Function.java" afterPath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/ConstraintSatisfaction.iml" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/ConstraintSatisfaction.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/pom.xml" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" afterPath="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" afterPath="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Alfredvc.iws" />
@@ -48,8 +42,8 @@
               <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#548#549#0" expanded="true" />
-                <element signature="e#587#588#0" expanded="true" />
+                <element signature="e#602#603#0" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,13 +119,73 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConstraintSatisfaction.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConstraintSatisfaction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43889844">
-              <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FunctionParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="164" column="117" selection-start-line="164" selection-start-column="103" selection-end-line="164" selection-end-column="117" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Class.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/lang/Class.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1780" column="18" selection-start-line="1780" selection-start-column="18" selection-end-line="1780" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParsedFunction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="59" column="28" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
+              <folding>
+                <element signature="e#1103#1104#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+                <element signature="e#1211#1212#0" expanded="true" />
+                <element signature="e#1268#1269#0" expanded="true" />
+                <element signature="e#1323#1324#0" expanded="true" />
+                <element signature="e#1380#1381#0" expanded="true" />
+                <element signature="e#1431#1432#0" expanded="true" />
+                <element signature="e#1488#1489#0" expanded="true" />
+                <element signature="e#1537#1538#0" expanded="true" />
+                <element signature="e#1594#1595#0" expanded="true" />
+                <element signature="e#1645#1646#0" expanded="true" />
+                <element signature="e#1702#1703#0" expanded="true" />
+                <element signature="e#1756#1757#0" expanded="true" />
+                <element signature="e#1813#1814#0" expanded="true" />
+                <element signature="e#1853#1854#0" expanded="true" />
+                <element signature="e#1902#1903#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FunctionParserTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.32702237">
+              <caret line="113" column="112" selection-start-line="113" selection-start-column="112" selection-end-line="113" selection-end-column="112" />
+              <folding>
+                <element signature="e#4887#4888#0" expanded="true" />
+                <element signature="e#4930#4931#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,48 +197,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConstraintSatisfactionTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="56" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Variable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#366#367#0" expanded="true" />
-                <element signature="e#395#396#0" expanded="true" />
-                <element signature="e#507#508#0" expanded="true" />
-                <element signature="e#534#535#0" expanded="true" />
-                <element signature="e#574#575#0" expanded="true" />
-                <element signature="e#606#607#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConstraintSatisfactionResult.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="77" selection-start-line="23" selection-start-column="77" selection-end-line="23" selection-end-column="77" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -230,10 +242,7 @@
         <option value="$PROJECT_DIR$/test/src/Test.java" />
         <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ConstraintParser.java" />
         <option value="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/ConstraintParserTest.java" />
-        <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/Function.java" />
-        <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" />
-        <option value="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/ConstraintSatisfactionResult.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/Variable.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/ConstraintSatisfaction.java" />
@@ -247,8 +256,12 @@
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" />
-        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java" />
+        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
+        <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/Function.java" />
+        <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java" />
+        <option value="$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java" />
+        <option value="$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java" />
       </list>
     </option>
   </component>
@@ -274,6 +287,30 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="FunctionParser" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="FunctionParser" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Lifecycle" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -363,7 +400,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ConstraintSatisfaction" />
+              <option name="myItemId" value="FunctionParser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -377,7 +414,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ConstraintSatisfaction" />
+              <option name="myItemId" value="FunctionParser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -393,7 +430,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="constraint_satisfaction" />
+              <option name="myItemId" value="alfredvc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -407,7 +444,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ConstraintSatisfaction" />
+              <option name="myItemId" value="FunctionParser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -423,7 +460,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="constraint_satisfaction" />
+              <option name="myItemId" value="alfredvc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -469,7 +506,7 @@
       <recent name="com.alfredvc" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ConstraintSatisfactionTest.simpleHappyDayTest">
+  <component name="RunManager" selected="JUnit.FunctionParserTest.testToString">
     <configuration default="false" name="ConstraintSatisfactionTest.simpleHappyDayTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -494,55 +531,6 @@
       </option>
       <envs />
       <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="ConstraintSatisfaction [clean,install]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-                <option value="install" />
-              </list>
-            </option>
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$/ConstraintSatisfaction" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method />
-    </configuration>
-    <configuration default="false" name="ConstraintSatisfaction [test]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="test" />
-              </list>
-            </option>
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$/ConstraintSatisfaction" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
       <method />
     </configuration>
     <configuration default="false" name="FunctionParserTest.performanceComparisonWithPrimitives" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -584,6 +572,58 @@
       <option name="PACKAGE_NAME" value="com.alfredvc.constraint_satisfaction" />
       <option name="MAIN_CLASS_NAME" value="com.alfredvc.constraint_satisfaction.ConstraintSatisfactionTest" />
       <option name="METHOD_NAME" value="perfTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ConstraintSatisfactionTest.complexHappyDayTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.alfredvc.constraint_satisfaction.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="ConstraintSatisfaction" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.alfredvc.constraint_satisfaction" />
+      <option name="MAIN_CLASS_NAME" value="com.alfredvc.constraint_satisfaction.ConstraintSatisfactionTest" />
+      <option name="METHOD_NAME" value="complexHappyDayTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="FunctionParserTest.testToString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.alfredvc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="FunctionParser" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.alfredvc" />
+      <option name="MAIN_CLASS_NAME" value="com.alfredvc.FunctionParserTest" />
+      <option name="METHOD_NAME" value="testToString" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -871,18 +911,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.simpleHappyDayTest" />
-      <item index="1" class="java.lang.String" itemvalue="Maven.ConstraintSatisfaction [clean,install]" />
-      <item index="2" class="java.lang.String" itemvalue="Maven.ConstraintSatisfaction [test]" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.FunctionParserTest.performanceComparisonWithPrimitives" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.perfTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.FunctionParserTest.performanceComparisonWithPrimitives" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.perfTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.complexHappyDayTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.FunctionParserTest.testToString" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.simpleHappyDayTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.perfTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.FunctionParserTest.performanceComparisonWithPrimitives" />
-        <item index="3" class="java.lang.String" itemvalue="Maven.ConstraintSatisfaction [test]" />
-        <item index="4" class="java.lang.String" itemvalue="Maven.ConstraintSatisfaction [clean,install]" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.FunctionParserTest.testToString" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.complexHappyDayTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.simpleHappyDayTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.ConstraintSatisfactionTest.perfTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.FunctionParserTest.performanceComparisonWithPrimitives" />
       </list>
     </recent_temporary>
   </component>
@@ -899,12 +939,19 @@
       <workItem from="1441312329645" duration="1864000" />
       <workItem from="1441387669116" duration="45081000" />
       <workItem from="1441565456841" duration="7394000" />
-      <workItem from="1441618692365" duration="7679000" />
+      <workItem from="1441618692365" duration="9038000" />
     </task>
+    <task id="LOCAL-00001" summary="ConstraintSatisfaction correctly executes a simple happy day test">
+      <created>1441627386433</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1441627386434</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62018000" />
+    <option name="totallyTimeSpent" value="63377000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -916,13 +963,14 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36038962" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.092843324" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.092750534" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3409091" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18550107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -933,7 +981,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -973,23 +1020,13 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ConstraintSatisfaction correctly executes a simple happy day test" />
+    <option name="LAST_COMMIT_MESSAGE" value="ConstraintSatisfaction correctly executes a simple happy day test" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java</url>
-          <line>118</line>
-          <properties />
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java</url>
-          <line>131</line>
-          <properties />
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="72" />
+      <option name="time" value="75" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1004,8 +1041,8 @@
           <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#548#549#0" expanded="true" />
-            <element signature="e#587#588#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1048,8 +1085,8 @@
           <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#7036#7037#0" expanded="false" />
-            <element signature="e#7091#7092#0" expanded="false" />
+            <element signature="e#7910#7911#0" expanded="false" />
+            <element signature="e#7965#7966#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1096,8 +1133,8 @@
           <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#548#549#0" expanded="true" />
-            <element signature="e#587#588#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1234,13 +1271,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8011696">
-          <caret line="50" column="81" selection-start-line="50" selection-start-column="81" selection-end-line="50" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1292,30 +1322,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7036#7037#0" expanded="false" />
-            <element signature="e#7091#7092#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava-collections/r03/guava-collections-r03.jar!/com/google/common/collect/Iterables.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2137784">
           <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1383,8 +1393,8 @@
           <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#548#549#0" expanded="true" />
-            <element signature="e#587#588#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1458,7 +1468,7 @@
     <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="56" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
+          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1467,10 +1477,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfaction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43889844">
-          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1780" column="18" selection-start-line="1780" selection-start-column="18" selection-end-line="1780" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/FunctionParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="164" column="117" selection-start-line="164" selection-start-column="103" selection-end-line="164" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionParser/src/main/java/com/alfredvc/ParsedFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="28" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
+          <folding>
+            <element signature="e#1103#1104#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1211#1212#0" expanded="true" />
+            <element signature="e#1268#1269#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
+            <element signature="e#1380#1381#0" expanded="true" />
+            <element signature="e#1431#1432#0" expanded="true" />
+            <element signature="e#1488#1489#0" expanded="true" />
+            <element signature="e#1537#1538#0" expanded="true" />
+            <element signature="e#1594#1595#0" expanded="true" />
+            <element signature="e#1645#1646#0" expanded="true" />
+            <element signature="e#1702#1703#0" expanded="true" />
+            <element signature="e#1756#1757#0" expanded="true" />
+            <element signature="e#1813#1814#0" expanded="true" />
+            <element signature="e#1853#1854#0" expanded="true" />
+            <element signature="e#1902#1903#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionParser/src/test/java/com/alfredvc/FunctionParserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32702237">
+          <caret line="113" column="112" selection-start-line="113" selection-start-column="112" selection-end-line="113" selection-end-column="112" />
+          <folding>
+            <element signature="e#4887#4888#0" expanded="true" />
+            <element signature="e#4930#4931#0" expanded="true" />
           </folding>
         </state>
       </provider>
