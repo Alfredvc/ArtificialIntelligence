@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by erpa_ on 8/27/2015.
  */
-public class NavigationState extends State {
+public class NavigationState extends State<NavigationState> {
 
     private final int xSize;
     private final int ySize;
@@ -56,11 +56,6 @@ public class NavigationState extends State {
     }
 
     @Override
-    public int getG() {
-        return 0;
-    }
-
-    @Override
     public boolean isASolution() {
         return h == 0;
     }
@@ -70,8 +65,8 @@ public class NavigationState extends State {
     }
 
     @Override
-    public List<State> generateSuccessors() {
-        List<State> toReturn = new ArrayList<>(4);
+    public List<NavigationState> generateSuccessors() {
+        List<NavigationState> toReturn = new ArrayList<>(4);
         if (location.x +1 < xSize && !obstacles[location.x+1][location.y] ) {
             toReturn.add(new NavigationState(new Point(location.x + 1, location.y), goal, xSize, ySize, obstacles));
         }

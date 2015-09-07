@@ -1,19 +1,14 @@
 package navigation;
 
-import navigation.NavigationState;
 import org.junit.Test;
-import search_algorithm.State;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 
-import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsIn.isIn;
 import static org.junit.Assert.*;
@@ -28,13 +23,13 @@ public class NavigationStateTest {
         boolean[][] obstacles = {{false, false},
                                 {false, false}};
         NavigationState navigationState = new NavigationState(new Point(0,0), new Point(1,1), 2, 2, obstacles);
-        List<State> states = navigationState.generateSuccessors();
+        List<NavigationState> states = navigationState.generateSuccessors();
         assertThat(states.size(), is(2));
-        assertThat(((NavigationState) states.get(0)).getLocation().x, is(1));
-        assertThat(((NavigationState) states.get(0)).getLocation().y, is(0));
+        assertThat(states.get(0).getLocation().x, is(1));
+        assertThat(states.get(0).getLocation().y, is(0));
 
-        assertThat(((NavigationState) states.get(1)).getLocation().x, is(0));
-        assertThat(((NavigationState) states.get(1)).getLocation().y, is(1));
+        assertThat(states.get(1).getLocation().x, is(0));
+        assertThat(states.get(1).getLocation().y, is(1));
     }
 
     @Test
@@ -43,19 +38,19 @@ public class NavigationStateTest {
                                 {false, false, false},
                                 {false, false, false}};
         NavigationState navigationState = new NavigationState(new Point(1,1), new Point(1,1), 3, 3, obstacles);
-        List<State> states = navigationState.generateSuccessors();
+        List<NavigationState> states = navigationState.generateSuccessors();
         assertThat(states.size(), is(4));
-        assertThat(((NavigationState) states.get(0)).getLocation().x, is(2));
-        assertThat(((NavigationState) states.get(0)).getLocation().y, is(1));
+        assertThat(states.get(0).getLocation().x, is(2));
+        assertThat(states.get(0).getLocation().y, is(1));
 
-        assertThat(((NavigationState) states.get(1)).getLocation().x, is(1));
-        assertThat(((NavigationState) states.get(1)).getLocation().y, is(2));
+        assertThat(states.get(1).getLocation().x, is(1));
+        assertThat(states.get(1).getLocation().y, is(2));
 
-        assertThat(((NavigationState) states.get(2)).getLocation().x, is(0));
-        assertThat(((NavigationState) states.get(2)).getLocation().y, is(1));
+        assertThat(states.get(2).getLocation().x, is(0));
+        assertThat(states.get(2).getLocation().y, is(1));
 
-        assertThat(((NavigationState) states.get(3)).getLocation().x, is(1));
-        assertThat(((NavigationState) states.get(3)).getLocation().y, is(0));
+        assertThat(states.get(3).getLocation().x, is(1));
+        assertThat(states.get(3).getLocation().y, is(0));
     }
 
     @Test
@@ -68,10 +63,10 @@ public class NavigationStateTest {
         Point state2 = new Point(1, 0);
 
         NavigationState navigationState = new NavigationState(new Point(1,1), new Point(1,1), 3, 3, obstacles);
-        List<State> states = navigationState.generateSuccessors();
+        List<NavigationState> states = navigationState.generateSuccessors();
         assertThat(states.size(), is(2));
-        assertThat(((NavigationState) states.get(0)).getLocation(), is(state1));
-        assertThat(((NavigationState) states.get(1)).getLocation(), is(state2));
+        assertThat(states.get(0).getLocation(), is(state1));
+        assertThat(states.get(1).getLocation(), is(state2));
     }
 
     @Test
@@ -115,10 +110,10 @@ public class NavigationStateTest {
                 "(2,0,4,2)\n" +
                 "(2,5,2,1)";
         NavigationState navigationState = NavigationState.fromString(input);
-        List<State> successors = navigationState.generateSuccessors();
+        List<NavigationState> successors = navigationState.generateSuccessors();
         assertThat(successors.size(), is(2));
-        assertThat(((NavigationState)successors.get(0)).getLocation(), isIn(expectedSuccessors));
-        assertThat(((NavigationState)successors.get(1)).getLocation(), isIn(expectedSuccessors));
+        assertThat(successors.get(0).getLocation(), isIn(expectedSuccessors));
+        assertThat(successors.get(1).getLocation(), isIn(expectedSuccessors));
     }
 
     @Test

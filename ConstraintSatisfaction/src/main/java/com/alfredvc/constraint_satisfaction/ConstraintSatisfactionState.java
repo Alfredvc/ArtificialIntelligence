@@ -17,13 +17,8 @@ public class ConstraintSatisfactionState<T> extends State {
     }
 
     @Override
-    public int getG() {
-        return 0;
-    }
-
-    @Override
     public boolean isASolution() {
-        return false;
+        return variables.stream().allMatch(v -> v.getDomain().size() == 1);
     }
 
     @Override

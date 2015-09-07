@@ -124,7 +124,7 @@ public final class Node {
     }
 
     public interface FChangeListener {
-        public void fChanged(Node node);
+        void fChanged(Node node);
     }
 
     public int getCostFrom(Node node) {

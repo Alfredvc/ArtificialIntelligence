@@ -91,9 +91,7 @@ public abstract class SearchAlgorithm {
     }
 
     private void propagatePathImprovements(Node parent) {
-        System.out.println("propagating");
         for (Node child : parent.getChildren()) {
-            System.out.println("propagating");
             int costToChild = child.getCostFrom(parent);
             if (parent.getG() + costToChild < child.getG()) {
                 child.setParent(parent);
