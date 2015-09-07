@@ -36,7 +36,7 @@ public class ConstraintSatisfactionTest {
         Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
 
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1,c2), Arrays.asList(x, y, z));
-        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
+        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.filterDomain();
 
         assertThat(result.getVariables().get("x").getDomain(), is(xDomain));
         assertThat(result.getVariables().get("y").getDomain(), is(yDomain));

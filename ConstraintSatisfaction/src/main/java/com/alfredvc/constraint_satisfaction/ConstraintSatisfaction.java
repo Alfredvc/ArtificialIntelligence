@@ -16,15 +16,12 @@ import java.util.Queue;
  */
 public class ConstraintSatisfaction<T> {
 
-    private final Map<String, Variable<T>> variables;
+    private Map<String, Variable<T>> variables;
     private final List<Constraint> constraints;
     private final Queue<Revise> reviseQueue;
 
     public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> variables) {
-        Map<String, Variable<T>> map = new HashMap<>();
-        for (Variable<T> var : variables) {
-            map.put(var.getName(), var);
-        }
+        Map<String, Variable<T>> map = getVariableMap(variables);
         this.constraints = constraints;
         this.variables = map;
         this.reviseQueue = new LinkedList<>();
@@ -34,7 +31,25 @@ public class ConstraintSatisfaction<T> {
         }
     }
 
-    public ConstraintSatisfactionResult<T> solve(){
+    private Map<String, Variable<T>> getVariableMap(List<Variable<T>> variables) {
+        Map<String, Variable<T>> map = new HashMap<>();
+        for (Variable<T> var : variables) {
+            map.put(var.getName(), var);
+        }
+        return map;
+    }
+
+    public void setVariables(List<Variable<T>> newVariables){
+        if (variables.entrySet().size() != newVariables.size()) {
+            throw new IllegalArgumentException("Size of given variable list does not match current variable amount");
+        }
+        if (reviseQueue.size() > 0) {
+            throw new IllegalStateException("Can only set variables when the revise queue is empty");
+        }
+        variables = getVariableMap(newVariables);
+    }
+
+    public ConstraintSatisfactionResult<T> filterDomain(){
         Revise currentRevise;
         while (!reviseQueue.isEmpty()) {
             currentRevise = reviseQueue.poll();

@@ -26,6 +26,7 @@
         <module name="ConstraintSatisfaction" />
         <module name="FunctionParser" />
         <module name="Grid2D" />
+        <module name="it3105" />
         <module name="search_algorithm" />
       </profile>
     </annotationProcessing>
@@ -35,6 +36,7 @@
       <module name="ConstraintSatisfaction" target="1.8" />
       <module name="FunctionParser" target="1.8" />
       <module name="Grid2D" target="1.8" />
+      <module name="it3105" target="1.5" />
       <module name="search_algorithm" target="1.8" />
     </bytecodeTargetLevel>
   </component>

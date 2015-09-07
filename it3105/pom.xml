@@ -1,27 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>com.alfredvc</groupId>
         <artifactId>ai</artifactId>
+        <groupId>com.alfredvc</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.alfredvc.constraint_satisfaction</groupId>
-    <artifactId>ConstraintSatisfaction</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>it3105</artifactId>
     <packaging>jar</packaging>
 
-    <name>ConstraintSatisfaction</name>
+    <name>it3105</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -36,18 +29,13 @@
             <version>1.3</version>
         </dependency>
         <dependency>
-            <groupId>com.alfredvc.utility</groupId>
-            <artifactId>FunctionParser</artifactId>
+            <groupId>com.alfredvc.search</groupId>
+            <artifactId>SearchAlgorithm</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alfredvc.search</groupId>
-            <artifactId>SearchAlgorithm</artifactId>
+            <groupId>com.alfredvc.constraint_satisfaction</groupId>
+            <artifactId>ConstraintSatisfaction</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

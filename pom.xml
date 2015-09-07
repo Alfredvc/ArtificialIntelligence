@@ -14,6 +14,7 @@
         <module>SearchAlgorithm</module>
         <module>FunctionParser</module>
         <module>ConstraintSatisfaction</module>
+        <module>it3105</module>
     </modules>
 
 

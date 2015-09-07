@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/ConstraintSatisfaction/ConstraintSatisfaction.iml" filepath="$PROJECT_DIR$/ConstraintSatisfaction/ConstraintSatisfaction.iml" />
       <module fileurl="file://$PROJECT_DIR$/FunctionParser/FunctionParser.iml" filepath="$PROJECT_DIR$/FunctionParser/FunctionParser.iml" />
       <module fileurl="file://$PROJECT_DIR$/Grid2D/Grid2D.iml" filepath="$PROJECT_DIR$/Grid2D/Grid2D.iml" />
+      <module fileurl="file://$PROJECT_DIR$/it3105/it3105.iml" filepath="$PROJECT_DIR$/it3105/it3105.iml" />
       <module fileurl="file://$PROJECT_DIR$/SearchAlgorithm/search_algorithm.iml" filepath="$PROJECT_DIR$/SearchAlgorithm/search_algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
     </modules>
