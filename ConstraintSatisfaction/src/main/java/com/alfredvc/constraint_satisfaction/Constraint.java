@@ -6,7 +6,7 @@ import com.alfredvc.ParsedFunction;
 import java.util.List;
 
 /**
- * Created by erpa_ on 9/5/2015.
+ * Created by Alfredvc on 9/5/2015.
  */
 public class Constraint {
 

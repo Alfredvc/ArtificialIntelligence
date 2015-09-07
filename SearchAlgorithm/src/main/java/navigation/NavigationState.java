@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import search_algorithm.State;
 
 /**
- * Created by erpa_ on 8/27/2015.
+ * Created by Alfredvc on 8/27/2015.
  */
 public class NavigationState extends State<NavigationState> {
 

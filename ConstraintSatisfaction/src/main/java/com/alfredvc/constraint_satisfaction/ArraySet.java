@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
- * Created by erpa_ on 9/7/2015.
+ * Created by Alfredvc on 9/7/2015.
  */
 public class ArraySet<T> implements List<T>, Set<T> {
 
@@ -248,12 +248,10 @@ public class ArraySet<T> implements List<T>, Set<T> {
 
     private class ArraySetListIterator<T> implements ListIterator<T> {
 
-        private final List<T> backingList;
         private final Set<T> backingSet;
         private final ListIterator<T> backingIterator;
 
         public ArraySetListIterator(List<T> backingList, Set<T> backingSet, int index) {
-            this.backingList = backingList;
             this.backingSet = backingSet;
             this.backingIterator = backingList.listIterator();
         }

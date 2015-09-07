@@ -15,7 +15,7 @@ import static org.junit.Assert.fail;
 
 
 /**
- * Created by erpa_ on 8/27/2015.
+ * Created by Alfredvc on 8/27/2015.
  */
 public class NavigationStateTest {
     @Test

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * Created by erpa_ on 9/6/2015.
+ * Created by Alfredvc on 9/6/2015.
  */
 public class ConstraintSatisfactionResult<T> {
     private final Map<String, Variable<T>> variables;

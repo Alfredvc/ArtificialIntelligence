@@ -7,7 +7,7 @@ import java.util.List;
 import search_algorithm.State;
 
 /**
- * Created by erpa_ on 9/7/2015.
+ * Created by Alfredvc on 9/7/2015.
  */
 public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T>> {
 

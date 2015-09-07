@@ -23,7 +23,7 @@ import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
 
 /**
- * Created by erpa_ on 8/28/2015.
+ * Created by Alfredvc on 8/28/2015.
  */
 public class Module1 {
 
@@ -256,14 +256,14 @@ public class Module1 {
             default:
                 throw new IllegalStateException("Unreachable");
         }
-        searchAlgorithm.addNodeEvaluateListener(gridController);
+        searchAlgorithm.addNodePopListener(gridController);
         gridController.run(grid2D, Integer.parseInt(refreshPeriod.getText()));
         SearchAlgorithmResult result = searchAlgorithm.search();
         nodeCount.setText(result.getGeneratedNodes() + "");
         solutionLength.setText(result.getSolutionLength() + "");
     }
 
-    private class GridController implements SearchAlgorithm.NodeEvaluateListener {
+    private class GridController implements SearchAlgorithm.NodePopListener {
         private final LinkedList<List<Point>> solutionsToDraw;
         private Timer timer;
         private TimerTask updateTask;

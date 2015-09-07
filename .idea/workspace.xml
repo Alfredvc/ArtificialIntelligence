@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java" />
+    <list default="true" id="9d964b59-0565-4b54-8df6-a74cf99bb35a" name="Default" comment="Finished implementing ConstraintSatisfactionState">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStar.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/a_star/AStarAgenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/a_star/AStarTest.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/a_star/AStarTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Agenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Agenda.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFS.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/bfs/BFSAgenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Constraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFS.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/dfs/DFSAgenda.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/Generator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/modules/Module1.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/modules/Module1.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Revise.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithmResult.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithmResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" afterPath="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/Test.java" afterPath="$PROJECT_DIR$/test/src/Test.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" afterPath="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -44,10 +61,10 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="82" column="47" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
               <folding>
-                <element signature="e#2077#2078#0" expanded="true" />
-                <element signature="e#2101#2102#0" expanded="true" />
-                <element signature="e#2651#2652#0" expanded="true" />
-                <element signature="e#2694#2695#0" expanded="true" />
+                <element signature="e#2080#2081#0" expanded="true" />
+                <element signature="e#2104#2105#0" expanded="true" />
+                <element signature="e#2654#2655#0" expanded="true" />
+                <element signature="e#2697#2698#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+              <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,10 +92,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConstraintSatisfactionStateTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Node.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.120567374">
+              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConstraintSatisfactionStateTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.311973">
+            <state vertical-scroll-proportion="0.0">
               <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -93,8 +120,8 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
-                <element signature="e#3410#3411#0" expanded="true" />
-                <element signature="e#3437#3438#0" expanded="true" />
+                <element signature="e#3413#3414#0" expanded="true" />
+                <element signature="e#3440#3441#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,34 +131,12 @@
         <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="54" column="6" selection-start-line="54" selection-start-column="6" selection-end-line="54" selection-end-column="6" />
+              <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#882#883#0" expanded="true" />
-                <element signature="e#932#933#0" expanded="true" />
+                <element signature="e#885#886#0" expanded="true" />
+                <element signature="e#935#936#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArraySet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="29" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="List.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/util/List.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="169" column="13" selection-start-line="169" selection-start-column="13" selection-end-line="169" selection-end-column="13" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -198,15 +203,15 @@
         <option value="$PROJECT_DIR$/it3105/pom.xml" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/pom.xml" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/test/java/navigation/NavigationStateTest.java" />
-        <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionTest.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/navigation/NavigationState.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java" />
-        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
         <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java" />
+        <option value="$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java" />
         <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java" />
+        <option value="$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java" />
       </list>
     </option>
   </component>
@@ -957,7 +962,7 @@
       <workItem from="1441565456841" duration="7394000" />
       <workItem from="1441618692365" duration="14638000" />
       <workItem from="1441638017458" duration="1095000" />
-      <workItem from="1441639129375" duration="6894000" />
+      <workItem from="1441639129375" duration="7711000" />
     </task>
     <task id="LOCAL-00001" summary="ConstraintSatisfaction correctly executes a simple happy day test">
       <created>1441627386433</created>
@@ -1001,11 +1006,17 @@
       <option name="project" value="LOCAL" />
       <updated>1441641279793</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Finished implementing ConstraintSatisfactionState">
+      <created>1441646045842</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1441646045842</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76966000" />
+    <option name="totallyTimeSpent" value="77783000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1019,12 +1030,12 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0858209" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35930735" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35930735" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16684435" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1082,7 +1093,8 @@
     <MESSAGE value="Implemented comparable and equals for the Variable class, needed for ConstraintSatisfactionState&#10;" />
     <MESSAGE value="Added generic type to State, removed unused field from State" />
     <MESSAGE value="Refactored all to adhere to google java style. Added custom iterators for ArraySet." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored all to adhere to google java style. Added custom iterators for ArraySet." />
+    <MESSAGE value="Finished implementing ConstraintSatisfactionState" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished implementing ConstraintSatisfactionState" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1132,8 +1144,8 @@
           <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#932#933#0" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
+            <element signature="e#935#936#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1215,10 +1227,10 @@
           <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#5619#5620#0" expanded="false" />
-            <element signature="e#5654#5655#0" expanded="false" />
-            <element signature="e#8428#8429#0" expanded="false" />
-            <element signature="e#8493#8494#0" expanded="false" />
+            <element signature="e#5622#5623#0" expanded="false" />
+            <element signature="e#5657#5658#0" expanded="false" />
+            <element signature="e#8421#8422#0" expanded="false" />
+            <element signature="e#8486#8487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1321,6 +1333,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1356,7 +1371,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding>
-            <element signature="e#201#202#0" expanded="false" />
+            <element signature="e#204#205#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1406,8 +1421,8 @@
           <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#602#603#0" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1443,8 +1458,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
-            <element signature="e#3410#3411#0" expanded="true" />
-            <element signature="e#3437#3438#0" expanded="true" />
+            <element signature="e#3413#3414#0" expanded="true" />
+            <element signature="e#3440#3441#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1457,21 +1472,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1146711">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-          <folding>
-            <element signature="e#573#574#0" expanded="true" />
-            <element signature="e#601#602#0" expanded="true" />
-            <element signature="e#626#627#0" expanded="true" />
-            <element signature="e#650#651#0" expanded="true" />
-            <element signature="e#2598#2599#0" expanded="true" />
-            <element signature="e#2660#2661#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/State.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20067453">
@@ -1480,21 +1480,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="6" selection-start-line="54" selection-start-column="6" selection-end-line="54" selection-end-column="6" />
+          <caret line="82" column="47" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
+          <folding>
+            <element signature="e#2080#2081#0" expanded="true" />
+            <element signature="e#2104#2105#0" expanded="true" />
+            <element signature="e#2654#2655#0" expanded="true" />
+            <element signature="e#2697#2698#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#932#933#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.44754463">
           <caret line="169" column="13" selection-start-line="169" selection-start-column="13" selection-end-line="169" selection-end-column="13" />
           <folding />
         </state>
@@ -1502,23 +1513,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ArraySet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="29" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
+        <state vertical-scroll-proportion="1.0189732">
+          <caret line="254" column="34" selection-start-line="254" selection-start-column="34" selection-end-line="254" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionState.java">
+    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/main/java/com/alfredvc/constraint_satisfaction/Variable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="47" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
+          <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
           <folding>
-            <element signature="e#2077#2078#0" expanded="true" />
-            <element signature="e#2101#2102#0" expanded="true" />
-            <element signature="e#2651#2652#0" expanded="true" />
-            <element signature="e#2694#2695#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
+            <element signature="e#935#936#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1526,20 +1536,18 @@
     <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/SearchAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConstraintSatisfaction/src/test/java/com/alfredvc/constraint_satisfaction/ConstraintSatisfactionStateTest.java">
+    <entry file="file://$PROJECT_DIR$/SearchAlgorithm/src/main/java/search_algorithm/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.311973">
-          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.120567374">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

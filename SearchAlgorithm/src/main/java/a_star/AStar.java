@@ -4,7 +4,7 @@ import search_algorithm.SearchAlgorithm;
 import search_algorithm.State;
 
 /**
- * Created by erpa_ on 8/27/2015.
+ * Created by Alfredvc on 8/27/2015.
  */
 public class AStar extends SearchAlgorithm {
 

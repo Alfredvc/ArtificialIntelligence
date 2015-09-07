@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by erpa_ on 9/5/2015.
+ * Created by Alfredvc on 9/5/2015.
  */
 public class Revise {
     private final String variableName;

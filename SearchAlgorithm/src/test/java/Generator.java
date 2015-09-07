@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.Random;
 
 /**
- * Created by erpa_ on 9/3/2015.
+ * Created by Alfredvc on 9/3/2015.
  */
 public class Generator {
     public static String generateBoard(int xSize, int ySize, int obstacleCount) {

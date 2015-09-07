@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by erpa_ on 9/5/2015.
+ * Created by Alfredvc on 9/5/2015.
  */
 public class Variable<T> implements Comparable<Variable<T>> {
     private String name;

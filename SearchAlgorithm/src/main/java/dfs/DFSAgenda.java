@@ -7,7 +7,7 @@ import search_algorithm.Node;
 import search_algorithm.State;
 
 /**
- * Created by erpa_ on 8/29/2015.
+ * Created by Alfredvc on 8/29/2015.
  */
 class DFSAgenda extends Agenda {
 

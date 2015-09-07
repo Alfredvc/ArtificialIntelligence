@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by erpa_ on 8/29/2015.
+ * Created by Alfredvc on 8/29/2015.
  */
 public class SearchAlgorithmResult {
     private final Node finalNode;

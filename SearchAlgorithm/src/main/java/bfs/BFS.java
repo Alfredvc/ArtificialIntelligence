@@ -4,7 +4,7 @@ import search_algorithm.SearchAlgorithm;
 import search_algorithm.State;
 
 /**
- * Created by erpa_ on 8/29/2015.
+ * Created by Alfredvc on 8/29/2015.
  */
 public class BFS extends SearchAlgorithm {
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by erpa_ on 8/27/2015.
+ * Created by Alfredvc on 8/27/2015.
  */
 
 /**
@@ -18,7 +18,8 @@ public abstract class SearchAlgorithm {
     private Agenda agenda;
     private Map<Integer, Node> generatedStates;
     private int generatedNodes;
-    private List<NodeEvaluateListener> nodeEvaluateListeners;
+    private List<NodePopListener> nodePopListeners;
+    private List<NodePrePushListener> nodePrePushListeners;
 
     protected SearchAlgorithm(Agenda agenda, int maxNodes) {
         if (agenda == null) {
@@ -32,7 +33,8 @@ public abstract class SearchAlgorithm {
         this.closedNodes = new HashMap<>();
         this.generatedStates = new HashMap<>();
         this.generatedNodes = 0;
-        this.nodeEvaluateListeners = new ArrayList<>();
+        this.nodePopListeners = new ArrayList<>();
+        this.nodePrePushListeners = new ArrayList<>();
     }
 
     public SearchAlgorithmResult search() {
@@ -42,7 +44,7 @@ public abstract class SearchAlgorithm {
                 return SearchAlgorithmResult.failed();
             }
             currentParent = agenda.pop();
-            fireNodeEvaluated(currentParent);
+            fireNodePopped(currentParent);
             closeNode(currentParent);
             if (currentParent.isASolution()) {
                 return SearchAlgorithmResult.succeeded(currentParent, generatedNodes);
@@ -60,6 +62,7 @@ public abstract class SearchAlgorithm {
 
                 if (!openOrClosed(currentSuccessor)) {
                     attachAndEval(currentSuccessor, currentParent);
+                    fireNodePrePushed(currentSuccessor);
                     agenda.add(currentSuccessor);
                 } else if (currentParent.getG() + currentSuccessor.getArcCost() < currentSuccessor.getG()) {
                     System.out.println("a");
@@ -105,21 +108,37 @@ public abstract class SearchAlgorithm {
         }
     }
 
-    private void fireNodeEvaluated(Node node) {
-        for (NodeEvaluateListener listener : nodeEvaluateListeners) {
-            listener.onNodeEvaluated(node);
-        }
+    private void fireNodePopped(Node node) {
+        nodePopListeners.stream().peek(l -> l.onNodeEvaluated(node));
     }
 
-    public void addNodeEvaluateListener(NodeEvaluateListener listener) {
-        this.nodeEvaluateListeners.add(listener);
+    public void addNodePopListener(NodePopListener listener) {
+        this.nodePopListeners.add(listener);
     }
 
-    public void removeNodeEvaluateListener(NodeEvaluateListener listener) {
-        this.nodeEvaluateListeners.remove(nodeEvaluateListeners);
+    public void removeNodePopListener(NodePopListener listener) {
+        this.nodePopListeners.remove(nodePopListeners);
     }
 
-    public interface NodeEvaluateListener {
+    public interface NodePopListener {
         void onNodeEvaluated(Node node);
     }
+
+    private void fireNodePrePushed(Node node) {
+        nodePrePushListeners.stream().peek(l -> l.onNodePrePush(node));
+    }
+
+    public void addNodePrePushListener(NodePrePushListener listener) {
+        this.nodePrePushListeners.add(listener);
+    }
+
+    public void removeNodePrePushListener(NodePrePushListener listener) {
+        this.nodePrePushListeners.remove(listener);
+    }
+
+    public interface NodePrePushListener {
+        void onNodePrePush(Node node);
+    }
+
+
 }
