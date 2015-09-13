@@ -28,7 +28,7 @@ class AStarAgenda extends Agenda implements Node.FChangeListener {
     @Override
     protected void internalAdd(Node node) {
         nodes.add(node);
-        node.addFChangedListener(this);
+        //node.addFChangedListener(this);
     }
 
     @Override

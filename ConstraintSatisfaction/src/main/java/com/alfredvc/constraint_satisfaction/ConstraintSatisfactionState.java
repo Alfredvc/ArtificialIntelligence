@@ -19,6 +19,14 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
         this.variables = variables;
     }
 
+    public ArraySet<Variable<T>> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(ArraySet<Variable<T>> variables) {
+        this.variables = variables;
+    }
+
     /**
      * Returns the amount of assumptions needed to reach a state in which all variables have a
      * domain of a single value if not variables have an empty domain. If any variable has an empty
@@ -45,8 +53,10 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
         List<T> singleElementList = new ArrayList<>(1);
         for (Variable<T> var : variables) {
             for (T val : var.getDomain()) {
-                ArraySet<Variable<T>> vars = new ArraySet<>(variables);
-                vars.remove(var);
+                ArraySet<Variable<T>> vars = new ArraySet<>();
+                for (Variable<T> internalVar : variables) {
+                    if (!internalVar.equals(var)) vars.add(new Variable<T>(internalVar.getName(), internalVar.getDomain()));
+                }
                 singleElementList.add(val);
                 //We reuse the same singleElementList because the constructor of Variable creates
                 //a new array

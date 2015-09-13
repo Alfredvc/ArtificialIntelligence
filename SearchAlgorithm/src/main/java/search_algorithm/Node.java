@@ -8,7 +8,6 @@ import java.util.List;
  */
 public final class Node<T extends State> {
     private final T state;
-    private final int h;
     private int g;
     private int f;
     private boolean isOpen;
@@ -20,7 +19,6 @@ public final class Node<T extends State> {
     public Node(T state, int g) {
         this.children = new ArrayList<>();
         this.state = state;
-        this.h = state.getH();
         setG(g);
     }
 
@@ -39,14 +37,14 @@ public final class Node<T extends State> {
 
     private void calculateF() {
         int previousF = this.f;
-        this.f = this.g + this.h;
-        if (previousF == this.f) {
+        this.f = getG() + getH();
+        if (previousF != this.f) {
             fireFChanged();
         }
     }
 
     public int getH() {
-        return h;
+        return state.getH();
     }
 
     public boolean isOpen() {
@@ -74,7 +72,8 @@ public final class Node<T extends State> {
     }
 
     public int getF() {
-        return g + h;
+        calculateF();
+        return f;
     }
 
     public boolean isASolution() {

@@ -33,8 +33,8 @@ public class SearchAlgorithmResult<T extends State> {
         this.solution = SearchAlgorithmResult.generateSolution(finalNode);
     }
 
-    public static SearchAlgorithmResult failed() {
-        return new SearchAlgorithmResult(null, -1, Status.FAILED);
+    public static <E extends State>SearchAlgorithmResult failed(Node<E> finalNode, int generatedNodes) {
+        return new SearchAlgorithmResult(finalNode, generatedNodes, Status.FAILED);
     }
 
     public static <F extends State> SearchAlgorithmResult succeeded(Node<F> finalNode, int generatedNodes) {

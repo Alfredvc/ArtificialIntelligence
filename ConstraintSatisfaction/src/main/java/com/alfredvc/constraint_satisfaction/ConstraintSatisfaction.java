@@ -10,26 +10,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import a_star.AStar;
+import search_algorithm.Node;
+import search_algorithm.SearchAlgorithm;
+import search_algorithm.SearchAlgorithmResult;
+
 /**
  * General constraint satisfaction solving algorithm
  */
 public class ConstraintSatisfaction<T> {
 
     private final List<Constraint> constraints;
-    private final Queue<Revise> reviseQueue;
-    private Map<String, Variable<T>> variables;
-    private List<Variable<T>> variableList;
 
-    public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> variables) {
-        Map<String, Variable<T>> map = getVariableMap(variables);
-        this.variableList = new ArrayList<>(variables);
+    public ConstraintSatisfaction(List<Constraint> constraints) {
         this.constraints = constraints;
-        this.variables = map;
-        this.reviseQueue = new LinkedList<>();
-        //TODO: Optimize by picking the constraint with the fewest variables, maybe also the variables with smallest domain??
-        for (Constraint constraint : this.constraints) {
-            this.reviseQueue.addAll(Revise.forConstraint(constraint));
-        }
     }
 
     private Map<String, Variable<T>> getVariableMap(List<Variable<T>> variables) {
@@ -40,38 +34,43 @@ public class ConstraintSatisfaction<T> {
         return map;
     }
 
-    private void setVariables(List<Variable<T>> newVariables) {
-        if (variables.entrySet().size() != newVariables.size()) {
-            throw new IllegalArgumentException("Size of given variable list does not match current variable amount");
-        }
-        if (reviseQueue.size() > 0) {
-            throw new IllegalStateException("Can only set variables when the revise queue is empty");
-        }
-        variables = getVariableMap(newVariables);
-    }
-
-    public ConstraintSatisfactionResult<T> solve(){
-        filterDomain();
+    public ConstraintSatisfactionResult<T> solve(List<Variable<T>> newVariables){
+        Map<String, Variable<T>> variables = getVariableMap(newVariables);
+        ArraySet<Variable<T>> variableList = new ArraySet<>(newVariables);
+        filterDomain(variables);
         ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(new ArraySet<>(variableList));
         if (state.isASolution()) return new ConstraintSatisfactionResult<>(variables);
-
+        SearchAlgorithm<ConstraintSatisfactionState<T>> searchAlgorithm = new AStar(state, Integer.MAX_VALUE);
+        //Filter variable domains before pushing into agenda
+        searchAlgorithm.addNodePrePushListener(n -> {
+            filterDomain(getVariableMap(n.getState().getVariables()));
+            n.getF();
+        });
+        SearchAlgorithmResult<ConstraintSatisfactionState<T>> result = searchAlgorithm.search();
+        return new ConstraintSatisfactionResult<>(getVariableMap(result.getFinalNode().getState().getVariables()));
     }
 
-    private void filterDomain() {
+    private ConstraintSatisfaction<T> filterDomain(Map<String, Variable<T>> variables) {
+        Queue<Revise> reviseQueue  = new LinkedList<>();
+        //TODO: Optimize by picking the constraint with the fewest variables, maybe also the variables with smallest domain??
+        for (Constraint constraint : this.constraints) {
+            reviseQueue.addAll(Revise.forConstraint(constraint));
+        }
         Revise currentRevise;
         while (!reviseQueue.isEmpty()) {
             currentRevise = reviseQueue.poll();
-            performRevise(currentRevise);
+            performRevise(currentRevise, variables, reviseQueue);
         }
+        return this;
     }
 
-    private void performRevise(Revise revise) {
-        Variable<T> variable = getVariable(revise.getVariableName());
+    private void performRevise(Revise revise, Map<String, Variable<T>> variables, Queue<Revise> reviseQueue) {
+        Variable<T> variable = getVariable(variables, revise.getVariableName());
         Constraint constraint = revise.getConstraint();
         boolean reducedDomain = false;
         for (Iterator<T> iterator = variable.getDomain().iterator(); iterator.hasNext(); ) {
             T domainElement = iterator.next();
-            if (!evaluateAllCombinations(constraint, variable.getName(), domainElement)) {
+            if (!evaluateAllCombinations(constraint, variable.getName(), domainElement, variables)) {
                 iterator.remove();
                 reducedDomain = true;
             }
@@ -81,7 +80,7 @@ public class ConstraintSatisfaction<T> {
         }
     }
 
-    private Variable<T> getVariable(String variableName) {
+    private Variable<T> getVariable(Map<String, Variable<T>> variables, String variableName) {
         if (!variables.containsKey(variableName)) {
             System.out.println(variableName);
             System.out.println(variables);
@@ -100,7 +99,7 @@ public class ConstraintSatisfaction<T> {
      *
      * @return the result of all the evaluations ored together.
      */
-    private boolean evaluateAllCombinations(Constraint constraint, String currentVariable, T currentValue) {
+    private boolean evaluateAllCombinations(Constraint constraint, String currentVariable, T currentValue, Map<String, Variable<T>> variables) {
         int variableCount = constraint.getVariableArraySet().size();
         int combinationCount = constraint.getVariableArraySet().stream()
                 .filter(n -> !currentVariable.equals(n))

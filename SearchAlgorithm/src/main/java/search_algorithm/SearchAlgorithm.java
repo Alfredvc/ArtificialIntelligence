@@ -18,8 +18,8 @@ public abstract class SearchAlgorithm<T extends State> {
     private Agenda agenda;
     private Map<Integer, Node<T>> generatedStates;
     private int generatedNodes;
-    private List<NodePopListener> nodePopListeners;
-    private List<NodePrePushListener> nodePrePushListeners;
+    private List<NodePopListener<T>> nodePopListeners;
+    private List<NodePrePushListener<T>> nodePrePushListeners;
 
     protected SearchAlgorithm(Agenda agenda, int maxNodes) {
         if (agenda == null) {
@@ -41,7 +41,7 @@ public abstract class SearchAlgorithm<T extends State> {
         Node<T> currentParent = null;
         while (generatedNodes < maxNodes) {
             if (agenda == null || agenda.isEmpty()) {
-                return SearchAlgorithmResult.failed();
+                return SearchAlgorithmResult.failed(currentParent, generatedNodes);
             }
             currentParent = agenda.pop();
             fireNodePopped(currentParent);
@@ -109,35 +109,39 @@ public abstract class SearchAlgorithm<T extends State> {
     }
 
     private void fireNodePopped(Node<T> node) {
-        nodePopListeners.stream().peek(l -> l.onNodeEvaluated(node));
+        for (NodePopListener<T> l : nodePopListeners) {
+            l.onNodeEvaluated(node);
+        }
     }
 
-    public void addNodePopListener(NodePopListener listener) {
+    public void addNodePopListener(NodePopListener<T> listener) {
         this.nodePopListeners.add(listener);
     }
 
-    public void removeNodePopListener(NodePopListener listener) {
+    public void removeNodePopListener(NodePopListener<T> listener) {
         this.nodePopListeners.remove(nodePopListeners);
     }
 
-    public interface NodePopListener {
-        void onNodeEvaluated(Node node);
+    public interface NodePopListener<V extends State> {
+        void onNodeEvaluated(Node<V> node);
     }
 
     private void fireNodePrePushed(Node<T> node) {
-        nodePrePushListeners.stream().peek(l -> l.onNodePrePush(node));
+        for (NodePrePushListener<T> l : nodePrePushListeners) {
+            l.onNodePrePush(node);
+        }
     }
 
-    public void addNodePrePushListener(NodePrePushListener listener) {
+    public void addNodePrePushListener(NodePrePushListener<T> listener) {
         this.nodePrePushListeners.add(listener);
     }
 
-    public void removeNodePrePushListener(NodePrePushListener listener) {
+    public void removeNodePrePushListener(NodePrePushListener<T> listener) {
         this.nodePrePushListeners.remove(listener);
     }
 
-    public interface NodePrePushListener {
-        void onNodePrePush(Node node);
+    public interface NodePrePushListener<F extends State> {
+        void onNodePrePush(Node<F> node);
     }
 
 
