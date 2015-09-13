@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Queue;
 
 import a_star.AStar;
-import search_algorithm.Node;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
 
@@ -21,9 +20,13 @@ import search_algorithm.SearchAlgorithmResult;
 public class ConstraintSatisfaction<T> {
 
     private final List<Constraint> constraints;
+    private final List<CurrentVariableDomainChangeListener<T>> listeners;
+    private final List<Variable<T>> vars;
 
-    public ConstraintSatisfaction(List<Constraint> constraints) {
+    public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> vars) {
         this.constraints = constraints;
+        this.listeners = new ArrayList<>();
+        this.vars = vars;
     }
 
     private Map<String, Variable<T>> getVariableMap(List<Variable<T>> variables) {
@@ -34,9 +37,9 @@ public class ConstraintSatisfaction<T> {
         return map;
     }
 
-    public ConstraintSatisfactionResult<T> solve(List<Variable<T>> newVariables){
-        Map<String, Variable<T>> variables = getVariableMap(newVariables);
-        ArraySet<Variable<T>> variableList = new ArraySet<>(newVariables);
+    public ConstraintSatisfactionResult<T> solve(){
+        Map<String, Variable<T>> variables = getVariableMap(vars);
+        ArraySet<Variable<T>> variableList = new ArraySet<>(vars);
         filterDomain(variables);
         ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(new ArraySet<>(variableList));
         if (state.isASolution()) return new ConstraintSatisfactionResult<>(variables);
@@ -46,6 +49,7 @@ public class ConstraintSatisfaction<T> {
             filterDomain(getVariableMap(n.getState().getVariables()));
             n.getF();
         });
+        searchAlgorithm.addNodePopListener( n -> fireCurrentVariableDomainChanged(n.getState().getVariables()));
         SearchAlgorithmResult<ConstraintSatisfactionState<T>> result = searchAlgorithm.search();
         return new ConstraintSatisfactionResult<>(getVariableMap(result.getFinalNode().getState().getVariables()));
     }
@@ -101,6 +105,9 @@ public class ConstraintSatisfaction<T> {
      */
     private boolean evaluateAllCombinations(Constraint constraint, String currentVariable, T currentValue, Map<String, Variable<T>> variables) {
         int variableCount = constraint.getVariableArraySet().size();
+        if (variableCount == 2) {
+            return evaluateAllCombinationsDouble(constraint, currentVariable, currentValue, variables);
+        }
         int combinationCount = constraint.getVariableArraySet().stream()
                 .filter(n -> !currentVariable.equals(n))
                 .map(v -> variables.get(v).getDomain().size())
@@ -150,6 +157,47 @@ public class ConstraintSatisfaction<T> {
         }
 
         return toReturn;
+    }
+
+    private boolean evaluateAllCombinationsDouble(Constraint constraint, String currentVariable, T currentValue, Map<String, Variable<T>> variables) {
+        Variable<T> otherVariable;
+        int currentVariableIndex;
+        int otherVariableIndex;
+        if (constraint.getVariableArraySet().get(0).equals(currentVariable)) {
+            currentVariableIndex = 0;
+            otherVariableIndex = 1;
+            otherVariable = variables.get(constraint.getVariableArraySet().get(1));
+        } else {
+            currentVariableIndex = 1;
+            otherVariableIndex = 0;
+            otherVariable = variables.get(constraint.getVariableArraySet().get(0));
+        }
+        boolean toReturn = false;
+        Object[] args = new Object[2];
+        args[currentVariableIndex] = currentValue;
+        for (T val : otherVariable.getDomain()) {
+            args[otherVariableIndex] = val;
+            toReturn = toReturn || constraint.evaluate(args);
+        }
+        return toReturn;
+    }
+
+    public void addCurrentVariableDomainChangeListener(CurrentVariableDomainChangeListener<T> listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeCurrentVariableDomainChangeListener(CurrentVariableDomainChangeListener<T> listener) {
+        this.listeners.remove(listener);
+    }
+
+    public void fireCurrentVariableDomainChanged(List<Variable<T>> variables) {
+        for (CurrentVariableDomainChangeListener<T> listener : listeners) {
+            listener.currentSolutionChanged(variables);
+        }
+    }
+
+    public interface CurrentVariableDomainChangeListener<T>{
+        void currentSolutionChanged(List<Variable<T>> variables);
     }
 
 }

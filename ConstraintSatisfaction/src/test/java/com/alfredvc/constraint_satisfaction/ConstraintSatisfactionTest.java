@@ -38,8 +38,8 @@ public class ConstraintSatisfactionTest {
         Constraint c1 = new Constraint(FunctionParser.fromString("boolean(Integer x,y)-> x > y"));
         Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
 
-        ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2));
-        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve(Arrays.asList(x, y, z));
+        ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2),Arrays.asList(x, y, z));
+        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
 
         assertThat(result.getVariables().get("x").getDomain(), is(xDomain));
         assertThat(result.getVariables().get("y").getDomain(), is(yDomain));
@@ -60,8 +60,8 @@ public class ConstraintSatisfactionTest {
         Constraint c1 = new Constraint(FunctionParser.fromString("boolean(Integer x,y)-> x > y"));
         Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
 
-        ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2));
-        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve(Arrays.asList(x, y, z));
+        ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2), Arrays.asList(x, y, z));
+        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
 
         assertThat(result.getVariables().get("x").getDomain().size(), is(1));
         assertThat(result.getVariables().get("y").getDomain().size(), is(1));

@@ -18,7 +18,7 @@ public abstract class Agenda {
         boolean containsKey = currentNodes.containsKey(node.hashCode());
         if (containsKey) {
             if (!node.equals(currentNodes.get(node.hashCode()))) {
-                throw new IllegalStateException("Different nodes have same hash code.");
+                //throw new IllegalStateException("Different nodes have same hash code.");
             }
         }
         return containsKey;

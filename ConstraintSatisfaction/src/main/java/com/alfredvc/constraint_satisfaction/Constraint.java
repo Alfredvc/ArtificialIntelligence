@@ -3,6 +3,7 @@ package com.alfredvc.constraint_satisfaction;
 
 import com.alfredvc.ParsedFunction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,12 +11,17 @@ import java.util.List;
  */
 public class Constraint {
 
-    private final List<String> variableSet;
+    private final List<String> arrayList;
     private ParsedFunction parsedFunction;
 
     public Constraint(ParsedFunction parsedFunction) {
-        this.variableSet = new ArraySet<>(parsedFunction.getVariableSet());
+        this.arrayList = new ArrayList<>(parsedFunction.getVariableSet());
         this.parsedFunction = parsedFunction;
+    }
+
+    public Constraint(ParsedFunction parsedFunction, List<String> arrayList) {
+        this.parsedFunction = parsedFunction;
+        this.arrayList = new ArrayList<>(arrayList);
     }
 
     public boolean evaluate(Object[] args) {
@@ -23,6 +29,6 @@ public class Constraint {
     }
 
     public List<String> getVariableArraySet() {
-        return this.variableSet;
+        return this.arrayList;
     }
 }
