@@ -2,7 +2,10 @@ package com.alfredvc.constraint_satisfaction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import search_algorithm.State;
 
@@ -13,18 +16,13 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
 
     public static final int H_FOR_ILLEGAL_STATES = Integer.MAX_VALUE - 100000000;
 
-    private ArraySet<Variable<T>> variables;
+    private Map<String, BitSet> varMap;
 
-    public ConstraintSatisfactionState(ArraySet<Variable<T>> variables) {
-        this.variables = variables;
-    }
-
-    public ArraySet<Variable<T>> getVariables() {
-        return variables;
-    }
-
-    public void setVariables(ArraySet<Variable<T>> variables) {
-        this.variables = variables;
+    public ConstraintSatisfactionState(Map<String,Variable<T>> vars) {
+        this.varMap = new HashMap<>();
+        for (Map.Entry<String, Variable<T>> e : vars.entrySet()) {
+            varMap.put(e.getKey(), e.getValue().getDomain().getBitSet());
+        }
     }
 
     /**
@@ -35,33 +33,31 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
     @Override
     public int getH() {
         int count = 0;
-        for (Variable<T> var : variables) {
-            if (var.getDomain().isEmpty()) return H_FOR_ILLEGAL_STATES;
-            if (var.getDomain().size() > 1) count++;
+        for (BitSet bitSet : varMap.values()) {
+            if (bitSet.cardinality() == 0) return H_FOR_ILLEGAL_STATES;
+            if (bitSet.cardinality() > 1) count++;
         }
         return count;
     }
 
     @Override
     public boolean isASolution() {
-        return variables.stream().allMatch(v -> v.getDomain().size() == 1);
+        return varMap.values().stream().allMatch(v -> v.cardinality() == 1);
     }
 
     @Override
     public List<ConstraintSatisfactionState<T>> generateSuccessors() {
         List<ConstraintSatisfactionState<T>> successors = new ArrayList<>();
-        List<T> singleElementList = new ArrayList<>(1);
         for (Variable<T> var : variables) {
-            for (T val : var.getDomain()) {
+            for (int i = 0; i < var.getDomain().size(); i++) {
                 ArraySet<Variable<T>> vars = new ArraySet<>();
-                for (Variable<T> internalVar : variables) {
-                    if (!internalVar.equals(var)) vars.add(new Variable<T>(internalVar.getName(), internalVar.getDomain()));
+                for (int a = 0; a < variables.size(); a++) {
+                    if (a == i) continue;
+                    vars.add(new Variable<>(variables.get(a)));
                 }
-                singleElementList.add(val);
-                //We reuse the same singleElementList because the constructor of Variable creates
-                //a new array
-                vars.add(new Variable<>(var.getName(), singleElementList));
-                singleElementList.clear();
+                Variable<T> toAdd = new Variable<>(var);
+                toAdd.getDomain().removeAllExept(i);
+                vars.add(toAdd);
                 successors.add(new ConstraintSatisfactionState<>(vars));
             }
         }

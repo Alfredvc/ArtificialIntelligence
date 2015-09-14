@@ -3,6 +3,7 @@ package com.alfredvc.constraint_satisfaction;
 import com.google.common.collect.Iterables;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -38,7 +39,7 @@ public class ConstraintSatisfaction<T> {
     }
 
     public ConstraintSatisfactionResult<T> solve(){
-        Map<String, Variable<T>> variables = getVariableMap(vars);
+        Map<String, Variable<T>> variables = Collections.unmodifiableMap(getVariableMap(vars));
         ArraySet<Variable<T>> variableList = new ArraySet<>(vars);
         filterDomain(variables);
         ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(new ArraySet<>(variableList));
