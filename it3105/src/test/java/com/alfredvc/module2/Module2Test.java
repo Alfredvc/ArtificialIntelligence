@@ -1,7 +1,6 @@
 package com.alfredvc.module2;
 
 
-import com.alfredvc.constraint_satisfaction.ArraySet;
 import com.alfredvc.constraint_satisfaction.Constraint;
 import com.alfredvc.constraint_satisfaction.ConstraintSatisfaction;
 import com.alfredvc.constraint_satisfaction.ConstraintSatisfactionResult;
@@ -9,19 +8,14 @@ import com.alfredvc.constraint_satisfaction.Variable;
 
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
-import static org.hamcrest.Matchers.isOneOf;
 
 /**
  * Unit test for simple Module2.
@@ -83,7 +77,7 @@ public class Module2Test {
         args[1] = Integer.valueOf(2);
 
         for (Constraint c : holder.getConstraints()) {
-            assertThat(c.getVariableArraySet(), isIn(constraintVars));
+            assertThat(c.getVariableNames(), isIn(constraintVars));
             assertThat(c.evaluate(args), is(true));
         }
     }

@@ -1,4 +1,4 @@
-package navigation;
+package com.alfredvc.module1;
 
 import org.junit.Test;
 

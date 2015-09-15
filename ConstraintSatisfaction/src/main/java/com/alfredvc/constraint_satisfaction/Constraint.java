@@ -7,28 +7,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alfredvc on 9/5/2015.
+ * Contains the list of variables in the constraint, and a function representing the constraint.
  */
 public class Constraint {
 
-    private final List<String> arrayList;
+    private final List<String> variableNames;
     private ParsedFunction parsedFunction;
 
     public Constraint(ParsedFunction parsedFunction) {
-        this.arrayList = new ArrayList<>(parsedFunction.getVariableSet());
+        this.variableNames = new ArrayList<>(parsedFunction.getVariableSet());
         this.parsedFunction = parsedFunction;
     }
 
-    public Constraint(ParsedFunction parsedFunction, List<String> arrayList) {
+    public Constraint(ParsedFunction parsedFunction, List<String> variableNames) {
         this.parsedFunction = parsedFunction;
-        this.arrayList = new ArrayList<>(arrayList);
+        this.variableNames = new ArrayList<>(variableNames);
     }
 
     public boolean evaluate(Object[] args) {
         return parsedFunction.evaluateToBoolean(args);
     }
 
-    public List<String> getVariableArraySet() {
-        return this.arrayList;
+    public List<String> getVariableNames() {
+        return this.variableNames;
     }
 }

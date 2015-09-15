@@ -18,9 +18,8 @@ public abstract class SearchAlgorithm<T extends State> {
     private Agenda agenda;
     private Map<Node<T>, Node<T>> generatedStates;
     private int generatedNodes;
-    private int repeatedNodes;
+    private int poppedNodes;
     private List<NodePopListener<T>> nodePopListeners;
-    private List<NodePrePushListener<T>> nodePrePushListeners;
 
     protected SearchAlgorithm(Agenda agenda, int maxNodes) {
         if (agenda == null) {
@@ -34,22 +33,22 @@ public abstract class SearchAlgorithm<T extends State> {
         this.closedNodes = new HashMap<>();
         this.generatedStates = new HashMap<>();
         this.generatedNodes = 0;
-        this.repeatedNodes = 0;
+        this.poppedNodes = 0;
         this.nodePopListeners = new ArrayList<>();
-        this.nodePrePushListeners = new ArrayList<>();
     }
 
     public SearchAlgorithmResult search() {
         Node<T> currentParent = null;
         while (generatedNodes < maxNodes) {
             if (agenda == null || agenda.isEmpty()) {
-                return SearchAlgorithmResult.failed(currentParent, generatedNodes);
+                return SearchAlgorithmResult.failed(currentParent, generatedNodes, poppedNodes);
             }
             currentParent = agenda.pop();
+            poppedNodes++;
             fireNodePopped(currentParent);
             closeNode(currentParent);
             if (currentParent.isASolution()) {
-                return SearchAlgorithmResult.succeeded(currentParent, generatedNodes);
+                return SearchAlgorithmResult.succeeded(currentParent, generatedNodes, poppedNodes);
             }
             List<T> successorStates = currentParent.generateSuccessors();
             for (T state : successorStates) {
@@ -64,7 +63,6 @@ public abstract class SearchAlgorithm<T extends State> {
 
                 if (!openOrClosed(currentSuccessor)) {
                     attachAndEval(currentSuccessor, currentParent);
-                    fireNodePrePushed(currentSuccessor);
                     agenda.add(currentSuccessor);
                 } else if (currentParent.getG() + currentSuccessor.getArcCost() < currentSuccessor.getG()) {
                     System.out.println("a");
@@ -76,7 +74,7 @@ public abstract class SearchAlgorithm<T extends State> {
 
             }
         }
-        return SearchAlgorithmResult.succeeded(currentParent, generatedNodes);
+        return SearchAlgorithmResult.succeeded(currentParent, generatedNodes, poppedNodes);
     }
 
     private boolean openOrClosed(Node<T> node) {
@@ -106,10 +104,14 @@ public abstract class SearchAlgorithm<T extends State> {
 
     private void fireNodePopped(Node<T> node) {
         for (NodePopListener<T> l : nodePopListeners) {
-            l.onNodeEvaluated(node);
+            l.onNodePopped(node);
         }
     }
 
+    /**
+     * Adds a listener to be notified whenever a Node is popped from the Agenda
+     * @param listener the listener to be added
+     */
     public void addNodePopListener(NodePopListener<T> listener) {
         this.nodePopListeners.add(listener);
     }
@@ -119,25 +121,7 @@ public abstract class SearchAlgorithm<T extends State> {
     }
 
     public interface NodePopListener<V extends State> {
-        void onNodeEvaluated(Node<V> node);
-    }
-
-    private void fireNodePrePushed(Node<T> node) {
-        for (NodePrePushListener<T> l : nodePrePushListeners) {
-            l.onNodePrePush(node);
-        }
-    }
-
-    public void addNodePrePushListener(NodePrePushListener<T> listener) {
-        this.nodePrePushListeners.add(listener);
-    }
-
-    public void removeNodePrePushListener(NodePrePushListener<T> listener) {
-        this.nodePrePushListeners.remove(listener);
-    }
-
-    public interface NodePrePushListener<F extends State> {
-        void onNodePrePush(Node<F> node);
+        void onNodePopped(Node<V> node);
     }
 
 

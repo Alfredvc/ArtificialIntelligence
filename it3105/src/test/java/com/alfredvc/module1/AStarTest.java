@@ -1,11 +1,11 @@
-package a_star;
+package com.alfredvc.module1;
 
 import org.junit.Test;
 
 import java.awt.*;
 import java.util.Arrays;
 
-import navigation.NavigationState;
+import a_star.AStar;
 import search_algorithm.Node;
 import search_algorithm.SearchAlgorithmResult;
 

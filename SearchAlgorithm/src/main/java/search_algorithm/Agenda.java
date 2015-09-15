@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Alfredvc on 8/27/2015.
+ * Common class for all agendas. Subclasses must implement internalAdd and internalGet.
  */
 public abstract class Agenda {
 

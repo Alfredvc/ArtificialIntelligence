@@ -1,4 +1,4 @@
-package modules;
+package com.alfredvc.module1;
 
 import com.alfredvc.graphics.Grid2D;
 import com.alfredvc.graphics.Grid2DBuilder;
@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import a_star.AStar;
 import bfs.BFS;
 import dfs.DFS;
-import navigation.NavigationState;
 import search_algorithm.Node;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
@@ -273,7 +272,7 @@ public class Module1 {
         }
 
         @Override
-        public void onNodeEvaluated(Node node) {
+        public void onNodePopped(Node node) {
             List<Point> toAdd = new ArrayList<>();
             Node currentNode = node;
             while (currentNode.getParent() != null) {

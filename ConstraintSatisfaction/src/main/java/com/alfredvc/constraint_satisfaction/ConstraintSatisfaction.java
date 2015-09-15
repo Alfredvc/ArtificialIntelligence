@@ -43,11 +43,14 @@ public class ConstraintSatisfaction<T> {
         }
         filterDomain(domains);
         ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(domains, this);
-        if (state.isASolution()) return new ConstraintSatisfactionResult<>(vars, state.getBitSets(), ConstraintSatisfactionResult.Status.SUCCEEDED);
+//        if (state.isASolution()) {
+//            return new ConstraintSatisfactionResult<>(vars, state.getBitSets(), ConstraintSatisfactionResult.Status.SUCCEEDED);
+//        }
         SearchAlgorithm<ConstraintSatisfactionState<T>> searchAlgorithm = new AStar(state, Integer.MAX_VALUE);
         searchAlgorithm.addNodePopListener( n -> fireCurrentVariableDomainChanged(n.getState().getBitSets()));
         SearchAlgorithmResult<ConstraintSatisfactionState<T>> result = searchAlgorithm.search();
-        return new ConstraintSatisfactionResult<>(vars, result.getFinalNode().getState().getBitSets(), result);
+        BitSet[] resultBitSets = result.getFinalNode().getState().getBitSets();
+        return new ConstraintSatisfactionResult<>(vars, resultBitSets, result, getViolatedConstraintCount(resultBitSets));
     }
 
 
@@ -96,7 +99,7 @@ public class ConstraintSatisfaction<T> {
      * @return the result of all the evaluations ored together.
      */
     private boolean evaluateAllCombinations(Constraint constraint, Variable<T> currentVar, int currentVarGlobalIndex, T currentValue, BitSet[] domains) {
-        int variableCount = constraint.getVariableArraySet().size();
+        int variableCount = constraint.getVariableNames().size();
         if (variableCount == 2) {
             return evaluateAllCombinationsDouble(constraint, currentVarGlobalIndex, currentValue,domains);
         }
@@ -107,7 +110,7 @@ public class ConstraintSatisfaction<T> {
 
         Iterator[] iterators = new Iterator[variableCount];
         for (int i = 0; i < variableCount; i++) {
-            String name = constraint.getVariableArraySet().get(i);
+            String name = constraint.getVariableNames().get(i);
             int globalIndex = varNameToIndex.get(name);
             combinationCount *= domains[globalIndex].cardinality();
             if (name.equals(currentVar.getName())){
@@ -144,8 +147,8 @@ public class ConstraintSatisfaction<T> {
 
     private boolean evaluateAllCombinationsDouble(Constraint constraint, int currentVariable, T currentValue, BitSet[] domains) {
         Variable<T> otherVariable;
-        int globalIndex0 = varNameToIndex.get(constraint.getVariableArraySet().get(0));
-        int globalIndex1 = varNameToIndex.get(constraint.getVariableArraySet().get(1));
+        int globalIndex0 = varNameToIndex.get(constraint.getVariableNames().get(0));
+        int globalIndex1 = varNameToIndex.get(constraint.getVariableNames().get(1));
         int globalIndexOther;
         Object[] args = new Object[2];
         int localIndexOther;
@@ -153,7 +156,7 @@ public class ConstraintSatisfaction<T> {
             args[0] = currentValue;
             localIndexOther = 1;
             globalIndexOther = globalIndex1;
-            otherVariable = vars.get(varNameToIndex.get(constraint.getVariableArraySet().get(1)));
+            otherVariable = vars.get(varNameToIndex.get(constraint.getVariableNames().get(1)));
         } else {
             args[1] = currentValue;
             localIndexOther = 0;
@@ -172,9 +175,9 @@ public class ConstraintSatisfaction<T> {
 
     boolean fulfillsAllConstrains(BitSet[] domains) {
         for (Constraint constraint: constraints) {
-            List<String> variables = constraint.getVariableArraySet();
+            List<String> variables = constraint.getVariableNames();
             Object[] args = new Object[variables.size()];
-            for(int i = 0; i < constraint.getVariableArraySet().size(); i++) {
+            for(int i = 0; i < constraint.getVariableNames().size(); i++) {
                 int varIndex = varNameToIndex.get(variables.get(i));
                 args[i] = vars.get(varIndex).packageGetDomain().getFirst(domains[varIndex]);
             }
@@ -204,11 +207,27 @@ public class ConstraintSatisfaction<T> {
 
     private List<Revise> getRevisesForConstraint(Constraint c, String toSkip) {
         List<Revise> toReturn = new ArrayList<>();
-        for (String varName : c.getVariableArraySet()) {
+        for (String varName : c.getVariableNames()) {
             if (varName.equals(toSkip)) continue;
             toReturn.add(new Revise(varNameToIndex.get(varName), c));
         }
         return toReturn;
+    }
+
+    private int getViolatedConstraintCount(BitSet[] domains) {
+        int violatedConstraints = 0;
+        for (Constraint constraint : constraints) {
+            boolean satisfied = false;
+            List<String> varNames = constraint.getVariableNames();
+            int varGlobalIndex = varNameToIndex.get(varNames.get(0));
+            Variable<T> var = vars.get(varGlobalIndex);
+            for (Iterator<T> iterator = var.packageGetDomain().iterator(domains[varGlobalIndex]); iterator.hasNext(); ) {
+                T val = iterator.next();
+                satisfied = satisfied || evaluateAllCombinations(constraint, var, varGlobalIndex, val, domains);
+            }
+            if (!satisfied) violatedConstraints++;
+        }
+        return violatedConstraints;
     }
 
 }

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alfredvc on 8/27/2015.
+ * Used in SearchAlgorithm, used only to keep ancestor-descendant relationships. Delegates
+ * all operations to the containing State.
+ * @param <T> the type of State that it contains.
  */
 public final class Node<T extends State> {
     private final T state;
@@ -71,6 +73,10 @@ public final class Node<T extends State> {
         this.children.add(child);
     }
 
+    /**
+     * New F value is calculated whenever called
+     * @return calculated value for f
+     */
     public int getF() {
         calculateF();
         return f;
@@ -93,6 +99,12 @@ public final class Node<T extends State> {
         return this.state.hashCode();
     }
 
+    /**
+     * Nodes can be equal to other equivalent nodes, and also be equal to States equivalent to its
+     * containing state
+     * @param obj the object to be compared
+     * @return whether or not the objects are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -107,6 +119,10 @@ public final class Node<T extends State> {
         return false;
     }
 
+    /**
+     * Adds a listener that is notified whenever the value of F changes
+     * @param listener
+     */
     public void addFChangedListener(FChangeListener listener) {
         if (fChangeListeners == null) {
             fChangeListeners = new ArrayList<>();
@@ -134,6 +150,10 @@ public final class Node<T extends State> {
         return state.toString();
     }
 
+    /**
+     * Interface to be implemented by classes that must be notified that the F value of the node
+     * has changed
+     */
     public interface FChangeListener {
         void fChanged(Node node);
     }

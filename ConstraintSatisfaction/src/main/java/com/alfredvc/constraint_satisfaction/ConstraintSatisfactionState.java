@@ -32,7 +32,7 @@ class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T
     public int getH() {
         int count = 0;
         for (BitSet bitSet : bitSets) {
-            if (bitSet.cardinality() < 1) throw new IllegalStateException("No illegal states should be allowed");
+            //if (bitSet.cardinality() < 1) throw new IllegalStateException("No illegal states should be allowed");
             count += bitSet.cardinality() - 1;
         }
         return count;

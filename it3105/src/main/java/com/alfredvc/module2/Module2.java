@@ -2,7 +2,6 @@ package com.alfredvc.module2;
 
 import com.alfredvc.FunctionParser;
 import com.alfredvc.ParsedFunction;
-import com.alfredvc.constraint_satisfaction.ArrayWithView;
 import com.alfredvc.constraint_satisfaction.Constraint;
 import com.alfredvc.constraint_satisfaction.ConstraintSatisfaction;
 import com.alfredvc.constraint_satisfaction.ConstraintSatisfactionResult;
@@ -34,8 +33,11 @@ public class Module2 {
     JFrame frame;
     JPanel container;
     GraphController graphController;
-    JLabel nodeCount;
+    JLabel generatedNodes;
     JLabel solutionLength;
+    JLabel violatedConstraints;
+    JLabel verticesWithoutColor;
+    JLabel poppedNodes;
     JLabel colorSetSizeLabel;
     JTextField refreshPeriod;
 
@@ -126,25 +128,67 @@ public class Module2 {
         c.gridy = 4;
         panel1.add(nodeCountLabel, c);
 
-        nodeCount = new JLabel("0");
+        generatedNodes = new JLabel("0");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 2;
         c.gridy = 4;
-        panel1.add(nodeCount, c);
+        panel1.add(generatedNodes, c);
+
+        JLabel violatedConstraintsLabel = new JLabel("Violated constraints: ");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 5;
+        panel1.add(violatedConstraintsLabel, c);
+
+        violatedConstraints = new JLabel("0");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 2;
+        c.gridy = 5;
+        panel1.add(violatedConstraints, c);
+
+        JLabel verticesWithoutColorLabel = new JLabel("Vertices without color: ");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 6;
+        panel1.add(verticesWithoutColorLabel, c);
+
+        verticesWithoutColor = new JLabel("0");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 2;
+        c.gridy = 6;
+        panel1.add(verticesWithoutColor, c);
+
+        JLabel poppedNodesLabel = new JLabel("Popped nodes: ");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 7;
+        panel1.add(poppedNodesLabel, c);
+
+        poppedNodes = new JLabel("0");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 2;
+        c.gridy = 7;
+        panel1.add(poppedNodes, c);
 
         JLabel refreshPeriodLabel = new JLabel("Refresh period(ms):");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 8;
         panel1.add(refreshPeriodLabel, c);
 
         refreshPeriod = new JTextField("25");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 2;
-        c.gridy = 5;
+        c.gridy = 8;
         panel1.add(refreshPeriod, c);
 
         placeholderGraph = new JPanel();
@@ -164,7 +208,7 @@ public class Module2 {
     private void reset() {
         if (graph2D != null) graph2D.setVisible(false);
         if (placeholderGraph != null) placeholderGraph.setVisible(true);
-        nodeCount.setText("0");
+        generatedNodes.setText("0");
         solutionLength.setText("0");
         graphController.cancelNow();
     }
@@ -201,8 +245,15 @@ public class Module2 {
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables());
         constraintSatisfaction.addCurrentVariableDomainChangeListener(graphController);
         graphController.run(graph2D, Integer.parseInt(refreshPeriod.getText()));
-        ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
-        graphController.cancelWhenFinished();
+        new Thread(() -> {
+            ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
+            graphController.cancelWhenFinished();
+            solutionLength.setText(result.getSolutionLength() + "");
+            generatedNodes.setText(result.generatedNodes() + "");
+            violatedConstraints.setText(result.getViolatedConstraints() + "");
+            verticesWithoutColor.setText(result.getVariablesWithDomainNotEqualToOne() + "");
+            poppedNodes.setText(result.getNodesPoppedFromTheAgenda() + "");
+        }).start();
     }
 
     private void run() {
@@ -231,17 +282,16 @@ public class Module2 {
         List<Constraint> constraints = new ArrayList<>(edges);
         List<Variable<Integer>> variables = new ArrayList<>(vertices);
 
-        Integer[] domain = new Integer[colorSetSize];
+        List<Integer> domain = new ArrayList<>(colorSetSize);
         for (int i = 0; i < colorSetSize; i++) {
-            domain[i] = i + 1;
+            domain.add(i+1);
         }
 
-        ArrayWithView<Integer> domainArray = new ArrayWithView<>(domain);
 
         for (int i = 1; i < vertices + 1; i++) {
             String[] line = inputLines[i].split("\\s");
             points.add(new DoublePoint(Double.parseDouble(line[1]), Double.parseDouble(line[2])));
-            variables.add(new Variable<>(line[0], domainArray));
+            variables.add(new Variable<>(line[0], domain));
         }
 
         for (int i = vertices + 1; i < vertices + edges + 1; i++) {
@@ -358,7 +408,8 @@ public class Module2 {
                     for (int i = 0; i < solutionToDraw.length; i++) {
                         if (solutionToDraw[i].cardinality() == 1) {
                             Variable<Integer> toDraw = vars.get(i);
-                            this.graph2D.setPointColor(Integer.parseInt(toDraw.getName()), toDraw.getDomain().getFirst(solutionToDraw[i]));
+                            int indexToDraw = solutionToDraw[i].stream().findFirst().getAsInt();
+                            this.graph2D.setPointColor(Integer.parseInt(toDraw.getName()), toDraw.getDomain().get(indexToDraw));
                         }
                     }
                     this.graph2D.repaint();

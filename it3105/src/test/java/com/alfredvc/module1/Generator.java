@@ -1,3 +1,5 @@
+package com.alfredvc.module1;
+
 import org.junit.Ignore;
 import org.junit.Test;
 

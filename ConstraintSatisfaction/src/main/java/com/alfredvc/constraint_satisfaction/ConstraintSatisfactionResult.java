@@ -13,21 +13,29 @@ import search_algorithm.SearchAlgorithmResult;
  */
 public class ConstraintSatisfactionResult<T> {
     private final Map<String, Variable<T>> variables;
+    private final int violatedConstraints;
+    private final int variablesWithDomainNotEqualToOne;
+    private final int generatedNodes;
+    private final int nodesPoppedFromTheAgenda;
+    private final int solutionLength;
 
     public final Status status;
-
-    public ConstraintSatisfactionResult(List<Variable<T>> vars, BitSet[] bitSets, Status status) {
+    public ConstraintSatisfactionResult(List<Variable<T>> vars, BitSet[] bitSets,
+                                        SearchAlgorithmResult<ConstraintSatisfactionState<T>> searchAlgorithmResult, int violatedConstraints) {
         variables = new HashMap<>();
         for (int i = 0; i < vars.size(); i++) {
             Variable<T> toAdd = new Variable<>(vars.get(i));
             toAdd.packageGetDomain().setView(bitSets[i]);
             variables.put(vars.get(i).getName(), toAdd);
         }
-        this.status = status;
-    }
-
-    public ConstraintSatisfactionResult(List<Variable<T>> vars, BitSet[] bitSets, SearchAlgorithmResult<ConstraintSatisfactionState<T>> searchAlgorithmResult) {
-        this(vars, bitSets, Status.valueOf(searchAlgorithmResult.getStatus().name()));
+        this.status = Status.valueOf(searchAlgorithmResult.getStatus().name());
+        this.violatedConstraints = violatedConstraints;
+        this.generatedNodes = searchAlgorithmResult.getGeneratedNodes();
+        this.solutionLength = searchAlgorithmResult.getSolutionLength();
+        this.nodesPoppedFromTheAgenda = searchAlgorithmResult.getPoppedNodes();
+        int variablesWithDomainNotEqualToOne = 0;
+        for (BitSet bitSet : bitSets) if (bitSet.cardinality() != 1) variablesWithDomainNotEqualToOne++;
+        this.variablesWithDomainNotEqualToOne = variablesWithDomainNotEqualToOne;
     }
 
 
@@ -38,6 +46,26 @@ public class ConstraintSatisfactionResult<T> {
 
     public Map<String, Variable<T>> getVariables() {
         return variables;
+    }
+
+    public int getViolatedConstraints() {
+        return violatedConstraints;
+    }
+
+    public int getVariablesWithDomainNotEqualToOne() {
+        return variablesWithDomainNotEqualToOne;
+    }
+
+    public int generatedNodes() {
+        return generatedNodes;
+    }
+
+    public int getNodesPoppedFromTheAgenda() {
+        return nodesPoppedFromTheAgenda;
+    }
+
+    public int getSolutionLength() {
+        return solutionLength;
     }
 
     @Override
