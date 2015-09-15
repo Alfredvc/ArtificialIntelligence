@@ -1,5 +1,11 @@
 package com.alfredvc.constraint_satisfaction;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 /**
  * Created by Alfredvc on 9/5/2015.
  */
@@ -12,17 +18,29 @@ public class Variable<T> implements Comparable<Variable<T>> {
      * @param name
      * @param domain
      */
-    public Variable(String name, ArrayWithView<T> domain) {
+    Variable(String name, ArrayWithView<T> domain) {
         this.name = name;
         this.domain = new ArrayWithView<>(domain);
+    }
+
+    public Variable(String name, List<T> domain) {
+        this(name, new ArrayWithView<>(domain.toArray((T[])new Object[0])));
     }
 
     public Variable(Variable<T> other) {
         this(other.name, other.domain);
     }
 
-    public ArrayWithView<T> getDomain() {
+    ArrayWithView<T> packageGetDomain() {
         return domain;
+    }
+
+    /**
+     * Returns an unmodifiable list containing the current domain.
+     * @return the current domain
+     */
+    public List<T> getDomain() {
+        return Collections.unmodifiableList(domain.stream().collect(Collectors.toList()));
     }
 
     public String getName() {
@@ -42,11 +60,6 @@ public class Variable<T> implements Comparable<Variable<T>> {
         return this.name.equals(v.name) && this.domain.equals(v.domain);
     }
 
-    /**
-     * Not tested for uniqueness
-     *
-     * @return
-     */
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;

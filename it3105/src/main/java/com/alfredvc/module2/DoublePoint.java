@@ -5,7 +5,7 @@ package com.alfredvc.module2;
  */
 public class DoublePoint {
 
-    public static final int DIAMETER = 10;
+    public static final int DIAMETER = 15;
 
     private final double x;
     private final double y;

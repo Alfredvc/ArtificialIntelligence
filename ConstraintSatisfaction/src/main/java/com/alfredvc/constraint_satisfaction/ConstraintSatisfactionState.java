@@ -3,20 +3,14 @@ package com.alfredvc.constraint_satisfaction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import search_algorithm.State;
 
 /**
  * Created by Alfredvc on 9/7/2015.
  */
-public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T>> {
+class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T>> {
 
     private final BitSet[] bitSets;
 
@@ -32,9 +26,7 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
     }
 
     /**
-     * Returns the amount of assumptions needed to reach a state in which all variables have a
-     * domain of a single value if not variables have an empty domain. If any variable has an empty
-     * domain then H_FOR_ILLEGAL_STATES is returned;
+     * Returns the sum of the size of each domain minus one.
      */
     @Override
     public int getH() {
@@ -54,31 +46,10 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
         return constraintSatisfaction.fulfillsAllConstrains(bitSets);
     }
 
-//    @Override
-//    public List<ConstraintSatisfactionState<T>> generateSuccessors() {
-//        List<ConstraintSatisfactionState<T>> successors = new ArrayList<>();
-//        for (int i = 0; i < bitSets.length; i++) {
-//            BitSet currentBitSet = bitSets[i];
-//            int lastFromIndex = -1;
-//            for (int a = 0; a < currentBitSet.cardinality(); a++) {
-//                BitSet[] successorBitSets = cloneBitSetArray(bitSets);
-//                lastFromIndex = currentBitSet.nextSetBit(lastFromIndex + 1);
-//                successorBitSets[i].clear();
-//                successorBitSets[i].set(lastFromIndex);
-//                constraintSatisfaction.filterDomain(successorBitSets);
-//                //Only create states for legal states.
-//                if (isLegalState(successorBitSets)) {
-//                    successors.add(new ConstraintSatisfactionState<>(successorBitSets, constraintSatisfaction));
-//                }
-//            }
-//        }
-//        return successors;
-//    }
-
     @Override
     public List<ConstraintSatisfactionState<T>> generateSuccessors() {
         List<ConstraintSatisfactionState<T>> successors = new ArrayList<>();
-        int i = getFirstWitNotOne(bitSets);
+        int i = getFirstDomainLargerThanOne(bitSets);
         if (i >= bitSets.length) return successors;
         BitSet currentBitSet = bitSets[i];
         int lastFromIndex = -1;
@@ -149,7 +120,7 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
         return true;
     }
 
-    private int getFirstWitNotOne(BitSet[] bs) {
+    private int getFirstDomainLargerThanOne(BitSet[] bs) {
         for (int i = 0; i < bs.length; i++) {
             if (bs[i].cardinality() != 1) {
                 return i;

@@ -1,13 +1,15 @@
 package com.alfredvc.constraint_satisfaction;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * Created by Alfredvc on 9/5/2015.
+ * Used to queue revise requests.
  */
-public class Revise {
+class Revise {
+    /**
+     * The global index of the variable to be revised
+     */
     private final int varIndex;
+
     private final Constraint constraint;
 
     public Revise(int varIndex, Constraint constraint) {

@@ -5,9 +5,7 @@ import com.alfredvc.FunctionParser;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -33,17 +31,17 @@ public class ConstraintSatisfactionTest {
         Variable<Integer> y = new Variable<>("y", new ArrayWithView<>(set2));
         Variable<Integer> z = new Variable<>("z", new ArrayWithView<>(set3));
         Constraint c1 = new Constraint(FunctionParser.fromString("boolean(Integer x,y)-> x > y"));
-        Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
+        Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer z,y,x)-> x + y > z"));
 
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2),Arrays.asList(x, y, z));
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
 
-        assertThat(result.getVariables().get("x").getDomain().size(), is(1));
-        assertThat(result.getVariables().get("x").getDomain().getFirst(), is(expectedX));
-        assertThat(result.getVariables().get("y").getDomain().size(), is(1));
-        assertThat(result.getVariables().get("y").getDomain().getFirst(), is(expectedY));
-        assertThat(result.getVariables().get("z").getDomain().size(), is(1));
-        assertThat(result.getVariables().get("z").getDomain().getFirst(), is(expectedZ));
+        assertThat(result.getVariables().get("x").packageGetDomain().size(), is(1));
+        assertThat(result.getVariables().get("x").packageGetDomain().getFirst(), is(expectedX));
+        assertThat(result.getVariables().get("y").packageGetDomain().size(), is(1));
+        assertThat(result.getVariables().get("y").packageGetDomain().getFirst(), is(expectedY));
+        assertThat(result.getVariables().get("z").packageGetDomain().size(), is(1));
+        assertThat(result.getVariables().get("z").packageGetDomain().getFirst(), is(expectedZ));
     }
 
     @Test
@@ -59,22 +57,22 @@ public class ConstraintSatisfactionTest {
         Variable<Integer> y = new Variable<>("y", new ArrayWithView<>(set2));
         Variable<Integer> z = new Variable<>("z", new ArrayWithView<>(set3));
         Constraint c1 = new Constraint(FunctionParser.fromString("boolean(Integer x,y)-> x > y"));
-        Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer x,y,z)-> x + y > z"));
+        Constraint c2 = new Constraint(FunctionParser.fromString("boolean(Integer y,x,z)-> x + y > z"));
 
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2), Arrays.asList(x, y, z));
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
 
-        assertThat(result.getVariables().get("x").getDomain().size(), is(1));
-        assertThat(result.getVariables().get("y").getDomain().size(), is(1));
-        assertThat(result.getVariables().get("z").getDomain().size(), is(1));
+        assertThat(result.getVariables().get("x").packageGetDomain().size(), is(1));
+        assertThat(result.getVariables().get("y").packageGetDomain().size(), is(1));
+        assertThat(result.getVariables().get("z").packageGetDomain().size(), is(1));
 
         Object[] args1 = new Object[2];
-        args1[0] = result.getVariables().get("x").getDomain().getFirst();
-        args1[1] = result.getVariables().get("y").getDomain().getFirst();
+        args1[0] = result.getVariables().get("x").packageGetDomain().getFirst();
+        args1[1] = result.getVariables().get("y").packageGetDomain().getFirst();
         Object[] args2 = new Object[3];
-        args2[0] = result.getVariables().get("x").getDomain().getFirst();
-        args2[1] = result.getVariables().get("y").getDomain().getFirst();
-        args2[2] = result.getVariables().get("z").getDomain().getFirst();
+        args2[0] = result.getVariables().get("x").packageGetDomain().getFirst();
+        args2[1] = result.getVariables().get("y").packageGetDomain().getFirst();
+        args2[2] = result.getVariables().get("z").packageGetDomain().getFirst();
 
         assertThat(c1.evaluate(args1), is(true));
         assertThat(c2.evaluate(args2), is(true));

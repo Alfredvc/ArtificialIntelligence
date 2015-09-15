@@ -7,9 +7,12 @@ import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 /**
- * Created by erpa_ on 9/13/2015.
+ * Contains an array that can be iterated over with a given view. A view is a BitSet
+ * representing which of the elements in the list should be shown. Elements cannot be added
+ * to this collection, elements can only be removed from the views.
+ * @param <T> the type of object to contained.
  */
-public class ArrayWithView<T> implements Iterable<T>{
+class ArrayWithView<T> implements Iterable<T>{
 
     private T[] list;
     private BitSet inView;

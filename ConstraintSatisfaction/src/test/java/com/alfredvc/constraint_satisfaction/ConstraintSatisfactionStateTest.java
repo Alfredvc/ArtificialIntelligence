@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ConstraintSatisfactionStateTest {
         Variable<Integer> x = new Variable<>("x", new ArrayWithView<>(set1));
         Variable<Integer> y = new Variable<>("y", new ArrayWithView<>(set2));
         Variable<Integer> z = new Variable<>("z", new ArrayWithView<>(set3));
-        ArraySet<Variable<Integer>> variables = new ArraySet<>();
+        ArrayList<Variable<Integer>> variables = new ArrayList<>();
         variables.add(x);
         variables.add(y);
         variables.add(z);
@@ -57,7 +58,7 @@ public class ConstraintSatisfactionStateTest {
         Variable<Integer> x = new Variable<>("x", new ArrayWithView<>(set1));
         Variable<Integer> y = new Variable<>("y", new ArrayWithView<>(set2));
         Variable<Integer> z = new Variable<>("z", new ArrayWithView<>(set3));
-        ArraySet<Variable<Integer>> variables = new ArraySet<>();
+        ArrayList<Variable<Integer>> variables = new ArrayList<>();
         variables.add(x);
         variables.add(y);
         variables.add(z);
@@ -71,7 +72,7 @@ public class ConstraintSatisfactionStateTest {
     private <T> BitSet[] bitSetFromVariables(List<Variable<T>> variables) {
         BitSet[] toReturn = new BitSet[variables.size()];
         for (int i = 0; i < variables.size(); i++) {
-            toReturn[i] = variables.get(i).getDomain().getBitSet();
+            toReturn[i] = variables.get(i).packageGetDomain().getBitSet();
         }
         return toReturn;
     }
