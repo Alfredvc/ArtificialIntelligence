@@ -1,17 +1,13 @@
 package com.alfredvc.constraint_satisfaction;
 
 import org.junit.Before;
+
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -29,7 +25,7 @@ public class ConstraintSatisfactionStateTest {
 
     @Test
     public void testGenerationOfSuccessors(){
-        int expectedSuccessorCount = 4 + 6 + 4;
+        int expectedSuccessorCount = 4;
         Integer[] set1 = new Integer[4];
         for (int i = 1; i < 5; i++) set1[i-1] = i;
         Integer[] set2 = new Integer[6];

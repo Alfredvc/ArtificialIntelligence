@@ -1,6 +1,5 @@
 package com.alfredvc.constraint_satisfaction;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Iterator;
@@ -29,9 +28,7 @@ public class ArrayWithView<T> implements Iterable<T>{
     }
 
     public ArrayWithView(T[] list) {
-        this.list = list;
-        this.inView = new BitSet(list.length);
-        this.inView.set(0, list.length, true);
+        this(list, getNewTrueBitset(list.length));
     }
 
     public void setView(BitSet newView) {
@@ -117,6 +114,10 @@ public class ArrayWithView<T> implements Iterable<T>{
         return this.it.setView(view);
     }
 
+    public Iterator<T> cycleIterator() {
+        return this.cycleIterator(inView);
+    }
+
     public Iterator<T> cycleIterator(BitSet view) {
         return this.cycleIt.setView(view);
     }
@@ -145,7 +146,9 @@ public class ArrayWithView<T> implements Iterable<T>{
 
         @Override
         public T next() {
-            if (!innerIterator.hasNext()) innerIterator = arrayWithView.iterator(view);
+            if (!innerIterator.hasNext()) {
+                innerIterator = arrayWithView.iterator(view);
+            }
             return innerIterator.next();
         }
 
@@ -193,6 +196,12 @@ public class ArrayWithView<T> implements Iterable<T>{
         public void remove() {
             this.bitSet.set(currentIndex, false);
         }
+    }
+
+    private static BitSet getNewTrueBitset(int i) {
+        BitSet toReturn = new BitSet(i);
+        toReturn.set(0, i, true);
+        return toReturn;
     }
 
 }
