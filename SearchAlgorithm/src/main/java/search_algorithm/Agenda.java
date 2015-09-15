@@ -8,31 +8,29 @@ import java.util.Map;
  */
 public abstract class Agenda {
 
-    private Map<Integer, Node> currentNodes;
+    private Map<Node, Node> currentNodes;
 
     protected Agenda() {
         this.currentNodes = new HashMap<>();
     }
 
     public boolean contains(Node node) {
-        boolean containsKey = currentNodes.containsKey(node.hashCode());
-        if (containsKey) {
-            if (!node.equals(currentNodes.get(node.hashCode()))) {
-                //throw new IllegalStateException("Different nodes have same hash code.");
-            }
-        }
-        return containsKey;
+        return currentNodes.containsKey(node);
     }
 
     public Node pop() {
         Node toReturn = internalGet();
-        currentNodes.remove(toReturn.hashCode());
+        currentNodes.remove(toReturn);
         return toReturn;
     }
 
     public void add(Node node) {
-        currentNodes.put(node.hashCode(), node);
+        currentNodes.put(node, node);
         internalAdd(node);
+    }
+
+    public int size() {
+        return currentNodes.size();
     }
 
     protected abstract void internalAdd(Node node);

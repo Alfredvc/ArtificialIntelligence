@@ -1,9 +1,9 @@
 package com.alfredvc.constraint_satisfaction;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
@@ -14,10 +14,14 @@ public class ArrayWithView<T> implements Iterable<T>{
 
     private T[] list;
     private BitSet inView;
+    private ArrayListWithViewIterator<T> it;
+    private ArrayListWithViewCycleIterator<T> cycleIt;
 
     public ArrayWithView(T[] list, BitSet inView) {
         this.list = list;
         this.inView = inView;
+        this.it = new ArrayListWithViewIterator<>(list, inView);
+        this.cycleIt = new ArrayListWithViewCycleIterator<>(this, inView);
     }
 
     public ArrayWithView(ArrayWithView<T> other) {
@@ -44,6 +48,10 @@ public class ArrayWithView<T> implements Iterable<T>{
 
     public T getFirst(){
         return list[inView.nextSetBit(0)];
+    }
+
+    public T getFirst(BitSet view){
+        return list[view.nextSetBit(0)];
     }
 
     public BitSet getBitSet() {
@@ -102,36 +110,88 @@ public class ArrayWithView<T> implements Iterable<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return new ArrayListWithViewIterator<>(list, inView);
+        return this.it.setView(this.inView);
+    }
+
+    public Iterator<T> iterator(BitSet view) {
+        return this.it.setView(view);
+    }
+
+    public Iterator<T> cycleIterator(BitSet view) {
+        return this.cycleIt.setView(view);
+    }
+
+    private class ArrayListWithViewCycleIterator<T> extends ArrayListWithViewIterator<T> {
+        private ArrayWithView<T> arrayWithView;
+        private Iterator<T> innerIterator;
+        private BitSet view;
+
+        public ArrayListWithViewCycleIterator(ArrayWithView<T> arrayWithView, BitSet view) {
+            this.arrayWithView = arrayWithView;
+            this.innerIterator = arrayWithView.iterator(view);
+            this.view = view;
+        }
+
+        private ArrayListWithViewIterator<T> setView(BitSet view){
+            this.view = view;
+            this.innerIterator = arrayWithView.iterator(view);
+            return this;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return true;
+        }
+
+        @Override
+        public T next() {
+            if (!innerIterator.hasNext()) innerIterator = arrayWithView.iterator(view);
+            return innerIterator.next();
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
 
     private class ArrayListWithViewIterator<T> implements Iterator<T> {
 
         private int currentIndex;
         private T[] array;
-        private BitSet inView;
+        private Iterator<Integer> viewIterator;
+        private BitSet bitSet;
 
-        public ArrayListWithViewIterator(T[] array, BitSet inView) {
+        ArrayListWithViewIterator(){
+
+        }
+
+        public ArrayListWithViewIterator(T[] array, BitSet bitSet) {
             this.array = array;
-            this.currentIndex = -1;
-            this.inView = inView;
+            this.bitSet = bitSet;
+            this.viewIterator = bitSet.stream().iterator();
+        }
+
+        private ArrayListWithViewIterator<T> setView(BitSet view) {
+            this.bitSet = view;
+            this.viewIterator = bitSet.stream().iterator();
+            return this;
         }
 
         @Override
         public boolean hasNext() {
-            return currentIndex + 1 < array.length && inView.nextSetBit(currentIndex + 1) != -1;
+            return viewIterator.hasNext();
         }
 
         @Override
         public T next() {
-            if (!hasNext())throw new NoSuchElementException();
-            currentIndex = inView.nextSetBit(currentIndex + 1);
+            currentIndex = viewIterator.next();
             return array[currentIndex];
         }
 
         @Override
         public void remove() {
-            inView.set(currentIndex, false);
+            this.bitSet.set(currentIndex, false);
         }
     }
 

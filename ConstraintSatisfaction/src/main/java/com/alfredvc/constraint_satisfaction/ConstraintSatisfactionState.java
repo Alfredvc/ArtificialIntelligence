@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import search_algorithm.State;
 
@@ -14,15 +18,17 @@ import search_algorithm.State;
  */
 public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T>> {
 
-    public static final int H_FOR_ILLEGAL_STATES = Integer.MAX_VALUE - 100000000;
+    private final BitSet[] bitSets;
 
-    private Map<String, BitSet> varMap;
+    private ConstraintSatisfaction constraintSatisfaction;
 
-    public ConstraintSatisfactionState(Map<String,Variable<T>> vars) {
-        this.varMap = new HashMap<>();
-        for (Map.Entry<String, Variable<T>> e : vars.entrySet()) {
-            varMap.put(e.getKey(), e.getValue().getDomain().getBitSet());
-        }
+    public ConstraintSatisfactionState(BitSet[] bitSets, ConstraintSatisfaction constraintSatisfaction) {
+        this.bitSets = bitSets;
+        this.constraintSatisfaction = constraintSatisfaction;
+    }
+
+    public BitSet[] getBitSets() {
+        return bitSets;
     }
 
     /**
@@ -33,32 +39,58 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
     @Override
     public int getH() {
         int count = 0;
-        for (BitSet bitSet : varMap.values()) {
-            if (bitSet.cardinality() == 0) return H_FOR_ILLEGAL_STATES;
-            if (bitSet.cardinality() > 1) count++;
+        for (BitSet bitSet : bitSets) {
+            if (bitSet.cardinality() < 1) throw new IllegalStateException("No illegal states should be allowed");
+            count += bitSet.cardinality() - 1;
         }
         return count;
     }
 
     @Override
     public boolean isASolution() {
-        return varMap.values().stream().allMatch(v -> v.cardinality() == 1);
+        for (BitSet bitSet : bitSets) {
+            if (bitSet.cardinality() != 1) return false;
+        }
+        return constraintSatisfaction.fulfillsAllConstrains(bitSets);
     }
+
+//    @Override
+//    public List<ConstraintSatisfactionState<T>> generateSuccessors() {
+//        List<ConstraintSatisfactionState<T>> successors = new ArrayList<>();
+//        for (int i = 0; i < bitSets.length; i++) {
+//            BitSet currentBitSet = bitSets[i];
+//            int lastFromIndex = -1;
+//            for (int a = 0; a < currentBitSet.cardinality(); a++) {
+//                BitSet[] successorBitSets = cloneBitSetArray(bitSets);
+//                lastFromIndex = currentBitSet.nextSetBit(lastFromIndex + 1);
+//                successorBitSets[i].clear();
+//                successorBitSets[i].set(lastFromIndex);
+//                constraintSatisfaction.filterDomain(successorBitSets);
+//                //Only create states for legal states.
+//                if (isLegalState(successorBitSets)) {
+//                    successors.add(new ConstraintSatisfactionState<>(successorBitSets, constraintSatisfaction));
+//                }
+//            }
+//        }
+//        return successors;
+//    }
 
     @Override
     public List<ConstraintSatisfactionState<T>> generateSuccessors() {
         List<ConstraintSatisfactionState<T>> successors = new ArrayList<>();
-        for (Variable<T> var : variables) {
-            for (int i = 0; i < var.getDomain().size(); i++) {
-                ArraySet<Variable<T>> vars = new ArraySet<>();
-                for (int a = 0; a < variables.size(); a++) {
-                    if (a == i) continue;
-                    vars.add(new Variable<>(variables.get(a)));
-                }
-                Variable<T> toAdd = new Variable<>(var);
-                toAdd.getDomain().removeAllExept(i);
-                vars.add(toAdd);
-                successors.add(new ConstraintSatisfactionState<>(vars));
+        int i = getFirstWitNotOne(bitSets);
+        if (i >= bitSets.length) return successors;
+        BitSet currentBitSet = bitSets[i];
+        int lastFromIndex = -1;
+        for (int a = 0; a < currentBitSet.cardinality(); a++) {
+            BitSet[] successorBitSets = cloneBitSetArray(bitSets);
+            lastFromIndex = currentBitSet.nextSetBit(lastFromIndex + 1);
+            successorBitSets[i].clear();
+            successorBitSets[i].set(lastFromIndex);
+            constraintSatisfaction.filterDomain(successorBitSets);
+            //Only create states for legal states.
+            if (isLegalState(successorBitSets)) {
+                successors.add(new ConstraintSatisfactionState<>(successorBitSets, constraintSatisfaction));
             }
         }
         return successors;
@@ -74,35 +106,55 @@ public class ConstraintSatisfactionState<T> extends State<ConstraintSatisfaction
      */
     @Override
     public int getCostFrom(ConstraintSatisfactionState<T> state) {
-        int thisVarsWithSingleDomain = (int) variables.stream().filter(v -> v.getDomain().size() == 1).count();
-        int stateVarsWithSingleDomain = (int) state.variables.stream().filter(v -> v.getDomain().size() == 1).count();
+        int thisVarsWithSingleDomain = (int) Arrays.stream(this.bitSets).filter(v -> v.cardinality() == 1).count();
+        int stateVarsWithSingleDomain = (int) Arrays.stream(state.bitSets).filter(v -> v.cardinality() == 1).count();
         return Math.abs(thisVarsWithSingleDomain - stateVarsWithSingleDomain);
     }
 
     @Override
     public int hashCode() {
-        return variables.hashCode();
+        int hashCode = 31;
+        for (BitSet b : bitSets) {
+            hashCode += b.hashCode() * 31;
+        }
+        return hashCode;
     }
-
-    /**
-     * Assumes the variables arrays are in the same order, this should be the case as this class
-     * uses an ArraySet to store the variables.
-     * @param obj
-     * @return
-     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (!(obj instanceof ConstraintSatisfactionState)) return false;
         ConstraintSatisfactionState<T> other = ((ConstraintSatisfactionState) obj);
-        if (this.variables.size() != other.variables.size()) return false;
-        return Arrays.equals(this.variables.toArray(), other.variables.toArray());
+        return Arrays.equals(this.bitSets, other.bitSets);
     }
 
     @Override
     public String toString() {
         return "ConstraintSatisfactionState{" +
-                "variables=" + Arrays.toString(variables.toArray()) +
+                "variables=" + Arrays.toString(bitSets) +
                 '}';
+    }
+
+    private BitSet[] cloneBitSetArray(BitSet[] bs) {
+        BitSet[] toReturn = new BitSet[bs.length];
+        for (int i = 0; i < bs.length; i++) {
+            toReturn[i] = (BitSet) bs[i].clone();
+        }
+        return toReturn;
+    }
+
+    private boolean isLegalState(BitSet[] bs) {
+        for (BitSet b : bs) {
+            if (b.cardinality() < 1) return false;
+        }
+        return true;
+    }
+
+    private int getFirstWitNotOne(BitSet[] bs) {
+        for (int i = 0; i < bs.length; i++) {
+            if (bs[i].cardinality() != 1) {
+                return i;
+            }
+        }
+        return bitSets.length;
     }
 }

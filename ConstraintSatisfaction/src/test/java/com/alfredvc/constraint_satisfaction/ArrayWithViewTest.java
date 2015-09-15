@@ -16,7 +16,7 @@ public class ArrayWithViewTest {
     @Test
     public void removeElements(){
         Integer[] list = {0,1,2,3,4,5,6,7,8,9};
-        Integer[] expectedList = {0,2,4,6,8};
+        Integer[] expectedList = {1,3,5,7,9};
         ArrayWithView<Integer> array = new ArrayWithView<>(list);
         for (Iterator<Integer> iterator = array.iterator(); iterator.hasNext(); ) {
             Integer i = iterator.next();
@@ -24,7 +24,7 @@ public class ArrayWithViewTest {
         }
         int a = 0;
         for (Integer i : array) {
-            assertThat(list[a], is(i));
+            assertThat(expectedList[a], is(i));
             a++;
         }
 

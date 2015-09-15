@@ -14,10 +14,11 @@ import java.util.Map;
  */
 public abstract class SearchAlgorithm<T extends State> {
     private final int maxNodes;
-    private Map<Integer, Node<T>> closedNodes;
+    private Map<Node<T>, Node<T>> closedNodes;
     private Agenda agenda;
-    private Map<Integer, Node<T>> generatedStates;
+    private Map<Node<T>, Node<T>> generatedStates;
     private int generatedNodes;
+    private int repeatedNodes;
     private List<NodePopListener<T>> nodePopListeners;
     private List<NodePrePushListener<T>> nodePrePushListeners;
 
@@ -33,17 +34,21 @@ public abstract class SearchAlgorithm<T extends State> {
         this.closedNodes = new HashMap<>();
         this.generatedStates = new HashMap<>();
         this.generatedNodes = 0;
+        this.repeatedNodes = 0;
         this.nodePopListeners = new ArrayList<>();
         this.nodePrePushListeners = new ArrayList<>();
     }
 
     public SearchAlgorithmResult search() {
         Node<T> currentParent = null;
+        int counter = 0;
         while (generatedNodes < maxNodes) {
             if (agenda == null || agenda.isEmpty()) {
                 return SearchAlgorithmResult.failed(currentParent, generatedNodes);
             }
+            counter++;
             currentParent = agenda.pop();
+            System.out.println("Generated " + generatedNodes + " , nodes in the agenda " + agenda.size() +", repeated nodes " + repeatedNodes);
             fireNodePopped(currentParent);
             closeNode(currentParent);
             if (currentParent.isASolution()) {
@@ -52,8 +57,8 @@ public abstract class SearchAlgorithm<T extends State> {
             List<T> successorStates = currentParent.generateSuccessors();
             for (T state : successorStates) {
                 Node<T> currentSuccessor;
-                if (generatedStates.containsKey(state.hashCode())) {
-                    currentSuccessor = generatedStates.get(state.hashCode());
+                if (generatedStates.containsKey(state)) {
+                    currentSuccessor = generatedStates.get(state);
                 } else {
                     currentSuccessor = new Node<>(state, currentParent.getG() + state.getArcCost());
                     generatedNodes++;
@@ -67,7 +72,7 @@ public abstract class SearchAlgorithm<T extends State> {
                 } else if (currentParent.getG() + currentSuccessor.getArcCost() < currentSuccessor.getG()) {
                     System.out.println("a");
                     attachAndEval(currentSuccessor, currentParent);
-                    if (closedNodes.containsKey(currentSuccessor.hashCode())) {
+                    if (closedNodes.containsKey(currentSuccessor)) {
                         propagatePathImprovements(currentSuccessor);
                     }
                 }
@@ -78,13 +83,12 @@ public abstract class SearchAlgorithm<T extends State> {
     }
 
     private boolean openOrClosed(Node<T> node) {
-        boolean inClosedNodes = closedNodes.containsKey(node.hashCode());
-        if (inClosedNodes) {
-            if (!node.equals(closedNodes.get(node.hashCode()))) {
-                throw new IllegalStateException("Different nodes have same hash key");
-            }
+        boolean isOpen = agenda.contains(node);
+        boolean isClosed = closedNodes.containsKey(node);
+        if (isOpen || isClosed) {
+            repeatedNodes++;
         }
-        return (agenda.contains(node) || closedNodes.containsKey(node.hashCode()));
+        return (isOpen || isClosed);
     }
 
     private void attachAndEval(Node<T> child, Node<T> parent) {
@@ -94,7 +98,7 @@ public abstract class SearchAlgorithm<T extends State> {
 
     private void closeNode(Node<T> node) {
         node.setOpen(false);
-        closedNodes.put(node.hashCode(), node);
+        closedNodes.put(node, node);
     }
 
     private void propagatePathImprovements(Node<T> parent) {

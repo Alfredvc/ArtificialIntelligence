@@ -19,18 +19,14 @@ public class ConstraintSatisfactionTest {
 
     @Test
     public void simpleHappyDayTestWithoutSearch() {
-        List<Integer> xDomain = new ArrayList<>();
-        xDomain.add(3);
-        List<Integer> yDomain = new ArrayList<>();
-        yDomain.add(2);
-        List<Integer> zDomain = new ArrayList<>();
-        zDomain.add(4);
-
+        int expectedX = 3;
+        int expectedY = 2;
+        int expectedZ = 4;
         int expectedSuccessorCount = 4 + 6 + 4;
         Integer[] set1 = new Integer[4];
-        for (int i = 1; i < 5; i++) set1[i-1] = i;
-        Integer[] set2 = new Integer[6];
-        for (int i = 1; i < 7; i++) set2[i-1] = i;
+        for (int i = 0; i < 4; i++) set1[i] = i;
+        Integer[] set2 = new Integer[5];
+        for (int i = 0; i < 5; i++) set2[i] = i;
         Integer[] set3 = new Integer[4];
         for (int i = 4; i < 8; i++) set3[i-4] = i;
         Variable<Integer> x = new Variable<>("x", new ArrayWithView<>(set1));
@@ -42,20 +38,23 @@ public class ConstraintSatisfactionTest {
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(Arrays.asList(c1, c2),Arrays.asList(x, y, z));
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
 
-        assertThat(result.getVariables().get("x").getDomain(), is(xDomain));
-        assertThat(result.getVariables().get("y").getDomain(), is(yDomain));
-        assertThat(result.getVariables().get("z").getDomain(), is(zDomain));
+        assertThat(result.getVariables().get("x").getDomain().size(), is(1));
+        assertThat(result.getVariables().get("x").getDomain().getFirst(), is(expectedX));
+        assertThat(result.getVariables().get("y").getDomain().size(), is(1));
+        assertThat(result.getVariables().get("y").getDomain().getFirst(), is(expectedY));
+        assertThat(result.getVariables().get("z").getDomain().size(), is(1));
+        assertThat(result.getVariables().get("z").getDomain().getFirst(), is(expectedZ));
     }
 
     @Test
     public void simpleHappyDayTestWithSearch() {
         int expectedSuccessorCount = 4 + 6 + 4;
-        Integer[] set1 = new Integer[4];
-        for (int i = 1; i < 11; i++) set1[i-1] = i;
-        Integer[] set2 = new Integer[6];
-        for (int i = 1; i < 11; i++) set2[i-1] = i;
-        Integer[] set3 = new Integer[4];
-        for (int i = 4; i < 16; i++) set3[i-4] = i;
+        Integer[] set1 = new Integer[11];
+        for (int i = 0; i < 11; i++) set1[i] = i;
+        Integer[] set2 = new Integer[11];
+        for (int i = 0; i < 11; i++) set2[i] = i;
+        Integer[] set3 = new Integer[11];
+        for (int i = 0; i < 11; i++) set3[i] = i;
         Variable<Integer> x = new Variable<>("x", new ArrayWithView<>(set1));
         Variable<Integer> y = new Variable<>("y", new ArrayWithView<>(set2));
         Variable<Integer> z = new Variable<>("z", new ArrayWithView<>(set3));

@@ -7,32 +7,38 @@ import java.util.stream.Collectors;
  * Created by Alfredvc on 9/5/2015.
  */
 public class Revise {
-    private final String variableName;
+    private final int varIndex;
     private final Constraint constraint;
 
-    public Revise(String variableName, Constraint constraint) {
-        this.variableName = variableName;
+    public Revise(int varIndex, Constraint constraint) {
+        this.varIndex = varIndex;
         this.constraint = constraint;
     }
 
-    public static List<Revise> forConstraint(Constraint constraint, String skipVariable) {
-        List<Revise> toReturn = constraint.getVariableArraySet()
-                .stream()
-                .filter(v -> !v.equals(skipVariable))
-                .map(varName -> new Revise(varName, constraint))
-                .collect(Collectors.toList());
-        return toReturn;
-    }
-
-    public static List<Revise> forConstraint(Constraint constraint) {
-        return forConstraint(constraint, "");
-    }
-
-    public String getVariableName() {
-        return variableName;
+    public int getVarIndex() {
+        return varIndex;
     }
 
     public Constraint getConstraint() {
         return constraint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Revise revise = (Revise) o;
+
+        if (varIndex != revise.varIndex) return false;
+        return constraint == revise.constraint;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = varIndex;
+        result = 31 * result + (constraint != null ? constraint.hashCode() : 0);
+        return result;
     }
 }

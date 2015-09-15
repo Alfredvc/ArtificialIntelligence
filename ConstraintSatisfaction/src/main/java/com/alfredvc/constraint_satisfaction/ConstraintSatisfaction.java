@@ -3,15 +3,18 @@ package com.alfredvc.constraint_satisfaction;
 import com.google.common.collect.Iterables;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.BitSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 import a_star.AStar;
+import dfs.DFS;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
 
@@ -23,79 +26,66 @@ public class ConstraintSatisfaction<T> {
     private final List<Constraint> constraints;
     private final List<CurrentVariableDomainChangeListener<T>> listeners;
     private final List<Variable<T>> vars;
+    private final Map<String, Integer> varNameToIndex;
 
     public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> vars) {
         this.constraints = constraints;
         this.listeners = new ArrayList<>();
         this.vars = vars;
-    }
-
-    private Map<String, Variable<T>> getVariableMap(List<Variable<T>> variables) {
-        Map<String, Variable<T>> map = new HashMap<>();
-        for (Variable<T> var : variables) {
-            map.put(var.getName(), var);
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < vars.size(); i++) {
+            map.put(vars.get(i).getName(), i);
         }
-        return map;
+        varNameToIndex = new HashMap<>(map);
     }
 
     public ConstraintSatisfactionResult<T> solve(){
-        Map<String, Variable<T>> variables = Collections.unmodifiableMap(getVariableMap(vars));
-        ArraySet<Variable<T>> variableList = new ArraySet<>(vars);
-        filterDomain(variables);
-        ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(new ArraySet<>(variableList));
-        if (state.isASolution()) return new ConstraintSatisfactionResult<>(variables);
+        BitSet[] domains = new BitSet[vars.size()];
+        for (int i = 0; i < domains.length; i++) {
+            domains[i] = vars.get(i).getDomain().getBitSet();
+        }
+        filterDomain(domains);
+        ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(domains, this);
+        if (state.isASolution()) return new ConstraintSatisfactionResult<>(vars, state.getBitSets());
         SearchAlgorithm<ConstraintSatisfactionState<T>> searchAlgorithm = new AStar(state, Integer.MAX_VALUE);
-        //Filter variable domains before pushing into agenda
-        searchAlgorithm.addNodePrePushListener(n -> {
-            filterDomain(getVariableMap(n.getState().getVariables()));
-            n.getF();
-        });
-        searchAlgorithm.addNodePopListener( n -> fireCurrentVariableDomainChanged(n.getState().getVariables()));
+
+        searchAlgorithm.addNodePopListener( n -> fireCurrentVariableDomainChanged(n.getState().getBitSets()));
         SearchAlgorithmResult<ConstraintSatisfactionState<T>> result = searchAlgorithm.search();
-        return new ConstraintSatisfactionResult<>(getVariableMap(result.getFinalNode().getState().getVariables()));
+        return new ConstraintSatisfactionResult<>(vars, result.getFinalNode().getState().getBitSets());
     }
 
-    private ConstraintSatisfaction<T> filterDomain(Map<String, Variable<T>> variables) {
+    public void filterDomain(BitSet[] domains) {
         Queue<Revise> reviseQueue  = new LinkedList<>();
+        Set<Revise> reviseSet = new HashSet<>();
         //TODO: Optimize by picking the constraint with the fewest variables, maybe also the variables with smallest domain??
         for (Constraint constraint : this.constraints) {
-            reviseQueue.addAll(Revise.forConstraint(constraint));
+            reviseQueue.addAll(getRevisesForConstraint(constraint, ""));
         }
         Revise currentRevise;
         while (!reviseQueue.isEmpty()) {
             currentRevise = reviseQueue.poll();
-            performRevise(currentRevise, variables, reviseQueue);
+            performRevise(currentRevise, domains, reviseQueue, reviseSet);
         }
-        return this;
     }
 
-    private void performRevise(Revise revise, Map<String, Variable<T>> variables, Queue<Revise> reviseQueue) {
-        Variable<T> variable = getVariable(variables, revise.getVariableName());
+    private void performRevise(Revise revise, BitSet[] domains, Queue<Revise> reviseQueue, Set<Revise> reviseSet) {
+        Variable<T> variable = vars.get(revise.getVarIndex());
         Constraint constraint = revise.getConstraint();
         boolean reducedDomain = false;
-        for (Iterator<T> iterator = variable.getDomain().iterator(); iterator.hasNext(); ) {
+        for (Iterator<T> iterator = variable.getDomain().iterator(domains[revise.getVarIndex()]); iterator.hasNext(); ) {
             T domainElement = iterator.next();
-            if (!evaluateAllCombinations(constraint, variable.getName(), domainElement, variables)) {
+            if (!evaluateAllCombinations(constraint, revise.getVarIndex(), domainElement, domains)) {
                 iterator.remove();
                 reducedDomain = true;
             }
         }
         if (reducedDomain) {
-            addAllToQueue(reviseQueue, Revise.forConstraint(constraint, revise.getVariableName()));
+            addAllToQueue(reviseQueue, reviseSet, getRevisesForConstraint(constraint, vars.get(revise.getVarIndex()).getName()));
         }
     }
 
-    private Variable<T> getVariable(Map<String, Variable<T>> variables, String variableName) {
-        if (!variables.containsKey(variableName)) {
-            System.out.println(variableName);
-            System.out.println(variables);
-            throw new IllegalArgumentException("Variable " + variableName + " does not exist.");
-        }
-        return variables.get(variableName);
-    }
-
-    private void addAllToQueue(Queue<Revise> reviseQueue, List<Revise> revises) {
-        revises.stream().peek(r -> reviseQueue.add(r));
+    private void addAllToQueue(Queue<Revise> reviseQueue, Set<Revise> reviseSet, List<Revise> revises) {
+        revises.stream().filter(r -> !reviseSet.contains(r)).forEach(r -> reviseQueue.add(r));
     }
 
     /**
@@ -104,26 +94,24 @@ public class ConstraintSatisfaction<T> {
      *
      * @return the result of all the evaluations ored together.
      */
-    private boolean evaluateAllCombinations(Constraint constraint, String currentVariable, T currentValue, Map<String, Variable<T>> variables) {
+    private boolean evaluateAllCombinations(Constraint constraint, int currentVariable, T currentValue, BitSet[] domains) {
         int variableCount = constraint.getVariableArraySet().size();
         if (variableCount == 2) {
-            return evaluateAllCombinationsDouble(constraint, currentVariable, currentValue, variables);
+            return evaluateAllCombinationsDouble(constraint, currentVariable, currentValue,domains);
         }
-        int combinationCount = constraint.getVariableArraySet().stream()
-                .filter(n -> !currentVariable.equals(n))
-                .map(v -> variables.get(v).getDomain().size())
-                .reduce(1, (a, b) -> a * b);
+        int combinationCount = 1;
+        for (int i = 0; i < domains.length; i++) {
+            if (i == currentVariable) continue;
+            combinationCount *= domains[i].cardinality();
+        }
         int[] alternateEvery = new int[variableCount];
         int[] domainSize = new int[variableCount];
-        List<String> vars = constraint.getVariableArraySet();
-        int indexOfCurrentVariable = -1;
         for (int i = 0; i < variableCount; i++) {
-            if (vars.get(i).equals(currentVariable)) {
+            if (i == currentVariable) {
                 domainSize[i] = 1;
-                indexOfCurrentVariable = i;
-            } else {
-                domainSize[i] = variables.get(vars.get(i)).getDomain().size();
+                continue;
             }
+            domainSize[i] = domains[i].cardinality();
         }
 
         //We alternate the first argument on every iteration
@@ -132,55 +120,63 @@ public class ConstraintSatisfaction<T> {
             alternateEvery[i] = alternateEvery[i - 1] * domainSize[i - 1];
         }
 
-        if (indexOfCurrentVariable == -1) {
-            throw new IllegalStateException("Current variable " + currentVariable + " not found as argument of constraint " + constraint);
-        }
         Iterator[] iterators = new Iterator[variableCount];
         for (int i = 0; i < variableCount; i++) {
-            String varName = constraint.getVariableArraySet().get(i);
-            if (varName.equals(currentVariable)) continue;
-            iterators[i] = Iterables.cycle(variables.get(varName).getDomain()).iterator();
+            if (i == currentVariable) continue;
+            iterators[i] = vars.get(i).getDomain().cycleIterator(domains[i]);
         }
         Object[] args = new Object[variableCount];
-        boolean toReturn = false;
+        args[currentVariable] = currentValue;
         for (int n = 0; n < combinationCount; n++) {
             for (int index = 0; index < variableCount; index++) {
-                if (index == indexOfCurrentVariable) {
-                    args[index] = currentValue;
-                    continue;
-                }
+                if (index == currentVariable) continue;
+
                 if (n % alternateEvery[index] == 0) {
                     args[index] = iterators[index].next();
                 }
             }
             boolean eval = constraint.evaluate(args);
-            toReturn = toReturn || eval;
+            //If any is true then we can short circuit.
+            if (eval) return true;
         }
-
-        return toReturn;
+        return false;
     }
 
-    private boolean evaluateAllCombinationsDouble(Constraint constraint, String currentVariable, T currentValue, Map<String, Variable<T>> variables) {
+    private boolean evaluateAllCombinationsDouble(Constraint constraint, int currentVariable, T currentValue, BitSet[] domains) {
         Variable<T> otherVariable;
-        int currentVariableIndex;
-        int otherVariableIndex;
-        if (constraint.getVariableArraySet().get(0).equals(currentVariable)) {
-            currentVariableIndex = 0;
-            otherVariableIndex = 1;
-            otherVariable = variables.get(constraint.getVariableArraySet().get(1));
-        } else {
-            currentVariableIndex = 1;
-            otherVariableIndex = 0;
-            otherVariable = variables.get(constraint.getVariableArraySet().get(0));
-        }
-        boolean toReturn = false;
+        int index = varNameToIndex.get(constraint.getVariableArraySet().get(0));
         Object[] args = new Object[2];
-        args[currentVariableIndex] = currentValue;
-        for (T val : otherVariable.getDomain()) {
-            args[otherVariableIndex] = val;
-            toReturn = toReturn || constraint.evaluate(args);
+        int otherIndex;
+        if (index == currentVariable) {
+            args[0] = currentValue;
+            otherIndex = 1;
+            otherVariable = vars.get(varNameToIndex.get(constraint.getVariableArraySet().get(1)));
+        } else {
+            args[1] = currentValue;
+            otherIndex = 0;
+            otherVariable = vars.get(index);
         }
-        return toReturn;
+
+        for (T val : otherVariable.getDomain()) {
+            args[otherIndex] = val;
+            boolean eval = constraint.evaluate(args);
+            if (eval) return true;
+        }
+        return false;
+    }
+
+    public boolean fulfillsAllConstrains(BitSet[] domains) {
+        for (Constraint constraint: constraints) {
+            List<String> variables = constraint.getVariableArraySet();
+            Object[] args = new Object[variables.size()];
+            for(int i = 0; i < constraint.getVariableArraySet().size(); i++) {
+                int varIndex = varNameToIndex.get(variables.get(i));
+                args[i] = vars.get(varIndex).getDomain().getFirst(domains[varIndex]);
+            }
+            boolean eval = constraint.evaluate(args);
+            if (!eval) return false;
+        }
+        return true;
     }
 
     public void addCurrentVariableDomainChangeListener(CurrentVariableDomainChangeListener<T> listener) {
@@ -191,14 +187,23 @@ public class ConstraintSatisfaction<T> {
         this.listeners.remove(listener);
     }
 
-    public void fireCurrentVariableDomainChanged(List<Variable<T>> variables) {
+    public void fireCurrentVariableDomainChanged(BitSet[] variables) {
         for (CurrentVariableDomainChangeListener<T> listener : listeners) {
             listener.currentSolutionChanged(variables);
         }
     }
 
     public interface CurrentVariableDomainChangeListener<T>{
-        void currentSolutionChanged(List<Variable<T>> variables);
+        void currentSolutionChanged(BitSet[] bitSets);
+    }
+
+    private List<Revise> getRevisesForConstraint(Constraint c, String toSkip) {
+        List<Revise> toReturn = new ArrayList<>();
+        for (String varName : c.getVariableArraySet()) {
+            if (varName.equals(toSkip)) continue;
+            toReturn.add(new Revise(varNameToIndex.get(varName), c));
+        }
+        return toReturn;
     }
 
 }

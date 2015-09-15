@@ -98,10 +98,13 @@ public final class Node<T extends State> {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Node)) {
-            return false;
+        if (obj instanceof Node) {
+            return state.equals(((Node) obj).getState());
         }
-        return state.equals(((Node) obj).getState());
+        if (obj instanceof State) {
+            return state.equals(obj);
+        }
+        return false;
     }
 
     public void addFChangedListener(FChangeListener listener) {
