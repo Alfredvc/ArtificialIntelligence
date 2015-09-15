@@ -14,6 +14,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import a_star.AStar;
+import bfs.BFS;
 import dfs.DFS;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
@@ -144,21 +145,26 @@ public class ConstraintSatisfaction<T> {
 
     private boolean evaluateAllCombinationsDouble(Constraint constraint, int currentVariable, T currentValue, BitSet[] domains) {
         Variable<T> otherVariable;
-        int index = varNameToIndex.get(constraint.getVariableArraySet().get(0));
+        int globalIndex0 = varNameToIndex.get(constraint.getVariableArraySet().get(0));
+        int globalIndex1 = varNameToIndex.get(constraint.getVariableArraySet().get(1));
+        int globalIndexOther;
         Object[] args = new Object[2];
-        int otherIndex;
-        if (index == currentVariable) {
+        int localIndexOther;
+        if (globalIndex0 == currentVariable) {
             args[0] = currentValue;
-            otherIndex = 1;
+            localIndexOther = 1;
+            globalIndexOther = globalIndex1;
             otherVariable = vars.get(varNameToIndex.get(constraint.getVariableArraySet().get(1)));
         } else {
             args[1] = currentValue;
-            otherIndex = 0;
-            otherVariable = vars.get(index);
+            localIndexOther = 0;
+            otherVariable = vars.get(globalIndex0);
+            globalIndexOther = globalIndex0;
         }
 
-        for (T val : otherVariable.getDomain()) {
-            args[otherIndex] = val;
+        for (Iterator<T> iterator = otherVariable.getDomain().iterator(domains[globalIndexOther]); iterator.hasNext(); ) {
+            T val = iterator.next();
+            args[localIndexOther] = val;
             boolean eval = constraint.evaluate(args);
             if (eval) return true;
         }

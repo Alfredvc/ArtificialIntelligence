@@ -41,14 +41,11 @@ public abstract class SearchAlgorithm<T extends State> {
 
     public SearchAlgorithmResult search() {
         Node<T> currentParent = null;
-        int counter = 0;
         while (generatedNodes < maxNodes) {
             if (agenda == null || agenda.isEmpty()) {
                 return SearchAlgorithmResult.failed(currentParent, generatedNodes);
             }
-            counter++;
             currentParent = agenda.pop();
-            System.out.println("Generated " + generatedNodes + " , nodes in the agenda " + agenda.size() +", repeated nodes " + repeatedNodes);
             fireNodePopped(currentParent);
             closeNode(currentParent);
             if (currentParent.isASolution()) {
@@ -83,12 +80,7 @@ public abstract class SearchAlgorithm<T extends State> {
     }
 
     private boolean openOrClosed(Node<T> node) {
-        boolean isOpen = agenda.contains(node);
-        boolean isClosed = closedNodes.containsKey(node);
-        if (isOpen || isClosed) {
-            repeatedNodes++;
-        }
-        return (isOpen || isClosed);
+        return (agenda.contains(node) || closedNodes.containsKey(node));
     }
 
     private void attachAndEval(Node<T> child, Node<T> parent) {
