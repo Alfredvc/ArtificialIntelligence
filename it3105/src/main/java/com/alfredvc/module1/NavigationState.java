@@ -32,7 +32,7 @@ public class NavigationState extends State<NavigationState> {
         this.h = calculateH();
     }
 
-    public static final boolean[][] obstacleArrayFromObstaclePoints(List<Point> obstaclePoints, int xSize, int ySize) {
+    public static boolean[][] obstacleArrayFromObstaclePoints(List<Point> obstaclePoints, int xSize, int ySize) {
         boolean[][] obstacles = new boolean[xSize][ySize];
         for (Point p : obstaclePoints) {
             obstacles[p.x][p.y] = true;
@@ -40,7 +40,7 @@ public class NavigationState extends State<NavigationState> {
         return obstacles;
     }
 
-    public static final List<Point> obstaclePointsFromObstacleArray(boolean[][] obstacles) {
+    public static List<Point> obstaclePointsFromObstacleArray(boolean[][] obstacles) {
         List<Point> obstaclePoints = new ArrayList<>();
         for (int x = 0; x < obstacles.length; x++) {
             for (int y = 0; y < obstacles[0].length; y++) {
@@ -164,10 +164,7 @@ public class NavigationState extends State<NavigationState> {
             return false;
         }
         final NavigationState other = (NavigationState) obj;
-        if (this.getLocation().equals(other.getLocation())) {
-            return true;
-        }
-        return false;
+        return this.getLocation().equals(other.getLocation());
     }
 
     @Override

@@ -161,17 +161,7 @@ public class FunctionParser {
             clazz.getMethod("setVariableSet", java.util.LinkedHashSet.class).invoke(obj, variables);
             clazz.getMethod("setFunctionString", java.lang.String.class).invoke(obj, functionString);
             return obj;
-        } catch (CannotCompileException e) {
-            throw new IllegalArgumentException(e);
-        } catch (InstantiationException e) {
-            throw new IllegalArgumentException(e);
-        } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException(e);
-        } catch (NotFoundException e) {
-            throw new IllegalArgumentException(e);
-        } catch (NoSuchMethodException e) {
-            throw new IllegalArgumentException(e);
-        } catch (InvocationTargetException e) {
+        } catch (CannotCompileException | InvocationTargetException | NoSuchMethodException | NotFoundException | IllegalAccessException | InstantiationException e) {
             throw new IllegalArgumentException(e);
         }
     }

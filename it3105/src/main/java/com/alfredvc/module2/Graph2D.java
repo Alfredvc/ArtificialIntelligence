@@ -10,11 +10,9 @@ import javax.swing.*;
 /**
  * Created by erpa_ on 9/13/2015.
  */
-public class Graph2D extends JPanel {
+class Graph2D extends JPanel {
     private List<DoublePoint> points;
     private List<PointLine> lines;
-    private double width;
-    private double height;
     private double maxX;
     private double maxY;
     private double minX;
@@ -79,8 +77,8 @@ public class Graph2D extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        width = getWidth() - 20;
-        height = getHeight() - 20;
+        double width = getWidth() - 20;
+        double height = getHeight() - 20;
 
         minSize = width > height ? height : width;
 

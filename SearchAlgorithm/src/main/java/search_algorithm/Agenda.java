@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Common class for all agendas. Subclasses must implement internalAdd and internalGet.
  */
-public abstract class Agenda {
+abstract class Agenda {
 
     private Map<Node, Node> currentNodes;
 

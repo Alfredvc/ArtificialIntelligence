@@ -121,7 +121,7 @@ public final class Node<T extends State> {
 
     /**
      * Adds a listener that is notified whenever the value of F changes
-     * @param listener
+     * @param listener listener to be added
      */
     public void addFChangedListener(FChangeListener listener) {
         if (fChangeListeners == null) {
@@ -134,7 +134,7 @@ public final class Node<T extends State> {
         fChangeListeners.remove(listener);
     }
 
-    public void fireFChanged() {
+    private void fireFChanged() {
         if (fChangeListeners == null) return;
         for (FChangeListener listener : fChangeListeners) {
             listener.fChanged(this);

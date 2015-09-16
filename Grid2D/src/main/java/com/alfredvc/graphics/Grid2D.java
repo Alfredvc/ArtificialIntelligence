@@ -12,7 +12,6 @@ import javax.swing.*;
 public final class Grid2D extends JPanel {
     private final int xSize;
     private final int ySize;
-    private final int gridSizePixels;
     private final Color defaultBackgroundColor;
     private Color[][] grid;
 
@@ -29,7 +28,6 @@ public final class Grid2D extends JPanel {
         this.defaultBackgroundColor = defaultBackgroundColor;
         this.grid = new Color[gridWidth][gridHeight];
         paintBackground();
-        this.gridSizePixels = gridCellLengthPixels;
         setPreferredSize(new Dimension(gridCellLengthPixels * gridWidth, gridCellLengthPixels * gridHeight));
     }
 

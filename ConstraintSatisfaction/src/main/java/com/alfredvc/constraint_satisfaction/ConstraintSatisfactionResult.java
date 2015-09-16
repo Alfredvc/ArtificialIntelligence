@@ -19,7 +19,7 @@ public class ConstraintSatisfactionResult<T> {
     private final int nodesPoppedFromTheAgenda;
     private final int solutionLength;
 
-    public final Status status;
+    private final Status status;
     public ConstraintSatisfactionResult(List<Variable<T>> vars, BitSet[] bitSets,
                                         SearchAlgorithmResult<ConstraintSatisfactionState<T>> searchAlgorithmResult, int violatedConstraints) {
         variables = new HashMap<>();

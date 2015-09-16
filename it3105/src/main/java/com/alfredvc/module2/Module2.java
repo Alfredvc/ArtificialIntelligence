@@ -260,7 +260,7 @@ public class Module2 {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame("Module 2");
             frame.add(container);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
         });
