@@ -82,7 +82,7 @@ public class NavigationStateTest {
         Point start = new Point(1, 0);
         Point goal = new Point(5, 5);
         int expectedObstacleCount = 17;
-        NavigationState navigationState = NavigationState.fromString(input);
+        NavigationState navigationState = Module1.fromString(input);
         assertThat(navigationState.getxSize(), is(xSize));
         assertThat(navigationState.getySize(), is(ySize));
         assertThat(navigationState.getLocation(), is(start));
@@ -109,7 +109,7 @@ public class NavigationStateTest {
                 "(0,3,1,3)\n" +
                 "(2,0,4,2)\n" +
                 "(2,5,2,1)";
-        NavigationState navigationState = NavigationState.fromString(input);
+        NavigationState navigationState = Module1.fromString(input);
         List<NavigationState> successors = navigationState.generateSuccessors();
         assertThat(successors.size(), is(2));
         assertThat(successors.get(0).getLocation(), isIn(expectedSuccessors));

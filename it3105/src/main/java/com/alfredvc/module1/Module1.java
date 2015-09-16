@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -26,6 +28,8 @@ import search_algorithm.SearchAlgorithmResult;
  */
 public class Module1 {
 
+    private static final String patternString = "\\((.*?)\\)";
+    private static final Pattern pattern = Pattern.compile(patternString);
     private static final int MAX_NODES = 1000000;
     private static final int ASTAR = 0;
     private static final int BFS = 1;
@@ -190,6 +194,37 @@ public class Module1 {
         new Module1().run();
     }
 
+    private static int intFromString(String input) {
+        return Integer.parseInt(input.trim());
+    }
+
+    public static NavigationState fromString(String s) {
+        Matcher matcher = Module1.pattern.matcher(s);
+        List<String> input = new ArrayList<>();
+        while (matcher.find()) {
+            input.add(matcher.group().replaceAll("[()]", ""));
+        }
+        int xSize = Module1.intFromString(input.get(0).split(",")[0]);
+        int ySize = Module1.intFromString(input.get(0).split(",")[1]);
+        Point start = new Point(Module1.intFromString(input.get(1).split(",")[0]), Module1.intFromString(input.get(1).split(",")[1]));
+        Point goal = new Point(Module1.intFromString(input.get(2).split(",")[0]), Module1.intFromString(input.get(2).split(",")[1]));
+        List<Point> obstaclePoints = new ArrayList<>();
+
+        for (int i = 3; i < input.size(); i++) {
+            int x0 = Module1.intFromString(input.get(i).split(",")[0]);
+            int y0 = Module1.intFromString(input.get(i).split(",")[1]);
+            int dx = Module1.intFromString(input.get(i).split(",")[2]);
+            int dy = Module1.intFromString(input.get(i).split(",")[3]);
+            for (int x = 0; x < dx; x++) {
+                for (int y = 0; y < dy; y++) {
+                    obstaclePoints.add(new Point(x0 + x, y0 + y));
+                }
+            }
+        }
+        boolean[][] obstacles = NavigationState.obstacleArrayFromObstaclePoints(obstaclePoints, xSize, ySize);
+        return new NavigationState(start, goal, xSize, ySize, obstacles);
+    }
+
     public void run() {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame("Module 1");
@@ -204,7 +239,7 @@ public class Module1 {
         reset();
         String text = textArea.getText();
 
-        state = NavigationState.fromString(text);
+        state = fromString(text);
 
         placeholderGrid.setVisible(false);
 

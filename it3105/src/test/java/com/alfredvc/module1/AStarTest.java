@@ -73,7 +73,7 @@ public class AStarTest {
                 "(2,0,4,2)\n" +
                 "(2,5,2,1)";
         int expectedNodeCount = 10;
-        NavigationState navigationState = NavigationState.fromString(input);
+        NavigationState navigationState = Module1.fromString(input);
         AStar aStar = new AStar(navigationState, Integer.MAX_VALUE);
         SearchAlgorithmResult<NavigationState> result = aStar.search();
         assertThat(result.getStatus(), is(SearchAlgorithmResult.Status.SUCCEEDED));
@@ -91,7 +91,7 @@ public class AStarTest {
         String input = "(10, 10) (0, 0) (9, 9) (2, 3, 5, 5) (8, 8, 2, 1)";
 
         int expectedNodeCount = 19;
-        NavigationState navigationState = NavigationState.fromString(input);
+        NavigationState navigationState = Module1.fromString(input);
         AStar aStar = new AStar(navigationState, Integer.MAX_VALUE);
         SearchAlgorithmResult<NavigationState> result = aStar.search();
         assertThat(result.getStatus(), is(SearchAlgorithmResult.Status.SUCCEEDED));
@@ -109,7 +109,7 @@ public class AStarTest {
         String input = "(20, 20) (19, 3) (2, 18) (5, 5, 10, 10) (1, 2, 4, 1)";
 
         int expectedNodeCount = 33;
-        NavigationState navigationState = NavigationState.fromString(input);
+        NavigationState navigationState = Module1.fromString(input);
         AStar aStar = new AStar(navigationState, Integer.MAX_VALUE);
         SearchAlgorithmResult<NavigationState> result = aStar.search();
         assertThat(result.getStatus(), is(SearchAlgorithmResult.Status.SUCCEEDED));

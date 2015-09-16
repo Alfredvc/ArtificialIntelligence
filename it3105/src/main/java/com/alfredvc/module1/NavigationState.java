@@ -13,8 +13,6 @@ import search_algorithm.State;
  */
 public class NavigationState extends State<NavigationState> {
 
-    private static final String patternString = "\\((.*?)\\)";
-    private static final Pattern pattern = Pattern.compile(patternString);
     private final int xSize;
     private final int ySize;
     private final boolean[][] obstacles;
@@ -52,36 +50,6 @@ public class NavigationState extends State<NavigationState> {
         return obstaclePoints;
     }
 
-    public static NavigationState fromString(String s) {
-        Matcher matcher = pattern.matcher(s);
-        List<String> input = new ArrayList<>();
-        while (matcher.find()) {
-            input.add(matcher.group().replaceAll("[()]", ""));
-        }
-        int xSize = intFromString(input.get(0).split(",")[0]);
-        int ySize = intFromString(input.get(0).split(",")[1]);
-        Point start = new Point(intFromString(input.get(1).split(",")[0]), intFromString(input.get(1).split(",")[1]));
-        Point goal = new Point(intFromString(input.get(2).split(",")[0]), intFromString(input.get(2).split(",")[1]));
-        List<Point> obstaclePoints = new ArrayList<>();
-
-        for (int i = 3; i < input.size(); i++) {
-            int x0 = intFromString(input.get(i).split(",")[0]);
-            int y0 = intFromString(input.get(i).split(",")[1]);
-            int dx = intFromString(input.get(i).split(",")[2]);
-            int dy = intFromString(input.get(i).split(",")[3]);
-            for (int x = 0; x < dx; x++) {
-                for (int y = 0; y < dy; y++) {
-                    obstaclePoints.add(new Point(x0 + x, y0 + y));
-                }
-            }
-        }
-        boolean[][] obstacles = obstacleArrayFromObstaclePoints(obstaclePoints, xSize, ySize);
-        return new NavigationState(start, goal, xSize, ySize, obstacles);
-    }
-
-    private static int intFromString(String input) {
-        return Integer.parseInt(input.trim());
-    }
 
     private int calculateH() {
         return manhattanDistance(location, goal);

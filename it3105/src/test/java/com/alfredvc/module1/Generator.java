@@ -42,6 +42,6 @@ public class Generator {
     @Ignore
     @Test
     public void printGeneratedBoard() {
-        System.out.println(generateBoard(500, 500, 5000));
+        System.out.println(generateBoard(1000, 1000, 50000));
     }
 }
