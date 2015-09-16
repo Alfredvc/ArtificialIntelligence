@@ -1,10 +1,7 @@
-package a_star;
-
-import search_algorithm.SearchAlgorithm;
-import search_algorithm.State;
+package search_algorithm;
 
 /**
- * Created by Alfredvc on 8/27/2015.
+ * Solves search problems with a best first search algorithm.
  */
 public class AStar extends SearchAlgorithm {
 

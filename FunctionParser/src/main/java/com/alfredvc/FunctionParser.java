@@ -30,7 +30,10 @@ import java.util.Set;
  * param1,param2, parameterType2 param3, param 4)-> EXPRESSION returnType(parameterType1 param1,
  * parameterType1 param2, parameterType2 param3, param 4)-> EXPRESSION
  *
- * For example: double(Double x,y,z,f)->(x + y + z + f) double(java.util.List l)->double tot = 1;
+ * For example:
+ * double(Double x,y,z,f)->(x + y + z + f)
+ *
+ * double(java.util.List l)->double tot = 1;
  * for(java.util.Iterator iterator = ((java.util.List) l).iterator(); iterator.hasNext(); ){ Object
  * o = iterator.next();tot*=((Double)o).doubleValue();} return tot;
  */
@@ -91,6 +94,9 @@ public class FunctionParser {
      * with a method that is equivalent to the given functionString. All other evaluate methods
      * return an Unsupported operation exception.
      *
+     * There is currently no validation on the given functionString, and it can generate dangerous
+     * functions or an error.
+     *
      * @param functionString the string to be parsed
      * @return a class implementing the ParsedFunction interface
      * @throws IllegalArgumentException are thrown with nested Javaassist exceptions, most of these
@@ -112,8 +118,8 @@ public class FunctionParser {
             String currentType = null;
             String currentVar;
             for (String typeAndVariables : typesAndVariables) {
-                String trimed = typeAndVariables.trim();
-                String[] typeAndVariableSplit = trimed.split("\\s+");
+                String trimmed = typeAndVariables.trim();
+                String[] typeAndVariableSplit = trimmed.split("\\s+");
                 if (typeAndVariableSplit.length == 2) {
                     currentType = typeAndVariableSplit[0];
                     types.add(currentType);
@@ -209,7 +215,7 @@ public class FunctionParser {
 
     private static String getReplaceForVariableAndType(String var, String type, int varNr, String argsName) {
         String toReplace;
-        String returnType = type;
+        String returnType;
         if (classToPrimitive.containsKey(type)) {
             returnType = classToPrimitive.get(type);
             toReplace = "(((" + type + ") " + argsName + "[" + varNr + "])." + returnType + "Value())";

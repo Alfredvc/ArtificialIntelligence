@@ -16,6 +16,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.lessThan;
 
 /**
  * Unit test for simple Module2.
@@ -84,12 +85,18 @@ public class Module2Test {
 
     @Test
     public void graph6k4() throws InterruptedException, IOException {
+        long maxTimeUsed = 1500;
         Module2.Module2DataHolder dataHolder = Module2.parseInput(graph6k4input, 4);
         long start = System.nanoTime();
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables());
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
         long finish = System.nanoTime();
-        System.out.println("Finished problem graph6k4 in " + (finish - start)/1000000 + " ms");
+        assertThat(result.getStatus(), is(ConstraintSatisfactionResult.Status.SUCCEEDED));
+        assertThat(result.getViolatedConstraints(), is(0));
+        assertThat(result.getVariablesWithDomainNotEqualToOne(), is(0));
+        long timeUsed = (finish - start) / 1000000;
+        //System.out.println("Finished problem graph6k4 in " + timeUsed + " ms");
+        assertThat(timeUsed, lessThan(maxTimeUsed));
     }
 
     private boolean equalDoublePoints(DoublePoint a, DoublePoint b) {

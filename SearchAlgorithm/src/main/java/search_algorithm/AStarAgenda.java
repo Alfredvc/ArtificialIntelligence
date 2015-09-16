@@ -1,4 +1,4 @@
-package a_star;
+package search_algorithm;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -8,7 +8,8 @@ import search_algorithm.Node;
 import search_algorithm.State;
 
 /**
- * Created by Alfredvc on 8/27/2015.
+ * Agenda for a A* search algorithm, is backed by a priority queue which uses the f value to sort
+ * elements.
  */
 class AStarAgenda extends Agenda implements Node.FChangeListener {
 

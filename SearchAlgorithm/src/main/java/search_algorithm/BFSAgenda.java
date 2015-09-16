@@ -1,4 +1,4 @@
-package bfs;
+package search_algorithm;
 
 import java.util.LinkedList;
 
@@ -7,7 +7,7 @@ import search_algorithm.Node;
 import search_algorithm.State;
 
 /**
- * Created by Alfredvc on 8/29/2015.
+ * Agenda for a BFS search algorithm, is backed by a FIFO queue.
  */
 class BFSAgenda extends Agenda {
 

@@ -1,20 +1,27 @@
 package com.alfredvc.graphics;
 
+
 import java.awt.*;
 
+/**
+ * Builder used to create valid Grid2D objects
+ */
 public class Grid2DBuilder {
-    private int ySize;
-    private int xSize;
+    private int gridHeight;
+    private int gridWidth;
     private Color backgroundColor = Color.white;
-    private int gridSizePixels = 5;
+    private int gridSizeInPixels = 5;
 
-    public Grid2DBuilder setySize(int ySize) {
-        this.ySize = ySize;
+    public Grid2DBuilder() {
+
+    }
+    public Grid2DBuilder setGridHeight(int gridHeight) {
+        this.gridHeight = gridHeight;
         return this;
     }
 
-    public Grid2DBuilder setxSize(int xSize) {
-        this.xSize = xSize;
+    public Grid2DBuilder setGridWidth(int gridWidth) {
+        this.gridWidth = gridWidth;
         return this;
     }
 
@@ -23,12 +30,15 @@ public class Grid2DBuilder {
         return this;
     }
 
-    public Grid2DBuilder setGridSizePixels(int gridSizePixels) {
-        this.gridSizePixels = gridSizePixels;
+    public Grid2DBuilder setGridSizeInPixels(int gridSizeInPixels) {
+        this.gridSizeInPixels = gridSizeInPixels;
         return this;
     }
 
     public Grid2D createGrid2D() {
-        return new Grid2D(ySize, xSize, gridSizePixels, backgroundColor);
+        if (gridHeight <0 || gridWidth < 0 || gridSizeInPixels < 1 || backgroundColor == null ) {
+            throw new IllegalStateException("Valid Grid2D cannot be created with given parameters");
+        }
+        return new Grid2D(gridHeight, gridWidth, gridSizeInPixels, backgroundColor);
     }
 }

@@ -7,24 +7,30 @@ import java.util.List;
 import javax.swing.*;
 
 /**
- * Hello world!
+ * Displays a grid in two dimensions, each cell in the grid can be given a Color.
  */
 public final class Grid2D extends JPanel {
-    private static final int DEFAULT_REFRESH_PERIOD = 100; //ms
     private final int xSize;
     private final int ySize;
     private final int gridSizePixels;
     private final Color defaultBackgroundColor;
     private Color[][] grid;
 
-    public Grid2D(int ySize, int xSize, int gridSizePixels, Color defaultBackgroundColor) {
-        this.ySize = ySize;
-        this.xSize = xSize;
+    /**
+     * Creates a new Grid2D instance
+     * @param gridHeight the grid height
+     * @param gridWidth the grid width
+     * @param gridCellLengthPixels the length of each grid cell in pixels
+     * @param defaultBackgroundColor the color to be used as background
+     */
+    public Grid2D(int gridHeight, int gridWidth, int gridCellLengthPixels, Color defaultBackgroundColor) {
+        this.ySize = gridHeight;
+        this.xSize = gridWidth;
         this.defaultBackgroundColor = defaultBackgroundColor;
-        this.grid = new Color[xSize][ySize];
+        this.grid = new Color[gridWidth][gridHeight];
         paintBackground();
-        this.gridSizePixels = gridSizePixels;
-        setPreferredSize(new Dimension(gridSizePixels * xSize, gridSizePixels * ySize));
+        this.gridSizePixels = gridCellLengthPixels;
+        setPreferredSize(new Dimension(gridCellLengthPixels * gridWidth, gridCellLengthPixels * gridHeight));
     }
 
     @Override
@@ -43,12 +49,30 @@ public final class Grid2D extends JPanel {
 
     }
 
+    /**
+     * Sets all the given points to the given color
+     *
+     * For example:
+     * Grid2D grid = new Grid2D(5,5,10,Color.WHITE);
+     * Point a = new Point(0,0);
+     * Point b = new Point(1,1);
+     * Point c = new Point(1,1);
+     * setPoints(Arrays.asList(a,b,c),Color.RED);
+     *
+     * @param points the points to be set
+     * @param color the color to be set to
+     */
     public void setPoints(List<Point> points, Color color) {
         for (Point point : points) {
             setPoint(point, color);
         }
     }
 
+    /**
+     * Sets a single point to the given color
+     * @param point the point to be set
+     * @param color the color to be set to
+     */
     public void setPoint(Point point, Color color) {
         grid[point.x][point.y] = color;
     }
@@ -61,8 +85,13 @@ public final class Grid2D extends JPanel {
         }
     }
 
-    public Color getColor(int x, int y) {
-        return grid[x][y];
+    /**
+     * Retrieves the color for the given point
+     * @param p the point on the grid
+     * @return the color of the point
+     */
+    public Color getColor(Point p) {
+        return grid[p.x][p.y];
     }
 
 

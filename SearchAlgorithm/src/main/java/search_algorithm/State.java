@@ -3,7 +3,10 @@ package search_algorithm;
 import java.util.List;
 
 /**
- * Created by Alfredvc on 8/27/2015.
+ * Abstract class that must be implemented for all states to be used in the SearchAlgorithm.
+ * It is an abstract class and not an Interface in order to force subclasses to implement
+ * hashCode() and equals() which are vital for SearchAlgorithm.
+ * @param <T> subclasses should supply themselves as this parameter.
  */
 public abstract class State<T extends State> {
     public abstract int getH();
@@ -16,9 +19,6 @@ public abstract class State<T extends State> {
 
     public abstract int getCostFrom(T state);
 
-    /**
-     * Must be unique for every unique state.
-     */
     @Override
     public abstract int hashCode();
 

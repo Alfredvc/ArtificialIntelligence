@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import a_star.AStar;
+import search_algorithm.AStar;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
 
@@ -25,6 +25,11 @@ public class ConstraintSatisfaction<T> {
     private final List<Variable<T>> vars;
     private final Map<String, Integer> varNameToIndex;
 
+    /**
+     * Creates a new ConstraintSatisfaction instance
+     * @param constraints the list of constraints of the problem
+     * @param vars the list of variables of the problem
+     */
     public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> vars) {
         this.constraints = constraints;
         this.listeners = new ArrayList<>();
@@ -36,6 +41,11 @@ public class ConstraintSatisfaction<T> {
         varNameToIndex = new HashMap<>(map);
     }
 
+    /**
+     * Attempts to solve the problem with the given constraints and variables using a combination
+     * of a general arc consistency algorithm and a search algorithm.
+     * @return the result of the algorithm.
+     */
     public ConstraintSatisfactionResult<T> solve(){
         BitSet[] domains = new BitSet[vars.size()];
         for (int i = 0; i < domains.length; i++) {
@@ -89,11 +99,11 @@ public class ConstraintSatisfaction<T> {
     }
 
     private void addAllToQueue(Queue<Revise> reviseQueue, Set<Revise> reviseSet, List<Revise> revises) {
-        revises.stream().filter(r -> !reviseSet.contains(r)).forEach(r -> reviseQueue.add(r));
+        revises.stream().filter(r -> !reviseSet.contains(r)).forEach(reviseQueue::add);
     }
 
     /**
-     * Evaluates all combinations of all variables in the given constraint, except for the
+     * Evaluates all combinations of all variables for the given constraint, except for the
      * currentVarGlobalIndex whose value is kept at currentValue.
      *
      * @return the result of all the evaluations ored together.
@@ -145,6 +155,11 @@ public class ConstraintSatisfaction<T> {
         return false;
     }
 
+    /*
+        Since many CSP have constraints with only two variables a optimized evaluateAllCombinations
+        method for constraints with only two variables was created. Tested to be around 33% faster
+        than the general evaluateAllCombinations.
+     */
     private boolean evaluateAllCombinationsDouble(Constraint constraint, int currentVariable, T currentValue, BitSet[] domains) {
         Variable<T> otherVariable;
         int globalIndex0 = varNameToIndex.get(constraint.getVariableNames().get(0));

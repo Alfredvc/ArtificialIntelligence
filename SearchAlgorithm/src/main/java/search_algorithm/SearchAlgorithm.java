@@ -6,11 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Alfredvc on 8/27/2015.
- */
-
-/**
- * Abstract class representing a search algorithm, in the general form of A*
+ * Abstract class representing a search algorithm.
  */
 public abstract class SearchAlgorithm<T extends State> {
     private final int maxNodes;
@@ -21,7 +17,7 @@ public abstract class SearchAlgorithm<T extends State> {
     private int poppedNodes;
     private List<NodePopListener<T>> nodePopListeners;
 
-    protected SearchAlgorithm(Agenda agenda, int maxNodes) {
+    SearchAlgorithm(Agenda agenda, int maxNodes) {
         if (agenda == null) {
             throw new NullPointerException("Agenda cannot be null");
         }
@@ -65,7 +61,6 @@ public abstract class SearchAlgorithm<T extends State> {
                     attachAndEval(currentSuccessor, currentParent);
                     agenda.add(currentSuccessor);
                 } else if (currentParent.getG() + currentSuccessor.getArcCost() < currentSuccessor.getG()) {
-                    System.out.println("a");
                     attachAndEval(currentSuccessor, currentParent);
                     if (closedNodes.containsKey(currentSuccessor)) {
                         propagatePathImprovements(currentSuccessor);
@@ -117,7 +112,7 @@ public abstract class SearchAlgorithm<T extends State> {
     }
 
     public void removeNodePopListener(NodePopListener<T> listener) {
-        this.nodePopListeners.remove(nodePopListeners);
+        this.nodePopListeners.remove(listener);
     }
 
     public interface NodePopListener<V extends State> {

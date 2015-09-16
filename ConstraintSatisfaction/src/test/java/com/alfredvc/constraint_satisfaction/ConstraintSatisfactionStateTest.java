@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.lessThan;
 
 /**
  * Created by Alfredvc on 9/7/2015.
@@ -47,6 +48,7 @@ public class ConstraintSatisfactionStateTest {
 
     @Test
     public void timeGenerationOfSuccessors() throws InterruptedException {
+        long maxTimeUsedMs = 50;
         int count = 1000;
         int expectedSuccessorCount = 4 + 6 + 4;
         Integer[] set1 = new Integer[count];
@@ -66,7 +68,9 @@ public class ConstraintSatisfactionStateTest {
         ConstraintSatisfactionState<Integer> css = new ConstraintSatisfactionState<>(bitSetFromVariables(variables), constraintSatisfaction);
         List<ConstraintSatisfactionState<Integer>> successors = css.generateSuccessors();
         long end = System.nanoTime();
-        System.out.println("Took :" + (end - start) / 1000000 + " ms to generate " + successors.size() + " successors.");
+        long timeUsed = (end - start) / 1000000;
+        //System.out.println("Took :" + timeUsed + " ms to generate " + successors.size() + " successors.");
+        assertThat(timeUsed, lessThan(maxTimeUsedMs));
     }
 
     private <T> BitSet[] bitSetFromVariables(List<Variable<T>> variables) {

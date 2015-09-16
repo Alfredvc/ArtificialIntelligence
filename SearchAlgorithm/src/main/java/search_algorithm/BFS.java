@@ -1,10 +1,7 @@
-package bfs;
-
-import search_algorithm.SearchAlgorithm;
-import search_algorithm.State;
+package search_algorithm;
 
 /**
- * Created by Alfredvc on 8/29/2015.
+ * Solves search problems with a breadth first search algorithm.
  */
 public class BFS extends SearchAlgorithm {
 

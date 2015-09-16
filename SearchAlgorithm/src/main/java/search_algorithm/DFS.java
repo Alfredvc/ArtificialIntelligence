@@ -1,10 +1,7 @@
-package dfs;
-
-import search_algorithm.SearchAlgorithm;
-import search_algorithm.State;
+package search_algorithm;
 
 /**
- * Created by Alfredvc on 8/29/2015.
+ * Solves search problems with a depth first search algorithm.
  */
 public class DFS extends SearchAlgorithm {
 

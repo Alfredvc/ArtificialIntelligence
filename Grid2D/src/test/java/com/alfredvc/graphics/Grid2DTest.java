@@ -22,13 +22,13 @@ public class Grid2DTest {
         Color pointColor = Color.red;
         Grid2DBuilder builder = new Grid2DBuilder()
                 .setBackgroundColor(backgroundColor)
-                .setxSize(size)
-                .setySize(size);
+                .setGridWidth(size)
+                .setGridHeight(size);
         final Grid2D grid2D = builder.createGrid2D();
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                assertThat(grid2D.getColor(x, y), is(backgroundColor));
+                assertThat(grid2D.getColor(new Point(x, y)), is(backgroundColor));
             }
         }
 
@@ -39,7 +39,7 @@ public class Grid2DTest {
         grid2D.setPoints(points, pointColor);
 
         for (Point p : points) {
-            assertThat(grid2D.getColor(p.x, p.y), is(pointColor));
+            assertThat(grid2D.getColor(p), is(pointColor));
         }
 
     }

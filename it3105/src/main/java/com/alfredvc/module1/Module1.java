@@ -14,9 +14,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import a_star.AStar;
-import bfs.BFS;
-import dfs.DFS;
+import search_algorithm.AStar;
+import search_algorithm.BFS;
+import search_algorithm.DFS;
 import search_algorithm.Node;
 import search_algorithm.SearchAlgorithm;
 import search_algorithm.SearchAlgorithmResult;
@@ -169,8 +169,8 @@ public class Module1 {
 
         placeholderGrid = new Grid2DBuilder()
                 .setBackgroundColor(Color.white)
-                .setxSize(100)
-                .setySize(100)
+                .setGridWidth(100)
+                .setGridHeight(100)
                 .createGrid2D();
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -194,7 +194,7 @@ public class Module1 {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame("Module 1");
             frame.add(container);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
         });
@@ -215,8 +215,8 @@ public class Module1 {
         }
 
         grid2D = new Grid2DBuilder()
-                .setxSize(state.getxSize())
-                .setySize(state.getySize())
+                .setGridWidth(state.getxSize())
+                .setGridHeight(state.getySize())
                 .setBackgroundColor(Color.white)
                 .createGrid2D();
         grid2D.setPoints(NavigationState.obstaclePointsFromObstacleArray(state.getObstacles()), Color.black);

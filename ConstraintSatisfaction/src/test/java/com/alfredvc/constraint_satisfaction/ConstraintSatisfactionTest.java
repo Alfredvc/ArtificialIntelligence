@@ -3,6 +3,7 @@ package com.alfredvc.constraint_satisfaction;
 
 import com.alfredvc.FunctionParser;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -42,6 +43,9 @@ public class ConstraintSatisfactionTest {
         assertThat(result.getVariables().get("y").packageGetDomain().getFirst(), is(expectedY));
         assertThat(result.getVariables().get("z").packageGetDomain().size(), is(1));
         assertThat(result.getVariables().get("z").packageGetDomain().getFirst(), is(expectedZ));
+        assertThat(result.getStatus(), Matchers.is(ConstraintSatisfactionResult.Status.SUCCEEDED));
+        assertThat(result.getViolatedConstraints(), Matchers.is(0));
+        assertThat(result.getVariablesWithDomainNotEqualToOne(), Matchers.is(0));
     }
 
     @Test
@@ -76,5 +80,8 @@ public class ConstraintSatisfactionTest {
 
         assertThat(c1.evaluate(args1), is(true));
         assertThat(c2.evaluate(args2), is(true));
+        assertThat(result.getStatus(), Matchers.is(ConstraintSatisfactionResult.Status.SUCCEEDED));
+        assertThat(result.getViolatedConstraints(), Matchers.is(0));
+        assertThat(result.getVariablesWithDomainNotEqualToOne(), Matchers.is(0));
     }
 }

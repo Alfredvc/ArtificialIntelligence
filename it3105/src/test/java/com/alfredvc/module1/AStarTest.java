@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.util.Arrays;
 
-import a_star.AStar;
+import search_algorithm.AStar;
 import search_algorithm.Node;
 import search_algorithm.SearchAlgorithmResult;
 

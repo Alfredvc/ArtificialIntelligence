@@ -1,4 +1,4 @@
-package dfs;
+package search_algorithm;
 
 import java.util.LinkedList;
 
@@ -7,7 +7,7 @@ import search_algorithm.Node;
 import search_algorithm.State;
 
 /**
- * Created by Alfredvc on 8/29/2015.
+ * Agenda for a DFS search algorithm, is backed by a LIFO queue.
  */
 class DFSAgenda extends Agenda {
 

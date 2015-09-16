@@ -8,9 +8,13 @@ import java.util.List;
 import search_algorithm.State;
 
 /**
- * Created by Alfredvc on 9/7/2015.
+ * Represents a state in the search of a constraint satisfaction solution. The state is represented
+ * by a list of variables which is constant throughout the problem, and therefore omitted form this
+ * class. And an array of BitSet[] which flag each domain element of each variable as removed or not.
+ * @param <T> the variable type
  */
 class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T>> {
+
 
     private final BitSet[] bitSets;
 
@@ -32,7 +36,6 @@ class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T
     public int getH() {
         int count = 0;
         for (BitSet bitSet : bitSets) {
-            //if (bitSet.cardinality() < 1) throw new IllegalStateException("No illegal states should be allowed");
             count += bitSet.cardinality() - 1;
         }
         return count;
@@ -46,6 +49,12 @@ class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T
         return constraintSatisfaction.fulfillsAllConstrains(bitSets);
     }
 
+    /**
+     * Generates successors by trying all combinations of one variable, the variable is chosen by
+     * getting the first variable with more than one element in its domain. Therefore the
+     * ordering of the variables can be important for the performance of the algorithm.
+     * @return a list of successor states
+     */
     @Override
     public List<ConstraintSatisfactionState<T>> generateSuccessors() {
         List<ConstraintSatisfactionState<T>> successors = new ArrayList<>();
@@ -67,6 +76,10 @@ class ConstraintSatisfactionState<T> extends State<ConstraintSatisfactionState<T
         return successors;
     }
 
+    /**
+     * The cost from a ConstraintSatisfactionState to its successor state is always one
+     * @return the arc cost
+     */
     @Override
     public int getArcCost() {
         return 1;
