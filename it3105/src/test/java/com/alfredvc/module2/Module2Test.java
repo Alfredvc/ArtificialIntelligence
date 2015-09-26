@@ -6,6 +6,7 @@ import com.alfredvc.constraint_satisfaction.ConstraintSatisfaction;
 import com.alfredvc.constraint_satisfaction.ConstraintSatisfactionResult;
 import com.alfredvc.constraint_satisfaction.Variable;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -83,6 +84,7 @@ public class Module2Test {
         }
     }
 
+    @Ignore
     @Test
     public void graph6k4() throws InterruptedException, IOException {
         long maxTimeUsed = 1500;
