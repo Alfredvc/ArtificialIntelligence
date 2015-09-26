@@ -39,6 +39,6 @@ public class Grid2DBuilder {
         if (gridHeight <0 || gridWidth < 0 || gridSizeInPixels < 1 || backgroundColor == null ) {
             throw new IllegalStateException("Valid Grid2D cannot be created with given parameters");
         }
-        return new Grid2D(gridHeight, gridWidth, gridSizeInPixels, backgroundColor);
+        return new Grid2D(gridWidth, gridHeight, gridSizeInPixels, backgroundColor);
     }
 }

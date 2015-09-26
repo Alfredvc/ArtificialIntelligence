@@ -22,7 +22,7 @@ public final class Grid2D extends JPanel {
      * @param gridCellLengthPixels the length of each grid cell in pixels
      * @param defaultBackgroundColor the color to be used as background
      */
-    public Grid2D(int gridHeight, int gridWidth, int gridCellLengthPixels, Color defaultBackgroundColor) {
+    public Grid2D(int gridWidth,int gridHeight, int gridCellLengthPixels, Color defaultBackgroundColor) {
         this.ySize = gridHeight;
         this.xSize = gridWidth;
         this.defaultBackgroundColor = defaultBackgroundColor;
@@ -35,8 +35,9 @@ public final class Grid2D extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.clearRect(0, 0, getWidth(), getHeight());
-        int rectWidth = getWidth() / ySize;
-        int rectHeight = getHeight() / xSize;
+        int rectWidth = getWidth() / xSize;
+        int rectHeight = getHeight() / ySize;
+        System.out.printf("Width :%d, Height: %d, rectWidth: %d, rectHeight %d, xSize: %d, ySize: %d\n", getWidth(), getHeight(), rectWidth, rectHeight, ySize, xSize);
 
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {

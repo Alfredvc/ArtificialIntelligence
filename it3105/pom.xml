@@ -73,6 +73,18 @@
                             <goal>one-jar</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>build-third</id>
+                        <configuration>
+                            <mainClass>com.alfredvc.module3.Module3</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <classifier>onejar</classifier>
+                            <filename>Module3.jar</filename>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
