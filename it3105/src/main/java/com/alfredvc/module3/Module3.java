@@ -67,7 +67,7 @@ public class Module3 {
     JLabel generatedNodes;
     JLabel solutionLength;
     JLabel violatedConstraints;
-    JLabel verticesWithoutColor;
+    JLabel undeterminedVariables;
     JLabel poppedNodes;
     JTextField refreshPeriod;
 
@@ -164,19 +164,19 @@ public class Module3 {
         c.gridy = 4;
         panel1.add(violatedConstraints, c);
 
-        JLabel verticesWithoutColorLabel = new JLabel("Vertices without color: ");
+        JLabel undeterminedVariablesLabel = new JLabel("Undetermined variables: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 5;
-        panel1.add(verticesWithoutColorLabel, c);
+        panel1.add(undeterminedVariablesLabel, c);
 
-        verticesWithoutColor = new JLabel("0");
+        undeterminedVariables = new JLabel("0");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 2;
         c.gridy = 5;
-        panel1.add(verticesWithoutColor, c);
+        panel1.add(undeterminedVariables, c);
 
         JLabel poppedNodesLabel = new JLabel("Popped nodes: ");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -275,7 +275,7 @@ public class Module3 {
             solutionLength.setText(result.getSolutionLength() + "");
             generatedNodes.setText(result.generatedNodes() + "");
             violatedConstraints.setText(result.getViolatedConstraints() + "");
-            verticesWithoutColor.setText(result.getVariablesWithDomainNotEqualToOne() + "");
+            undeterminedVariables.setText(result.getVariablesWithDomainNotEqualToOne() + "");
             poppedNodes.setText(result.getNodesPoppedFromTheAgenda() + "");
         //}).start();
     }
