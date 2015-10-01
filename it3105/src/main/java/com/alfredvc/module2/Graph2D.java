@@ -45,7 +45,7 @@ class Graph2D extends JPanel {
         this.lines = lines;
 
         lineStroke = new BasicStroke(PointLine.width);
-        pointStroke = new BasicStroke(2);
+        pointStroke = new BasicStroke(3);
 
         maxX = Integer.MIN_VALUE;
         maxY = Integer.MIN_VALUE;

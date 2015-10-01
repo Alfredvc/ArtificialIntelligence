@@ -9,19 +9,13 @@ import com.alfredvc.graphics.Grid2D;
 import com.alfredvc.graphics.Grid2DBuilder;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * Created by erpa_ on 9/25/2015.
@@ -78,6 +72,7 @@ public class Module3 {
     }
 
     public Module3() {
+        initializeFontSize();
         container = new JPanel();
         container.setLayout(new GridBagLayout());
 
@@ -463,6 +458,24 @@ public class Module3 {
                 } else if (shouldCancel) {
                     timer.cancel();
                     timer.purge();
+                }
+            }
+        }
+    }
+    public static void initializeFontSize() {
+        float multiplier = 2.0f;
+        UIDefaults defaults = UIManager.getDefaults();
+        int i = 0;
+        for (Enumeration e = defaults.keys(); e.hasMoreElements(); i++) {
+            Object key = e.nextElement();
+            Object value = defaults.get(key);
+            if (value instanceof Font) {
+                Font font = (Font) value;
+                int newSize = Math.round(font.getSize() * multiplier);
+                if (value instanceof FontUIResource) {
+                    defaults.put(key, new FontUIResource(font.getName(), font.getStyle(), newSize));
+                } else {
+                    defaults.put(key, new Font(font.getName(), font.getStyle(), newSize));
                 }
             }
         }

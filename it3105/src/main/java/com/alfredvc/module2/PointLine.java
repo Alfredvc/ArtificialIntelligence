@@ -5,7 +5,7 @@ package com.alfredvc.module2;
  */
 public class PointLine {
 
-    public static int width = 2;
+    public static int width = 3;
 
     private final DoublePoint from;
     private final DoublePoint to;

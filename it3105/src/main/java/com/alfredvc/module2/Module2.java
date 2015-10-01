@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * Hello world!
@@ -48,6 +49,7 @@ public class Module2 {
     }
 
     public Module2() {
+        initializeFontSize();
         container = new JPanel();
         container.setLayout(new GridBagLayout());
 
@@ -416,6 +418,25 @@ public class Module2 {
                 } else if (shouldCancel) {
                     timer.cancel();
                     timer.purge();
+                }
+            }
+        }
+    }
+
+    public static void initializeFontSize() {
+        float multiplier = 2.0f;
+        UIDefaults defaults = UIManager.getDefaults();
+        int i = 0;
+        for (Enumeration e = defaults.keys(); e.hasMoreElements(); i++) {
+            Object key = e.nextElement();
+            Object value = defaults.get(key);
+            if (value instanceof Font) {
+                Font font = (Font) value;
+                int newSize = Math.round(font.getSize() * multiplier);
+                if (value instanceof FontUIResource) {
+                    defaults.put(key, new FontUIResource(font.getName(), font.getStyle(), newSize));
+                } else {
+                    defaults.put(key, new Font(font.getName(), font.getStyle(), newSize));
                 }
             }
         }
