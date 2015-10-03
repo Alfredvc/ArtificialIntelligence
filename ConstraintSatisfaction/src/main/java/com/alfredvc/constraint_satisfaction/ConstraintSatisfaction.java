@@ -2,12 +2,14 @@ package com.alfredvc.constraint_satisfaction;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
@@ -24,13 +26,9 @@ public class ConstraintSatisfaction<T> {
     private final List<CurrentVariableDomainChangeListener<T>> listeners;
     private final List<Variable<T>> vars;
     private final Map<String, Integer> varNameToIndex;
+    private final Comparator<Constraint> constraintComparator;
 
-    /**
-     * Creates a new ConstraintSatisfaction instance
-     * @param constraints the list of constraints of the problem
-     * @param vars the list of variables of the problem
-     */
-    public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> vars) {
+    public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> vars, Comparator<Constraint> constraintComparator) {
         this.constraints = constraints;
         this.listeners = new ArrayList<>();
         this.vars = vars;
@@ -39,6 +37,16 @@ public class ConstraintSatisfaction<T> {
             map.put(vars.get(i).getName(), i);
         }
         varNameToIndex = new HashMap<>(map);
+        this.constraintComparator = constraintComparator;
+    }
+
+    /**
+     * Creates a new ConstraintSatisfaction instance
+     * @param constraints the list of constraints of the problem
+     * @param vars the list of variables of the problem
+     */
+    public ConstraintSatisfaction(List<Constraint> constraints, List<Variable<T>> vars) {
+        this(constraints, vars, null);
     }
 
     /**
@@ -53,9 +61,6 @@ public class ConstraintSatisfaction<T> {
         }
         filterDomain(domains);
         ConstraintSatisfactionState<T> state = new ConstraintSatisfactionState<>(domains, this);
-//        if (state.isASolution()) {
-//            return new ConstraintSatisfactionResult<>(vars, state.getBitSets(), ConstraintSatisfactionResult.Status.SUCCEEDED);
-//        }
         SearchAlgorithm<ConstraintSatisfactionState<T>> searchAlgorithm = new AStar(state, Integer.MAX_VALUE);
         searchAlgorithm.addNodePopListener( n -> fireCurrentVariableDomainChanged(n.getState().getBitSets()));
         SearchAlgorithmResult<ConstraintSatisfactionState<T>> result = searchAlgorithm.search();
@@ -69,7 +74,12 @@ public class ConstraintSatisfaction<T> {
      * @param domains variable containing the domain of each variable, represented as a bit set.
      */
     void filterDomain(BitSet[] domains) {
-        Queue<Revise> reviseQueue  = new LinkedList<>();
+        Queue<Revise> reviseQueue;
+        if (constraintComparator != null) {
+            reviseQueue = new PriorityQueue<>(constraints.size(), getReviseComparator(constraintComparator));
+        } else {
+            reviseQueue  = new LinkedList<>();
+        }
         Set<Revise> reviseSet = new HashSet<>();
         //TODO: Optimize by picking the constraint with the fewest variables, maybe also the variables with smallest domain??
         for (Constraint constraint : this.constraints) {
@@ -243,6 +253,10 @@ public class ConstraintSatisfaction<T> {
             if (!satisfied) violatedConstraints++;
         }
         return violatedConstraints;
+    }
+
+    private Comparator<Revise> getReviseComparator(Comparator<Constraint> constraintComparator) {
+        return (o1, o2) -> constraintComparator.compare(o1.getConstraint(), o2.getConstraint());
     }
 
 }

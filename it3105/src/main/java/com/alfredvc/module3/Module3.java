@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,6 +71,7 @@ public class Module3 {
     JLabel undeterminedVariables;
     JLabel poppedNodes;
     JTextField refreshPeriod;
+    Comparator<Constraint> constraintComparator;
 
 
 
@@ -78,6 +80,7 @@ public class Module3 {
     }
 
     public Module3() {
+        constraintComparator = (c1, c2) -> c2.getRating() - c1.getRating();
         container = new JPanel();
         container.setLayout(new GridBagLayout());
 
@@ -266,18 +269,21 @@ public class Module3 {
     }
 
     private void start() {
-        ConstraintSatisfaction<Boolean> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables());
+        ConstraintSatisfaction<Boolean> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables(), constraintComparator);
         constraintSatisfaction.addCurrentVariableDomainChangeListener(gridController);
         gridController.run(grid2D, Integer.parseInt(refreshPeriod.getText()), dataHolder.nameToPointMap);
-        //new Thread(() -> {
+        new Thread(() -> {
+            long start = System.nanoTime();
             ConstraintSatisfactionResult<Boolean> result = constraintSatisfaction.solve();
+            long end = System.nanoTime();
+            System.out.println("Took " + (end - start) / 1000000 + " ms");
             gridController.cancelWhenFinished();
             solutionLength.setText(result.getSolutionLength() + "");
             generatedNodes.setText(result.generatedNodes() + "");
             violatedConstraints.setText(result.getViolatedConstraints() + "");
             undeterminedVariables.setText(result.getVariablesWithDomainNotEqualToOne() + "");
             poppedNodes.setText(result.getNodesPoppedFromTheAgenda() + "");
-        //}).start();
+        }).start();
     }
 
     private void run() {
@@ -310,6 +316,8 @@ public class Module3 {
         //Row constraints
         for (int i = 1; i < height+1; i++) {
             String[] c = lines[i].trim().split(" ");
+            int rating = c.length - 1;
+            for (String str : c) rating += Integer.parseInt(str);
             StringJoiner cJoiner = new StringJoiner(",", "{", "};");
             for (String s : c) cJoiner.add(s);
 
@@ -319,12 +327,16 @@ public class Module3 {
             }
 
             String constraintString = getConstraintString(cJoiner, vJoiner);
-            constraints.add(new Constraint(FunctionParser.fromString(constraintString)));
+            Constraint toAdd = new Constraint(FunctionParser.fromString(constraintString));
+            toAdd.setRating(rating + 1);
+            constraints.add(toAdd);
         }
 
         //Column constraints
         for (int i = height+1; i < lines.length; i++) {
             String[] c = lines[i].trim().split(" ");
+            int rating = c.length - 1;
+            for (String str : c) rating += Integer.parseInt(str);
             StringJoiner cJoiner = new StringJoiner(",", "{", "};");
             for (String s : c) cJoiner.add(s);
 
@@ -334,7 +346,9 @@ public class Module3 {
             }
 
             String constraintString = getConstraintString(cJoiner, vJoiner);
-            constraints.add(new Constraint(FunctionParser.fromString(constraintString)));
+            Constraint toAdd = new Constraint(FunctionParser.fromString(constraintString));
+            toAdd.setRating(rating);
+            constraints.add(toAdd);
         }
 
         return new Module3DataHolder(constraints, variables, width, height, nameToPointMap);

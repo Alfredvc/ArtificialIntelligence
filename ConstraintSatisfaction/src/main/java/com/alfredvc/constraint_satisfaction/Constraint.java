@@ -13,15 +13,27 @@ public class Constraint {
 
     private final List<String> variableNames;
     private ParsedFunction parsedFunction;
+    private int rating;
+
 
     public Constraint(ParsedFunction parsedFunction) {
         this.variableNames = new ArrayList<>(parsedFunction.getVariableSet());
         this.parsedFunction = parsedFunction;
+        this.rating = 1;
     }
 
     public Constraint(ParsedFunction parsedFunction, List<String> variableNames) {
         this.parsedFunction = parsedFunction;
         this.variableNames = new ArrayList<>(variableNames);
+        this.rating = 1;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public boolean evaluate(Object[] args) {
