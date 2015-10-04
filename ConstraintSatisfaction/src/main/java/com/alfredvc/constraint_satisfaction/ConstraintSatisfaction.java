@@ -81,7 +81,6 @@ public class ConstraintSatisfaction<T> {
             reviseQueue  = new LinkedList<>();
         }
         Set<Revise> reviseSet = new HashSet<>();
-        //TODO: Optimize by picking the constraint with the fewest variables, maybe also the variables with smallest domain??
         for (Constraint constraint : this.constraints) {
             reviseQueue.addAll(getRevisesForConstraint(constraint, ""));
         }
@@ -166,7 +165,7 @@ public class ConstraintSatisfaction<T> {
     }
 
     /*
-        Since many CSP have constraints with only two variables a optimized evaluateAllCombinations
+        Since many CSP have constraints with only two variables an optimized evaluateAllCombinations
         method for constraints with only two variables was created. Tested to be around 33% faster
         than the general evaluateAllCombinations.
      */

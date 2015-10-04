@@ -110,7 +110,7 @@ public class Module3Test {
                 "1 1 1\n" +
                 "1 4\n" +
                 "1 1";
-        Module3.Module3DataHolder holder = new Module3().parseInput(input);
+        Module3Convenience.Module3DataHolder holder = Module3Convenience.parseInput(input);
         for (int i = 0; i < holder.getConstraints().size(); i++) {
             assertThat(holder.getConstraints().get(i).evaluate(args[i]), is(true));
         }
@@ -132,7 +132,7 @@ public class Module3Test {
                 "1 1 1\n" +
                 "1 4\n" +
                 "1 1";
-        Module3.Module3DataHolder holder = new Module3().parseInput(input);
+        Module3Convenience.Module3DataHolder holder = Module3Convenience.parseInput(input);
         ConstraintSatisfaction<Boolean> csp = new ConstraintSatisfaction<>(holder.getConstraints(), holder.getVariables());
         ConstraintSatisfactionResult<Boolean> result = csp.solve();
         assertThat(result.getVariablesWithDomainNotEqualToOne(), is(0));
@@ -184,7 +184,7 @@ public class Module3Test {
                 "1\n" +
                 "1";
         Comparator<Constraint> constraintComparator = (c1, c2) -> c2.getRating() - c1.getRating();
-        Module3.Module3DataHolder holder = new Module3().parseInput(input);
+        Module3Convenience.Module3DataHolder holder = Module3Convenience.parseInput(input);
         ConstraintSatisfaction<Boolean> csp = new ConstraintSatisfaction<>(holder.getConstraints(), holder.getVariables(), constraintComparator);
         long start = System.nanoTime();
         ConstraintSatisfactionResult<Boolean> result = csp.solve();
@@ -193,5 +193,7 @@ public class Module3Test {
         assertThat(result.getViolatedConstraints(), is(0));
         System.out.printf("Took %d ms", (finish - start) / 1000000);
     }
+
+
 }
 
