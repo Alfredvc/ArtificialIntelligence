@@ -10,6 +10,10 @@ import com.alfredvc.graphics.Grid2DBuilder;
 
 import java.awt.*;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,36 +21,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 
+import static com.alfredvc.module3.Module3Convenience.parseInput;
+
 /**
  * Created by erpa_ on 9/25/2015.
  */
 public class Module3 {
-
-    private static String methodBody = "int currentConstraint = 0;\n" +
-            "int currentLength = 0;\n" +
-            "for (int i = 0; i < vars.length; i++) {\n" +
-            "    if (currentConstraint == c.length && vars[i]) {\n" +
-            "        return false;\n" +
-            "    }\n" +
-            "    if (currentLength > 0) {\n" +
-            "        if (vars[i]){\n" +
-            "            currentLength++;\n" +
-            "        } else {\n" +
-            "            if (currentConstraint >= c.length || currentLength != c[currentConstraint]) return false;\n" +
-            "            currentConstraint++;\n" +
-            "            currentLength = 0;\n" +
-            "        }\n" +
-            "    } else {\n" +
-            "        if (vars[i]) currentLength++;\n" +
-            "    }\n" +
-            "}\n" +
-            "if (currentConstraint == c.length ||\n" +
-            "        (currentConstraint == c.length - 1 && currentLength == c[currentConstraint]) ) {\n" +
-            "    return true;\n" +
-            "} else {\n" +
-            "    return false;\n" +
-            "}";
-    private Module3DataHolder dataHolder;
+    private Module3Convenience.Module3DataHolder dataHolder;
 
 
     JTextArea textArea;
@@ -64,6 +45,7 @@ public class Module3 {
     JLabel undeterminedVariables;
     JLabel poppedNodes;
     JTextField refreshPeriod;
+    Comparator<Constraint> constraintComparator;
 
 
 
@@ -73,6 +55,7 @@ public class Module3 {
 
     public Module3() {
         initializeFontSize();
+        constraintComparator = (c1, c2) -> c2.getRating() - c1.getRating();
         container = new JPanel();
         container.setLayout(new GridBagLayout());
 
@@ -261,18 +244,21 @@ public class Module3 {
     }
 
     private void start() {
-        ConstraintSatisfaction<Boolean> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables());
+        ConstraintSatisfaction<Boolean> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables(), constraintComparator);
         constraintSatisfaction.addCurrentVariableDomainChangeListener(gridController);
-        gridController.run(grid2D, Integer.parseInt(refreshPeriod.getText()), dataHolder.nameToPointMap);
-        //new Thread(() -> {
+        gridController.run(grid2D, Integer.parseInt(refreshPeriod.getText()), dataHolder.getNameToPointMap());
+        new Thread(() -> {
+            long start = System.nanoTime();
             ConstraintSatisfactionResult<Boolean> result = constraintSatisfaction.solve();
+            long end = System.nanoTime();
+            //System.out.println("Took " + (end - start) / 1000000 + " ms");
             gridController.cancelWhenFinished();
             solutionLength.setText(result.getSolutionLength() + "");
             generatedNodes.setText(result.generatedNodes() + "");
             violatedConstraints.setText(result.getViolatedConstraints() + "");
             undeterminedVariables.setText(result.getVariablesWithDomainNotEqualToOne() + "");
             poppedNodes.setText(result.getNodesPoppedFromTheAgenda() + "");
-        //}).start();
+        }).start();
     }
 
     private void run() {
@@ -285,97 +271,6 @@ public class Module3 {
         });
     }
 
-    Module3DataHolder parseInput(String input){
-        List<Variable<Boolean>> variables = new ArrayList<>();
-        List<Constraint> constraints = new ArrayList<>();
-        Map<String, Point> nameToPointMap = new HashMap<>();
-        String[] lines = input.split("\n");
-        int width = Integer.parseInt(lines[0].split(" ")[0]);
-        int height = Integer.parseInt(lines[0].split(" ")[1]);
-
-        List<Boolean> booleans = Arrays.asList(Boolean.FALSE, Boolean.TRUE);
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                String varName = "v" + x + "_" + y;
-                variables.add(new Variable<>(varName, booleans));
-                nameToPointMap.put(varName, new Point(x, height - y -1));
-            }
-        }
-
-        //Row constraints
-        for (int i = 1; i < height+1; i++) {
-            String[] c = lines[i].trim().split(" ");
-            StringJoiner cJoiner = new StringJoiner(",", "{", "};");
-            for (String s : c) cJoiner.add(s);
-
-            StringJoiner vJoiner = new StringJoiner(",");
-            for( int a = 0; a < width; a++) {
-                vJoiner.add("v"+a +"_"+ (height - i));
-            }
-
-            String constraintString = getConstraintString(cJoiner, vJoiner);
-            constraints.add(new Constraint(FunctionParser.fromString(constraintString)));
-        }
-
-        //Column constraints
-        for (int i = height+1; i < lines.length; i++) {
-            String[] c = lines[i].trim().split(" ");
-            StringJoiner cJoiner = new StringJoiner(",", "{", "};");
-            for (String s : c) cJoiner.add(s);
-
-            StringJoiner vJoiner = new StringJoiner(",");
-            for( int a = 0; a < height; a++) {
-                vJoiner.add("v"+(i - height - 1)+"_"+a);
-            }
-
-            String constraintString = getConstraintString(cJoiner, vJoiner);
-            constraints.add(new Constraint(FunctionParser.fromString(constraintString)));
-        }
-
-        return new Module3DataHolder(constraints, variables, width, height, nameToPointMap);
-    }
-
-    private String getConstraintString(StringJoiner cJoiner, StringJoiner vJoiner) {
-        return "boolean(Boolean " + vJoiner.toString() + ")->int c[] ="
-                        + cJoiner.toString() + "\nboolean[] vars = {" + vJoiner.toString() +"};\n"
-                        + methodBody;
-    }
-
-    public class Module3DataHolder {
-        private final List<Constraint> constraints;
-        private final List<Variable<Boolean>> variables;
-        private final Map<String, Point> nameToPointMap;
-        private final int width;
-        private final int height;
-
-        public Module3DataHolder(List<Constraint> constraints, List<Variable<Boolean>> variables, int width, int height, Map<String, Point> nameToPointMap) {
-            this.constraints = constraints;
-            this.variables = variables;
-            this.width = width;
-            this.height = height;
-            this.nameToPointMap = nameToPointMap;
-        }
-
-        public Map<String, Point> getNameToPointMap() {
-            return nameToPointMap;
-        }
-
-        public List<Constraint> getConstraints() {
-            return constraints;
-        }
-
-        public List<Variable<Boolean>> getVariables() {
-            return variables;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-    }
     private class GridController implements ConstraintSatisfaction.CurrentVariableDomainChangeListener<Boolean> {
         private final LinkedList<BitSet[]> solutionsToDraw;
         private List<Variable<Boolean>> variables;

@@ -2,6 +2,7 @@ package com.alfredvc.constraint_satisfaction;
 
 import org.junit.Before;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -46,6 +47,7 @@ public class ConstraintSatisfactionStateTest {
         assertThat(successors.size(), is(expectedSuccessorCount));
     }
 
+    @Ignore
     @Test
     public void timeGenerationOfSuccessors() throws InterruptedException {
         long maxTimeUsedMs = 50;

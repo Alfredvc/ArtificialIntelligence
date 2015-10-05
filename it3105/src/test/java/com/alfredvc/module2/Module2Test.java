@@ -55,7 +55,7 @@ public class Module2Test {
                 "0 2\n" +
                 "1 2";
 
-        Module2.Module2DataHolder holder = Module2.parseInput(input, 4);
+        Module2Convenience.Module2DataHolder holder = Module2Convenience.parseInput(input, 4);
         assertThat(holder.getColorSetSize(), is(4));
         assertThat(equalDoublePoints(holder.getPoints().get(0), expected0), is(true));
         assertThat(equalDoublePoints(holder.getPoints().get(1), expected1), is(true));
@@ -88,7 +88,7 @@ public class Module2Test {
     @Test
     public void graph6k4() throws InterruptedException, IOException {
         long maxTimeUsed = 1500;
-        Module2.Module2DataHolder dataHolder = Module2.parseInput(graph6k4input, 4);
+        Module2Convenience.Module2DataHolder dataHolder = Module2Convenience.parseInput(graph6k4input, 4);
         long start = System.nanoTime();
         ConstraintSatisfaction<Integer> constraintSatisfaction = new ConstraintSatisfaction<>(dataHolder.getConstraints(), dataHolder.getVariables());
         ConstraintSatisfactionResult<Integer> result = constraintSatisfaction.solve();
