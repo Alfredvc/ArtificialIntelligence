@@ -37,7 +37,6 @@ public final class Grid2D extends JPanel {
         g.clearRect(0, 0, getWidth(), getHeight());
         int rectWidth = getWidth() / xSize;
         int rectHeight = getHeight() / ySize;
-        System.out.printf("Width :%d, Height: %d, rectWidth: %d, rectHeight %d, xSize: %d, ySize: %d\n", getWidth(), getHeight(), rectWidth, rectHeight, ySize, xSize);
 
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
