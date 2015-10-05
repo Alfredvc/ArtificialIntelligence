@@ -29,6 +29,10 @@ abstract class Agenda {
         internalAdd(node);
     }
 
+    public Node get(Node node) {
+        return currentNodes.get(node);
+    }
+
     public int size() {
         return currentNodes.size();
     }

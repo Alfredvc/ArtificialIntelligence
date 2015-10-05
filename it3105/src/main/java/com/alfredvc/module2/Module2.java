@@ -210,6 +210,7 @@ public class Module2 {
         if (placeholderGraph != null) placeholderGraph.setVisible(true);
         generatedNodes.setText("0");
         solutionLength.setText("0");
+        poppedNodes.setText("0");
         graphController.cancelNow();
     }
 
