@@ -12,7 +12,7 @@ public abstract class SearchAlgorithm<T extends State> {
     private final int maxNodes;
     private Map<Node<T>, Node<T>> closedNodes;
     private Agenda agenda;
-    private Map<Node<T>, Node<T>> generatedStates;
+    private Map<State<T>, Node<T>> generatedStates;
     private int generatedNodes;
     private int poppedNodes;
     private List<NodePopListener<T>> nodePopListeners;
@@ -53,14 +53,16 @@ public abstract class SearchAlgorithm<T extends State> {
                     currentSuccessor = generatedStates.get(state);
                 } else {
                     currentSuccessor = new Node<>(state, currentParent.getG() + state.getArcCost());
+                    generatedStates.put(state, currentSuccessor);
                     generatedNodes++;
                 }
                 currentParent.addChild(currentSuccessor);
 
-                if (!openOrClosed(currentSuccessor)) {
+                if (!agenda.contains(currentSuccessor) && !closedNodes.containsKey(currentSuccessor)) {
                     attachAndEval(currentSuccessor, currentParent);
                     agenda.add(currentSuccessor);
-                } else if (currentParent.getG() + currentSuccessor.getArcCost() < currentSuccessor.getG()) {
+                }
+                else if (currentParent.getG() + currentSuccessor.getArcCost() < currentSuccessor.getG()) {
                     attachAndEval(currentSuccessor, currentParent);
                     if (closedNodes.containsKey(currentSuccessor)) {
                         propagatePathImprovements(currentSuccessor);
@@ -87,6 +89,7 @@ public abstract class SearchAlgorithm<T extends State> {
     }
 
     private void propagatePathImprovements(Node<T> parent) {
+        System.out.println("Happened");
         for (Node<T> child : parent.getChildren()) {
             int costToChild = child.getCostFrom(parent);
             if (parent.getG() + costToChild < child.getG()) {

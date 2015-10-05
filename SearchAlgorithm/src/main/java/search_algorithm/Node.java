@@ -113,9 +113,6 @@ public final class Node<T extends State> {
         if (obj instanceof Node) {
             return state.equals(((Node) obj).getState());
         }
-        if (obj instanceof State) {
-            return state.equals(obj);
-        }
         return false;
     }
 
