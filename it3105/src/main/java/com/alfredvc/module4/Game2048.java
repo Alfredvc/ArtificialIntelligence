@@ -8,14 +8,21 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 
 public class Game2048 extends JPanel {
     private static final Color BG_COLOR = new Color(0xbbada0);
     private static final String FONT_NAME = "Arial";
     private static final int TILE_SIZE = 64;
     private static final int TILES_MARGIN = 16;
+
+    private java.util.Timer timer;
 
 
     private final Logic2048 logic2048;
@@ -24,8 +31,8 @@ public class Game2048 extends JPanel {
     private boolean lost = false;
     private int score = 0;
 
-    public Game2048() {
-        this.logic2048 = new Logic2048(null);
+    public Game2048(Logic2048 logic2048) {
+        this.logic2048 = logic2048;
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             @Override
@@ -38,19 +45,22 @@ public class Game2048 extends JPanel {
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_LEFT:
                             left();
+                            repaint();
                             break;
                         case KeyEvent.VK_RIGHT:
                             right();
+                            repaint();
                             break;
                         case KeyEvent.VK_DOWN:
                             down();
+                            repaint();
                             break;
                         case KeyEvent.VK_UP:
                             up();
+                            repaint();
                             break;
                     }
                 }
-                repaint();
             }
         });
         resetGame();
@@ -58,28 +68,32 @@ public class Game2048 extends JPanel {
 
     private long getNextBoard(long nextBoard) {
         if (nextBoard == board) {
-            if (Logic2048.getEmptyCountInBoard(board) == 0) lost = true;
+            if (logic2048.isBoardLost(board)) lost = true;
             return board;
         } else {
             return logic2048.generateRandomTwoOrFour(nextBoard);
         }
     }
 
-    private void up() {
+    public long up() {
         board = getNextBoard(logic2048.moveUp(board));
+        return board;
     }
 
 
-    private void down() {
+    public long down() {
         board = getNextBoard(logic2048.moveDown(board));
+        return board;
     }
 
-    private void right() {
+    public long right() {
         board = getNextBoard(logic2048.moveRight(board));
+        return board;
     }
 
-    private void left() {
+    public long left() {
         board = getNextBoard(logic2048.moveLeft(board));
+        return board;
     }
 
     public void resetGame() {
@@ -87,6 +101,36 @@ public class Game2048 extends JPanel {
         lost = false;
         board = logic2048.generateRandomTwoOrFour(0L);
     }
+
+    public boolean isLost() {
+        return lost;
+    }
+
+    public long getBoard() {
+        return board;
+    }
+
+    public void setBoard(long board) {
+        this.board = board;
+        repaint();
+    }
+
+    public void autoRefresh(boolean should) {
+        if (should) {
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    repaint();
+                }
+            }, 0, 33);
+        } else {
+            timer.cancel();
+            timer.purge();
+        }
+    }
+
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -123,15 +167,13 @@ public class Game2048 extends JPanel {
 
 
         if (lost) {
-            g.setColor(new Color(255, 255, 255, 30));
-            g.fillRect(0, 0, getWidth(), getHeight());
+            //g.setColor(new Color(255, 255, 255, 30));
+            //g.fillRect(0, 0, getWidth(), getHeight());
             g.setColor(new Color(78, 139, 202));
             g.setFont(new Font(FONT_NAME, Font.BOLD, 48));
             if (lost) {
                 g.drawString("Game over!", 50, 130);
                 g.drawString("You lose!", 64, 200);
-            }
-            if (lost) {
                 g.setFont(new Font(FONT_NAME, Font.PLAIN, 16));
                 g.setColor(new Color(128, 128, 128, 128));
                 g.drawString("Press ESC to play again", 80, getHeight() - 40);
@@ -178,15 +220,14 @@ public class Game2048 extends JPanel {
         return null;
     }
 
-
-    public static void main(String[] args) {
+    public void start() {
         JFrame game = new JFrame();
         game.setTitle("2048 Game");
         game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         game.setSize(340, 400);
         game.setResizable(false);
 
-        game.add(new Game2048());
+        game.add(this);
 
         game.setLocationRelativeTo(null);
         game.setVisible(true);

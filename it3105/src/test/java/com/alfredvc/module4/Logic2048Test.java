@@ -1,6 +1,5 @@
-package com.alfredvc;
+package com.alfredvc.module4;
 
-import com.alfredvc.module4.Logic2048;
 
 import org.junit.Test;
 
@@ -14,12 +13,6 @@ import static org.junit.Assert.assertThat;
  * Created by erpa_ on 10/8/2015.
  */
 public class Logic2048Test {
-    @Test
-    public void testTranspose(){
-        long board = 0x0123456789abcdefl;
-        System.out.println(Logic2048.getBoardString(board) + "\n\nTransposed\n");
-        System.out.println(Logic2048.getBoardString(Logic2048._transpose(board)));
-    }
 
     @Test
     public void testMoveLeft(){
@@ -34,12 +27,17 @@ public class Logic2048Test {
         long board = (((long)r1) << 48) | (((long)r2) << 32) | (((long)r3) << 16) | r4;
         long movedBoard = (((long)r1e) << 48) | (((long)r2e) << 32) | (((long)r3e) << 16) | r4e;
 
-        assertThat(new Logic2048(null)._moveRowLeft(r1), is(r1e));
-        assertThat(new Logic2048(null)._moveRowLeft(r2), is(r2e));
-        assertThat(new Logic2048(null)._moveRowLeft(r3), is(r3e));
-        assertThat(new Logic2048(null)._moveRowLeft(r4), is(r4e));
-
-        assertThat(new Logic2048(null).moveLeft(board), is(movedBoard));
+        Logic2048 logic2048 = new Logic2048();
+        assertThat(logic2048._moveRowLeft(r1), is(r1e));
+        assertThat(logic2048._moveRowLeft(r2), is(r2e));
+        assertThat(logic2048._moveRowLeft(r3), is(r3e));
+        assertThat(logic2048._moveRowLeft(r4), is(r4e));
+        System.out.println(Logic2048.getBoardString(board));
+        System.out.println();
+        System.out.println(Logic2048.getBoardString(movedBoard));
+        System.out.println();
+        System.out.println(Logic2048.getBoardString(logic2048.moveLeft(board)));
+        assertThat(logic2048.moveLeft(board), is(movedBoard));
     }
 
     @Test
@@ -102,7 +100,7 @@ public class Logic2048Test {
     @Test
     public void intensiveGenerateTwoOrFour() {
         Random r = new Random(4);
-        Logic2048 b = new Logic2048(null);
+        Logic2048 b = new Logic2048();
         for( int i = 0; i < 10000; i++) {
             long board = r.nextLong();
             int zeroes = Logic2048.getEmptyCountInBoard(board);
