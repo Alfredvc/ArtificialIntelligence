@@ -1,7 +1,6 @@
 package com.alfredvc.module4;
 
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
@@ -14,10 +13,13 @@ public class Player2048 {
     private Logic2048 logic;
     private final int maxDepth;
 
-    private static final int TRANSPOSITION_TABLE_MAX_SIZE = 50_000;
+    private static final int TRANSPOSITION_TABLE_MAX_SIZE = 500_000;
+
+    private static final double PROB_LIMIT = 0.0001;
 
     private final char two;
     private final char four;
+    private final Logger l;
 
     private Random r;
 
@@ -36,7 +38,9 @@ public class Player2048 {
 
         @Override
         public int hashCode() {
-            return Long.hashCode(board);
+            int result = Long.hashCode(board);
+            result = 31 * result + depth;
+            return result;
         }
 
         @Override
@@ -51,12 +55,13 @@ public class Player2048 {
 
 
     private enum Move {
-        UP, DOWN, LEFT, RIGHT
+        UP, DOWN, LEFT, RIGHT, NONE
     }
 
     public Player2048 (int depth) {
         this.transpositionTable = createTranspositionTable(TRANSPOSITION_TABLE_MAX_SIZE);
         this.logic = new Logic2048();
+        this.l = new Logger();
         this.maxDepth = depth;
         two = 0x1;
         four = 0x2;
@@ -82,7 +87,9 @@ public class Player2048 {
         Move nextMove;
         int moved = 0;
         boolean lost = false;
+        theWhile:
         while (!lost) {
+            l.reset();
             nextMove = getNextMove(currentBoard);
             switch (nextMove) {
                 case UP:
@@ -97,14 +104,16 @@ public class Player2048 {
                 case RIGHT:
                     currentBoard = game.right();
                     break;
+                case NONE:
+                    lost = true;
+                    break theWhile;
             }
             lost = game.isLost();
             moved++;
+            System.out.println(l);
         }
-        game.setBoard(currentBoard);
+        game.repaint();
         System.out.println("You fucking lost...");
-        System.out.println(Arrays.toString(counters));
-        System.out.println(counters[1] *1.0 / counters[0] * 1.0);
     }
 
     public Logic2048 getLogic() {
@@ -112,10 +121,10 @@ public class Player2048 {
     }
 
     private Move getNextMove(long currentBoard) {
-        long[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard)),
-                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveDown(currentBoard)),
-                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard)),
-                zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard))};
+        long[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0f),
+                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveDown(currentBoard), 1.0f),
+                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0f),
+                zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0f)};
         long max = Long.MIN_VALUE;
         int maxI = -1;
         for (int i = 0; i < 4; i++) {
@@ -124,41 +133,60 @@ public class Player2048 {
                 maxI = i;
             }
         }
-        return Move.values()[maxI];
+        return maxI == -1 ? Move.NONE : Move.values()[maxI];
     }
 
-    private long evalMove(int depth, int maxDepth, long board) {
+    private long evalMove(int depth, int maxDepth, long board, double prob) {
+        if (prob < PROB_LIMIT) {
+            l.increase(l.LOW_PROB_EVAL);
+            return logic.evaluate(board);
+        }
         BoardEval boardEval = new BoardEval(board, depth);
         if (transpositionTable.containsKey(boardEval)) {
-            counters[1] = counters[1] + 1;
+            l.increase(l.CACHE_HIT);
             return transpositionTable.get(boardEval);
         }
+        l.increase(l.CACHE_MISS);
         int empty = Logic2048.getEmptyCountInBoard(board);
-        long[] evals = new long[empty];
-        for (int i = 0; i < empty; i++) {
-            evals[i] = evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(r.nextFloat() < 10.9f ? two : four, i, board));
-            //evals[2*i] = (long) (0.9f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo( two, i, board)));
-            //evals[2*i +1] = (long) (0.1f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(four, i, board)));
-        }
+        long[] evals;
+//        if (empty > 7) {
+//            evals = new long[empty];
+//            for (int i = 0; i < empty; i++) {
+//                boolean useTwo= r.nextdouble() < 0.9f;
+//                evals[i] = evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(useTwo? two : four, i, board), (useTwo? 0.9 : 0.1) * prob);
+//            }
+//        }
+//        else {
+            evals = new long[empty*2];
+        prob = prob / empty;
+            for (int i = 0; i < empty; i++) {
+                evals[2*i] = (long) (0.9f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo( two, i, board), prob * 0.9));
+                evals[2*i +1] = (long) (0.1f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(four, i, board), prob * 0.1));
+            }
+        //}
         long sum = sum(evals);
-        counters[0] = counters[0] + 1;
         transpositionTable.put(boardEval, sum);
         return sum;
     }
 
-    private long evalProbability(int depth, int maxDepth, long board) {
+    private long evalProbability(int depth, int maxDepth, long board, double prob) {
         if (depth >= maxDepth) {
+            l.increase(l.LEAF_EVALS);
             return logic.evaluate(board);
         }
-        long[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board)),
-                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveDown(board)),
-                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveLeft(board)),
-                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveRight(board))};
+        long[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board), prob),
+                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveDown(board), prob),
+                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveLeft(board), prob),
+                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveRight(board), prob)};
         return maxValue(evals);
     }
 
-    private long zeroOrEvalMove(int depth, int maxDepth, long board, long nextBoard) {
-        return board == nextBoard ? 0 : evalMove(depth, maxDepth, nextBoard);
+    private long zeroOrEvalMove(int depth, int maxDepth, long board, long nextBoard, double prob) {
+        if (board == nextBoard) {
+            l.increase(l.NO_MOVE_EVAL);
+            return 0;
+        }
+        return board == nextBoard ? 0 : evalMove(depth, maxDepth, nextBoard, prob);
     }
 
     private long maxValue(long... args) {
@@ -175,5 +203,49 @@ public class Player2048 {
             total += args[i];
         }
         return total;
+    }
+
+    private class Logger {
+        public final int CACHE_HIT = 0;
+        public final int CACHE_MISS = 1;
+        public final int LEAF_EVALS = 2;
+        public final int LOW_PROB_EVAL = 3;
+        public final int NO_MOVE_EVAL= 4;
+        public final int MOVE_TIME = 5;
+
+
+        private long[] counters;
+        public Logger() {
+           counters = new long[5];
+        }
+
+        public void increase(int type) {
+            counters[type]++;
+        }
+
+        public void set(int type, long i) {
+            counters[type] = i;
+        }
+
+        public void reset() {
+            for (int i = 0; i < counters.length; i++) {
+                counters[i] = 0;
+            }
+        }
+
+        private long evals(){
+            return counters[LEAF_EVALS] + counters[LOW_PROB_EVAL] + counters[NO_MOVE_EVAL];
+        }
+
+        private double percent(long a, long b){
+            return a * 1.0 /  b * 1.0;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Cache hit: %f. Leaf: %f. LowProb: %f. NoMove: %f",
+                    percent(counters[0], counters[1]), percent(counters[LEAF_EVALS], evals()),
+                    percent(counters[LOW_PROB_EVAL], evals()), percent(counters[NO_MOVE_EVAL], evals()));
+        }
     }
 }

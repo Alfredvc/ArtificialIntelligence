@@ -13,7 +13,7 @@ public class Player2048Test {
     @Test
     public void benchmark() {
         //24816, 23505, 2.435
-        Player2048 p = new Player2048(4);
+        Player2048 p = new Player2048(8);
         //ForkJoinPlayer2048 p = new ForkJoinPlayer2048(3);
         long start = System.nanoTime();
         p.play();

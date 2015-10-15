@@ -16,9 +16,9 @@ public class Logic2048 {
 
     private float[] evals;
 
-    private long posRandomSeed = 1;
+    private long posRandomSeed = 1337;
     private Random posRandom;
-    private long numRandomSeed = 33;
+    private long numRandomSeed = 1234567891;
     private Random numRandom;
 
 
