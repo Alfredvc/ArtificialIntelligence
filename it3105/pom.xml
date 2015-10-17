@@ -41,6 +41,11 @@
             <artifactId>ConstraintSatisfaction</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.carrotsearch</groupId>
+            <artifactId>hppc</artifactId>
+            <version>0.7.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -80,6 +85,18 @@
                             <attachToBuild>true</attachToBuild>
                             <classifier>onejar</classifier>
                             <filename>Module3.jar</filename>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-fourth</id>
+                        <configuration>
+                            <mainClass>com.alfredvc.module4.Module4</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <classifier>onejar</classifier>
+                            <filename>Module4.jar</filename>
                         </configuration>
                         <goals>
                             <goal>one-jar</goal>
