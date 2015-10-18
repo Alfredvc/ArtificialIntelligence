@@ -19,8 +19,8 @@ import javax.swing.WindowConstants;
 public class Game2048 extends JPanel {
     private static final Color BG_COLOR = new Color(0xbbada0);
     private static final String FONT_NAME = "Arial";
-    private static final int TILE_SIZE = 64;
-    private static final int TILES_MARGIN = 16;
+    private static final int TILE_SIZE = 128;
+    private static final int TILES_MARGIN = 32;
 
     private java.util.Timer timer;
 
@@ -150,9 +150,9 @@ public class Game2048 extends JPanel {
         int xOffset = offsetCoors(x);
         int yOffset = offsetCoors(y);
         g.setColor(getColorForBackground(value));
-        g.fillRoundRect(xOffset, yOffset, TILE_SIZE, TILE_SIZE, 14, 14);
+        g.fillRoundRect(xOffset, yOffset, TILE_SIZE, TILE_SIZE, 28, 28);
         g.setColor(getColorForForeground(value));
-        final int size = value < 100 ? 36 : value < 1000 ? 32 : 24;
+        final int size = value < 100 ? 72 : value < 1000 ? 64 : 48;
         final Font font = new Font(FONT_NAME, Font.BOLD, size);
         g.setFont(font);
 
@@ -170,17 +170,17 @@ public class Game2048 extends JPanel {
             //g.setColor(new Color(255, 255, 255, 30));
             //g.fillRect(0, 0, getWidth(), getHeight());
             g.setColor(new Color(78, 139, 202));
-            g.setFont(new Font(FONT_NAME, Font.BOLD, 48));
+            g.setFont(new Font(FONT_NAME, Font.BOLD, 96));
             if (lost) {
-                g.drawString("Game over!", 50, 130);
-                g.drawString("You lose!", 64, 200);
-                g.setFont(new Font(FONT_NAME, Font.PLAIN, 16));
+                g.drawString("Game over!", 10, 260);
+                g.drawString("You lose!", 128, 400);
+                g.setFont(new Font(FONT_NAME, Font.PLAIN, 32));
                 g.setColor(new Color(128, 128, 128, 128));
-                g.drawString("Press ESC to play again", 80, getHeight() - 40);
+                g.drawString("Press ESC to play again", 160, getHeight() - 80);
             }
         }
-        g.setFont(new Font(FONT_NAME, Font.PLAIN, 18));
-        g.drawString("Score: " + score, 200, 365);
+        g.setFont(new Font(FONT_NAME, Font.PLAIN, 32));
+        g.drawString("Score: " + score, 200, 730);
 
     }
 
@@ -224,7 +224,7 @@ public class Game2048 extends JPanel {
         JFrame game = new JFrame();
         game.setTitle("2048 Game");
         game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        game.setSize(340, 400);
+        game.setSize(680, 800);
         game.setResizable(false);
 
         game.add(this);

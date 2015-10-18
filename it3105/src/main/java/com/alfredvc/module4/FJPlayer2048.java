@@ -1,17 +1,24 @@
 package com.alfredvc.module4;
 
 
-import java.util.*;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
 /**
  * Created by erpa_ on 10/10/2015.
  */
-public class Player2048 {
+public class FJPlayer2048 {
     private Game2048 game;
     private Logic2048 logic;
     private final int maxDepth;
 
     private static final int TRANSPOSITION_TABLE_MAX_SIZE = 500_000;
+    private static final int CONCURRENCY_LEVEL = 4;
 
     private static final double PROB_LIMIT = 0.0001;
 
@@ -23,31 +30,30 @@ public class Player2048 {
 
     private long[] counters = {0,0};
 
-    private Map<Long, BoardEval> transpositionTable;
+    private ConcurrentHashMap<Long, BoardEval> transpositionTable;
+    //private ForkJoinPool pool;
 
     private class BoardEval{
         public long eval;
         public int depth;
+        public long board;
+        public int boardHash;
 
-        public BoardEval(long eval, int depth) {
+        public BoardEval(long eval, int depth, long board, int boardHash) {
             this.eval = eval;
             this.depth = depth;
+            this.board = board;
+            this.boardHash = boardHash;
         }
 
         @Override
-        public int hashCode() {
-            int result = Long.hashCode(eval);
-            result = 31 * result + depth;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) throw new NullPointerException();
-            if (!(obj instanceof BoardEval)) throw new IllegalArgumentException();
-            BoardEval other = (BoardEval) obj;
-            return eval == other.eval && depth == other.depth;
-
+        public String toString() {
+            return "BoardEval{" +
+                    "eval=" + eval +
+                    ", depth=" + depth +
+                    ", board=" + board +
+                    ", boardHash=" + boardHash +
+                    '}';
         }
     }
 
@@ -56,23 +62,18 @@ public class Player2048 {
         UP, DOWN, LEFT, RIGHT, NONE
     }
 
-    public Player2048 (int depth) {
-        this.transpositionTable = createTranspositionTable(TRANSPOSITION_TABLE_MAX_SIZE);
+    public FJPlayer2048(int depth) {
+//        this.transpositionTable = CacheBuilder.newBuilder()
+//                .concurrencyLevel(CONCURRENCY_LEVEL)
+//                .maximumSize(TRANSPOSITION_TABLE_MAX_SIZE)
+//                .build();
+        //this.pool = new ForkJoinPool(CONCURRENCY_LEVEL);
         this.logic = new Logic2048();
         this.l = new Logger();
         this.maxDepth = depth;
         two = 0x1;
         four = 0x2;
         this.r = new Random();
-    }
-
-    public static Map<Long, BoardEval> createTranspositionTable(final int maxEntries) {
-        return new LinkedHashMap<Long, BoardEval>(maxEntries*10/7, 0.7f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry<Long, BoardEval> eldest) {
-                return size() > maxEntries;
-            }
-        };
     }
 
     public void play() {
@@ -87,7 +88,7 @@ public class Player2048 {
         boolean lost = false;
         theWhile:
         while (!lost) {
-            transpositionTable = createTranspositionTable(TRANSPOSITION_TABLE_MAX_SIZE);
+            this.transpositionTable = new ConcurrentHashMap<>();
             l.reset();
             nextMove = getNextMove(currentBoard);
             switch (nextMove) {
@@ -120,10 +121,15 @@ public class Player2048 {
     }
 
     private Move getNextMove(long currentBoard) {
-        long[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0f),
-                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveDown(currentBoard), 1.0f),
-                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0f),
-                zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0f)};
+        MoveTask up = getMoveTask(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0);
+        tryFork(up);
+        MoveTask down = getMoveTask(0, maxDepth, currentBoard, logic.moveDown(currentBoard), 1.0);
+        tryFork(down);
+        MoveTask left = getMoveTask(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0);
+        tryFork(left);
+        MoveTask right = getMoveTask(0, maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0);
+        tryFork(right);
+        long[] evals = {zeroOrJoin(up), zeroOrJoin(down), zeroOrJoin(left), zeroOrJoin(right)};
         long max = Long.MIN_VALUE;
         int maxI = -1;
         for (int i = 0; i < 4; i++) {
@@ -132,16 +138,17 @@ public class Player2048 {
                 maxI = i;
             }
         }
-        return maxI == -1 ? Move.NONE : Move.values()[maxI];
+        return sum(evals) == 0 ? Move.NONE : Move.values()[maxI];
     }
 
     private long evalMove(int depth, int maxDepth, long board, double prob) {
+
         if (prob < PROB_LIMIT) {
             l.increase(l.LOW_PROB_EVAL);
             return logic.evaluate(board);
         }
         BoardEval boardEval = transpositionTable.get(board);
-        if (boardEval != null && boardEval.depth <= depth) {
+        if (boardEval != null && boardEval.depth == depth) {
             l.increase(l.CACHE_HIT);
             return boardEval.eval;
         }
@@ -150,12 +157,17 @@ public class Player2048 {
         long[] evals;
         evals = new long[empty*2];
         prob = prob / empty;
-            for (int i = 0; i < empty; i++) {
-                evals[2*i] = (long) (0.9f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo( two, i, board), prob * 0.9));
-                evals[2*i +1] = (long) (0.1f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(four, i, board), prob * 0.1));
-            }
+        for (int i = 0; i < empty; i++) {
+            evals[2*i] = (long) (0.9 * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo( two, i, board), prob * 0.9));
+            evals[2*i +1] = (long) (0.1 * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(four, i, board), prob * 0.1));
+        }
         long sum = sum(evals);
-        transpositionTable.put(board, new BoardEval(sum, depth));
+        BoardEval value = new BoardEval(sum, depth, board, Long.hashCode(board));
+//        if (boardEval != null && boardEval.eval != sum && boardEval.depth == depth) {
+//            if (boardEval.board != value.board || boardEval.boardHash != value.boardHash) throw new IllegalStateException();
+//            System.out.format("%d - %d. / %d\n", boardEval.eval, value.eval, boardEval.eval - value.eval);
+//        }
+        transpositionTable.put(board, value);
         return sum;
     }
 
@@ -164,11 +176,25 @@ public class Player2048 {
             l.increase(l.LEAF_EVALS);
             return logic.evaluate(board);
         }
-        long[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board), prob),
-                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveDown(board), prob),
-                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveLeft(board), prob),
-                zeroOrEvalMove(depth+1, maxDepth, board, logic.moveRight(board), prob)};
-        return maxValue(evals);
+
+        if (depth > 1) {
+            long[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board), prob),
+                    zeroOrEvalMove(depth+1, maxDepth, board, logic.moveDown(board), prob),
+                    zeroOrEvalMove(depth+1, maxDepth, board, logic.moveLeft(board), prob),
+                    zeroOrEvalMove(depth+1, maxDepth, board, logic.moveRight(board), prob)};
+            return maxValue(evals);
+        } else {
+            MoveTask up = getMoveTask(depth + 1, maxDepth, board, logic.moveUp(board), prob);
+            tryFork(up);
+            MoveTask down = getMoveTask(depth + 1, maxDepth, board, logic.moveDown(board), prob);
+            tryFork(down);
+            MoveTask left = getMoveTask(depth + 1, maxDepth, board, logic.moveLeft(board), prob);
+            tryFork(left);
+            MoveTask right = getMoveTask(depth + 1, maxDepth, board, logic.moveRight(board), prob);
+            tryFork(right);
+            long[] evals = {zeroOrJoin(up), zeroOrJoin(down), zeroOrJoin(left), zeroOrJoin(right)};
+            return maxValue(evals);
+        }
     }
 
     private long zeroOrEvalMove(int depth, int maxDepth, long board, long nextBoard, double prob) {
@@ -177,6 +203,23 @@ public class Player2048 {
             return 0;
         }
         return evalMove(depth, maxDepth, nextBoard, prob);
+    }
+
+    private void tryFork(MoveTask task) {
+        if (task != null) task.fork();
+    }
+
+    private long zeroOrJoin(MoveTask task){
+        if (task == null) return 0;
+        return task.join();
+    }
+
+    private MoveTask getMoveTask(int depth, int maxDepth, long board, long nextBoard, double prob){
+        if (board == nextBoard) {
+            l.increase(l.NO_MOVE_EVAL);
+            return null;
+        }
+        return new MoveTask(depth, maxDepth, nextBoard, prob);
     }
 
     private long maxValue(long... args) {
@@ -193,6 +236,26 @@ public class Player2048 {
             total += args[i];
         }
         return total;
+    }
+
+    private class MoveTask extends RecursiveTask<Long> {
+        private int depth;
+        private int maxDepth;
+        private long board;
+        private double prob;
+
+        public MoveTask(int depth, int maxDepth, long board, double prob) {
+            this.depth = depth;
+            this.maxDepth = maxDepth;
+            this.board = board;
+            this.prob = prob;
+        }
+
+        @Override
+        protected Long compute() {
+            if (depth == maxDepth) return logic.evaluate(board);
+            return evalMove(depth, maxDepth, board, prob);
+        }
     }
 
     private class Logger {
