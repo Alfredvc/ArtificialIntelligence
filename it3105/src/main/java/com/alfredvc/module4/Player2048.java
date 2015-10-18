@@ -26,17 +26,17 @@ public class Player2048 {
     private Map<Long, BoardEval> transpositionTable;
 
     private class BoardEval{
-        public long eval;
+        public double eval;
         public int depth;
 
-        public BoardEval(long eval, int depth) {
+        public BoardEval(double eval, int depth) {
             this.eval = eval;
             this.depth = depth;
         }
 
         @Override
         public int hashCode() {
-            int result = Long.hashCode(eval);
+            int result = Double.hashCode(eval);
             result = 31 * result + depth;
             return result;
         }
@@ -120,11 +120,11 @@ public class Player2048 {
     }
 
     private Move getNextMove(long currentBoard) {
-        long[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0f),
+        double[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0f),
                 zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveDown(currentBoard), 1.0f),
                 zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0f),
                 zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0f)};
-        long max = Long.MIN_VALUE;
+        double max = Double.MIN_VALUE;
         int maxI = -1;
         for (int i = 0; i < 4; i++) {
             if (evals[i] > max){
@@ -135,7 +135,7 @@ public class Player2048 {
         return maxI == -1 ? Move.NONE : Move.values()[maxI];
     }
 
-    private long evalMove(int depth, int maxDepth, long board, double prob) {
+    private double evalMove(int depth, int maxDepth, long board, double prob) {
         if (prob < PROB_LIMIT) {
             l.increase(l.LOW_PROB_EVAL);
             return logic.evaluate(board);
@@ -147,31 +147,31 @@ public class Player2048 {
         }
         l.increase(l.CACHE_MISS);
         int empty = Logic2048.getEmptyCountInBoard(board);
-        long[] evals;
-        evals = new long[empty*2];
+        double[] evals;
+        evals = new double[empty*2];
         prob = prob / empty;
             for (int i = 0; i < empty; i++) {
-                evals[2*i] = (long) (0.9f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo( two, i, board), prob * 0.9));
-                evals[2*i +1] = (long) (0.1f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(four, i, board), prob * 0.1));
+                evals[2*i] = 0.9f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo( two, i, board), prob * 0.9);
+                evals[2*i +1] = 0.1f * evalProbability(depth, maxDepth, Logic2048.setEmptyPositionTo(four, i, board), prob * 0.1);
             }
-        long sum = sum(evals);
+        double sum = sum(evals);
         transpositionTable.put(board, new BoardEval(sum, depth));
         return sum;
     }
 
-    private long evalProbability(int depth, int maxDepth, long board, double prob) {
+    private double evalProbability(int depth, int maxDepth, long board, double prob) {
         if (depth >= maxDepth) {
             l.increase(l.LEAF_EVALS);
             return logic.evaluate(board);
         }
-        long[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board), prob),
+        double[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board), prob),
                 zeroOrEvalMove(depth+1, maxDepth, board, logic.moveDown(board), prob),
                 zeroOrEvalMove(depth+1, maxDepth, board, logic.moveLeft(board), prob),
                 zeroOrEvalMove(depth+1, maxDepth, board, logic.moveRight(board), prob)};
         return maxValue(evals);
     }
 
-    private long zeroOrEvalMove(int depth, int maxDepth, long board, long nextBoard, double prob) {
+    private double zeroOrEvalMove(int depth, int maxDepth, long board, long nextBoard, double prob) {
         if (board == nextBoard) {
             l.increase(l.NO_MOVE_EVAL);
             return 0;
@@ -179,16 +179,16 @@ public class Player2048 {
         return evalMove(depth, maxDepth, nextBoard, prob);
     }
 
-    private long maxValue(long... args) {
-        long max = Long.MIN_VALUE;
+    private double maxValue(double... args) {
+        double max = Long.MIN_VALUE;
         for (int i = 0; i < args.length; i++) {
             if (args[i] > max) max = args[i];
         }
         return max;
     }
 
-    private long sum(long... args) {
-        long total = 0;
+    private double sum(double... args) {
+        double total = 0;
         for (int i = 0; i < args.length; i++) {
             total += args[i];
         }

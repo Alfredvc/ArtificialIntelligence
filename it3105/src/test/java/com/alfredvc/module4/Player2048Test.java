@@ -12,8 +12,8 @@ public class Player2048Test {
     @Ignore
     @Test
     public void benchmark() {
-        //Player2048 p = new Player2048(6);
-        FJPlayer2048 p = new FJPlayer2048(6);
+        //Player2048 p = new Player2048(3);
+        FJPlayer2048 p = new FJPlayer2048(4, FJPlayer2048.Mode.PARALLEL);
         //ForkJoinPlayer2048 p = new ForkJoinPlayer2048(10);
         long start = System.nanoTime();
         p.play();

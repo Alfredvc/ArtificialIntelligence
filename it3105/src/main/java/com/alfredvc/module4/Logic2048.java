@@ -12,7 +12,7 @@ public class Logic2048 {
 
     public long[] counters = {0,0,0,0,0};
 
-    private int[] emptyCells;
+    private double[] emptyCells;
 
     private float[] evals;
 
@@ -23,15 +23,15 @@ public class Logic2048 {
 
 
     public Logic2048(){
-        this.posRandom = new Random(posRandomSeed);
-        this.numRandom = new Random(numRandomSeed);
+        this.posRandom = new Random();
+        this.numRandom = new Random();
         precalculate();
     }
 
     private void precalculate(){
         left = new char[65536];
         right = new char[65536];
-        emptyCells = new int[65536];
+        emptyCells = new double[65536];
         evals = new float[65536];
         char c = 0;
         while (true) {
@@ -43,16 +43,16 @@ public class Logic2048 {
         }
     }
 
-    private int calculateEval(char row){
-        float SCORE_LOST_PENALTY = 200000.0f;
-        float SCORE_MONOTONICITY_POWER = 4.0f;
-        float SCORE_MONOTONICITY_WEIGHT = 47.0f;
-        float SCORE_SUM_POWER = 3.5f;
-        float SCORE_SUM_WEIGHT = 11.0f;
-        float SCORE_MERGES_WEIGHT = 700.0f;
-        float SCORE_EMPTY_WEIGHT = 270.0f;
+    private double calculateEval(char row){
+        double SCORE_LOST_PENALTY = 200000.0f;
+        double SCORE_MONOTONICITY_POWER = 4.0f;
+        double SCORE_MONOTONICITY_WEIGHT = 47.0f;
+        double SCORE_SUM_POWER = 3.5f;
+        double SCORE_SUM_WEIGHT = 11.0f;
+        double SCORE_MERGES_WEIGHT = 700.0f;
+        double SCORE_EMPTY_WEIGHT = 270.0f;
         // Heuristic score
-        float sum = 0;
+        double sum = 0;
         int empty = 0;
         int merges = 0;
 
@@ -82,8 +82,8 @@ public class Logic2048 {
             merges += 1 + counter;
         }
 
-        float monotonicity_left = 0;
-        float monotonicity_right = 0;
+        double monotonicity_left = 0;
+        double monotonicity_right = 0;
         for (int i = 1; i < 4; ++i) {
             if (line[i-1] > line[i]) {
                 monotonicity_left += Math.pow(line[i-1], SCORE_MONOTONICITY_POWER) - Math.pow(line[i], SCORE_MONOTONICITY_POWER);
@@ -92,25 +92,25 @@ public class Logic2048 {
             }
         }
 
-        return (int) (SCORE_LOST_PENALTY +
+        return  (SCORE_LOST_PENALTY +
                 SCORE_EMPTY_WEIGHT * empty +
                 SCORE_MERGES_WEIGHT * merges -
-                SCORE_MONOTONICITY_WEIGHT * Float.min(monotonicity_left, monotonicity_right) -
+                SCORE_MONOTONICITY_WEIGHT * Double.min(monotonicity_left, monotonicity_right) -
                 SCORE_SUM_WEIGHT * sum);
 
     }
 
-    public long evaluate(long inputBoard) {
-        char r0 = (char) ((inputBoard >> 48) & 0xffffl);
-        char r1 = (char) ((inputBoard >> 32) & 0xffffl);
-        char r2 = (char) ((inputBoard >> 16) & 0xffffl);
-        char r3 = (char) (inputBoard & 0xffffl);
+    public double evaluate(long inputBoard) {
+        char r0 = (char) ((inputBoard >> 48) & 0xffffL);
+        char r1 = (char) ((inputBoard >> 32) & 0xffffL);
+        char r2 = (char) ((inputBoard >> 16) & 0xffffL);
+        char r3 = (char) (inputBoard & 0xffffL);
 
         long transposed = _transpose(inputBoard);
-        char c0 = (char) ((transposed >> 48) & 0xffffl);
-        char c1 = (char) ((transposed >> 32) & 0xffffl);
-        char c2 = (char) ((transposed >> 16) & 0xffffl);
-        char c3 = (char) (transposed & 0xffffl);
+        char c0 = (char) ((transposed >> 48) & 0xffffL);
+        char c1 = (char) ((transposed >> 32) & 0xffffL);
+        char c2 = (char) ((transposed >> 16) & 0xffffL);
+        char c3 = (char) (transposed & 0xffffL);
         counters[4] = counters[4] + 1;
 
         return emptyCells[r0] + emptyCells[r1] + emptyCells[r2] + emptyCells[r3]
@@ -145,10 +145,10 @@ public class Logic2048 {
         return _transpose(_moveRight(_transpose(inputBoard)));
     }
     private long _moveLeft(long inputBoard) {
-        char r0 = (char) ((inputBoard >> 48) & 0xffffl);
-        char r1 = (char) ((inputBoard >> 32) & 0xffffl);
-        char r2 = (char) ((inputBoard >> 16) & 0xffffl);
-        char r3 = (char) (inputBoard & 0xffffl);
+        char r0 = (char) ((inputBoard >> 48) & 0xffffL);
+        char r1 = (char) ((inputBoard >> 32) & 0xffffL);
+        char r2 = (char) ((inputBoard >> 16) & 0xffffL);
+        char r3 = (char) (inputBoard & 0xffffL);
         return getBoardFromRows(left[r0], left[r1], left[r2], left[r3]);
     }
 
@@ -203,18 +203,18 @@ public class Logic2048 {
     }
 
     private long _moveRight(long inputBoard) {
-        char r0 = (char) ((inputBoard >> 48) & 0xffffl);
-        char r1 = (char) ((inputBoard >> 32) & 0xffffl);
-        char r2 = (char) ((inputBoard >> 16) & 0xffffl);
-        char r3 = (char) (inputBoard & 0xffffl);
+        char r0 = (char) ((inputBoard >> 48) & 0xffffL);
+        char r1 = (char) ((inputBoard >> 32) & 0xffffL);
+        char r2 = (char) ((inputBoard >> 16) & 0xffffL);
+        char r3 = (char) (inputBoard & 0xffffL);
         return getBoardFromRows(right[r0], right[r1], right[r2], right[r3]);
     }
 
     public static long _reverse(long inputBoard){
-        char r0 = (char) ((inputBoard >> 48) & 0xffffl);
-        char r1 = (char) ((inputBoard >> 32) & 0xffffl);
-        char r2 = (char) ((inputBoard >> 16) & 0xffffl);
-        char r3 = (char) (inputBoard & 0xffffl);
+        char r0 = (char) ((inputBoard >> 48) & 0xffffL);
+        char r1 = (char) ((inputBoard >> 32) & 0xffffL);
+        char r2 = (char) ((inputBoard >> 16) & 0xffffL);
+        char r3 = (char) (inputBoard & 0xffffL);
         return getBoardFromRows(reverseRow(r3), reverseRow(r2), reverseRow(r1), reverseRow(r0));
     }
 
