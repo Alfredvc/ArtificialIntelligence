@@ -23,8 +23,8 @@ public class Logic2048 {
 
 
     public Logic2048(){
-        this.posRandom = new Random();
-        this.numRandom = new Random();
+        this.posRandom = new Random(posRandomSeed);
+        this.numRandom = new Random(numRandomSeed);
         precalculate();
     }
 
@@ -271,6 +271,15 @@ public class Logic2048 {
         j.add(s.substring(8,12));
         j.add(s.substring(12));
         return j.toString();
+    }
+
+    public long score(long inputBoard) {
+        long sum = 0;
+        while (inputBoard != 0) {
+            sum += 2 << (((int) inputBoard & 0xF) - 1);
+            inputBoard = inputBoard >>> 4;
+        }
+        return sum;
     }
 
     private static long getBoardFromRows(char c0, char c1, char c2, char c3) {

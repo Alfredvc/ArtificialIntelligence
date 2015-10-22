@@ -15,7 +15,7 @@
         <module>FunctionParser</module>
         <module>ConstraintSatisfaction</module>
         <module>it3105</module>
-        <module>Expectomax</module>
+        <module>Expectimax</module>
     </modules>
 
 

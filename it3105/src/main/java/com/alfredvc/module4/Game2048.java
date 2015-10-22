@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,6 +22,7 @@ public class Game2048 extends JPanel {
     private static final String FONT_NAME = "Arial";
     private static final int TILE_SIZE = 128;
     private static final int TILES_MARGIN = 32;
+    private JFrame game;
 
     private java.util.Timer timer;
 
@@ -34,35 +36,35 @@ public class Game2048 extends JPanel {
     public Game2048(Logic2048 logic2048) {
         this.logic2048 = logic2048;
         setFocusable(true);
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    resetGame();
-                }
-
-                if (!lost) {
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_LEFT:
-                            left();
-                            repaint();
-                            break;
-                        case KeyEvent.VK_RIGHT:
-                            right();
-                            repaint();
-                            break;
-                        case KeyEvent.VK_DOWN:
-                            down();
-                            repaint();
-                            break;
-                        case KeyEvent.VK_UP:
-                            up();
-                            repaint();
-                            break;
-                    }
-                }
-            }
-        });
+//        addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+//                    resetGame();
+//                }
+//
+//                if (!lost) {
+//                    switch (e.getKeyCode()) {
+//                        case KeyEvent.VK_LEFT:
+//                            left();
+//                            repaint();
+//                            break;
+//                        case KeyEvent.VK_RIGHT:
+//                            right();
+//                            repaint();
+//                            break;
+//                        case KeyEvent.VK_DOWN:
+//                            down();
+//                            repaint();
+//                            break;
+//                        case KeyEvent.VK_UP:
+//                            up();
+//                            repaint();
+//                            break;
+//                    }
+//                }
+//            }
+//        });
         resetGame();
     }
 
@@ -128,6 +130,13 @@ public class Game2048 extends JPanel {
             timer.cancel();
             timer.purge();
         }
+    }
+
+    public void close() {
+        timer.cancel();
+        timer.purge();
+        game.setVisible(false);
+        game.dispose();
     }
 
 
@@ -221,7 +230,7 @@ public class Game2048 extends JPanel {
     }
 
     public void start() {
-        JFrame game = new JFrame();
+        game = new JFrame();
         game.setTitle("2048 Game");
         game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         game.setSize(680, 800);

@@ -12,14 +12,14 @@ public class Player2048Test {
     @Ignore
     @Test
     public void benchmark() {
-        //Player2048 p = new Player2048(3);
-        FJPlayer2048 p = new FJPlayer2048(4, FJPlayer2048.Mode.PARALLEL);
-        //ForkJoinPlayer2048 p = new ForkJoinPlayer2048(10);
-        long start = System.nanoTime();
-        p.play();
-        long finish = System.nanoTime();
-        System.out.println("Took : " + (finish - start)/1000000);
-        System.out.println(Arrays.toString(p.getLogic().counters));
+        FJPlayer2048.FinalStats[] finalStats = new FJPlayer2048.FinalStats[8];
+        for (int i = 0; i < 8; i++) {
+
+            FJPlayer2048 p = new FJPlayer2048(i, FJPlayer2048.Mode.PARALLEL, new Logic2048());
+            finalStats[i] = p.play();
+            System.out.println(finalStats[i]);
+            p.close();
+        }
         while (true);
     }
 }

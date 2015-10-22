@@ -19,21 +19,15 @@ public class FJPlayer2048 {
 
     private final Mode mode;
 
-    private static final int TRANSPOSITION_TABLE_MAX_SIZE = 500_000;
-    private static final int CONCURRENCY_LEVEL = 4;
-
     private static final double PROB_LIMIT = 0.0001;
 
     private final char two;
     private final char four;
     private final Logger l;
 
-    private Random r;
-
     private long[] counters = {0,0};
 
     private ConcurrentHashMap<Long, BoardEval> transpositionTable;
-    //private ForkJoinPool pool;
 
     private class BoardEval{
         public double eval;
@@ -53,35 +47,35 @@ public class FJPlayer2048 {
         }
     }
 
-
     private enum Move {
         UP, DOWN, LEFT, RIGHT, NONE
     }
 
-    public FJPlayer2048(int depth, Mode mode) {
+    public FJPlayer2048(int depth) {
+        this(depth, Mode.PARALLEL, new Logic2048());
+    }
+
+    public FJPlayer2048(int depth, Mode mode, Logic2048 logic2048) {
         //this.pool = new ForkJoinPool(CONCURRENCY_LEVEL);
         this.mode = mode;
-        this.logic = new Logic2048();
+        this.logic = logic2048;
         this.l = new Logger();
         this.maxDepth = depth;
         two = 0x1;
         four = 0x2;
-        this.r = new Random();
     }
 
-    public void play() {
+    public FinalStats play() {
         game = new Game2048(logic);
         game.start();
-
         game.autoRefresh(true);
         long currentBoard = game.getBoard();
-        System.out.println("Started playing!");
+        long start = System.nanoTime();
         Move nextMove;
         int moved = 0;
         boolean lost = false;
-        theWhile:
         while (!lost) {
-            if (moved % 2 == 0)this.transpositionTable = new ConcurrentHashMap<>(500_000, 0.5f);
+            this.transpositionTable = new ConcurrentHashMap<>(500_000, 0.5f);
             l.reset();
             if (mode == Mode.SERIAL) nextMove = serialGetNextMove(currentBoard);
             else nextMove = getNextMove(currentBoard);
@@ -99,15 +93,22 @@ public class FJPlayer2048 {
                     currentBoard = game.right();
                     break;
                 case NONE:
-                    lost = true;
-                    break theWhile;
+                    currentBoard = game.right();
+                    currentBoard = game.left();
+                    currentBoard = game.up();
+                    currentBoard = game.down();
+                    break;
             }
             lost = game.isLost();
+            if (lost) break;
             moved++;
-            System.out.println(l);
+            //System.out.println(l);
         }
+        game.setBoard(currentBoard);
         game.repaint();
-        System.out.println("You fucking lost...");
+        long finish = System.nanoTime();
+        double taken = (finish - start) / 1000000000.0;
+        return new FinalStats(taken, moved, logic.score(currentBoard));
     }
 
     public Logic2048 getLogic() {
@@ -120,14 +121,14 @@ public class FJPlayer2048 {
                 zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0f),
                 zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0f)};
         double max = Double.MIN_VALUE;
-        int maxI = -1;
+        int maxI = 4;
         for (int i = 0; i < 4; i++) {
             if (evals[i] > max){
                 max = evals[i];
                 maxI = i;
             }
         }
-        return maxI == -1 ? Move.NONE : Move.values()[maxI];
+        return Move.values()[maxI];
     }
 
     private Move getNextMove(long currentBoard) {
@@ -141,14 +142,14 @@ public class FJPlayer2048 {
         tryFork(right);
         double[] evals = {zeroOrJoin(up), zeroOrJoin(down), zeroOrJoin(left), zeroOrJoin(right)};
         double max = Double.MIN_VALUE;
-        int maxI = -1;
+        int maxI = 4;
         for (int i = 0; i < 4; i++) {
             if (evals[i] > max){
                 max = evals[i];
                 maxI = i;
             }
         }
-        return sum(evals) == 0 ? Move.NONE : Move.values()[maxI];
+        return Move.values()[maxI];
     }
 
     private double evalMove(int depth, int maxDepth, long board, double prob) {
@@ -168,10 +169,6 @@ public class FJPlayer2048 {
         }
         sum /= empty;
         BoardEval value = new BoardEval(sum, depth);
-//        if (boardEval != null && Math.abs(boardEval.eval - sum) > 1 && boardEval.depth == depth) {
-//            if (boardEval.board != value.board || boardEval.boardHash != value.boardHash) throw new IllegalStateException();
-//            System.out.format("%.1f - %.1f. / %.1f\n", boardEval.eval, value.eval, boardEval.eval - value.eval);
-//        }
         transpositionTable.put(board, value);
         return sum;
     }
@@ -254,6 +251,10 @@ public class FJPlayer2048 {
         return total;
     }
 
+    public void close() {
+        this.game.close();
+    }
+
     private class MoveTask extends RecursiveTask<Double> {
         private int depth;
         private int maxDepth;
@@ -281,7 +282,6 @@ public class FJPlayer2048 {
         public final int LOW_PROB_EVAL = 3;
         public final int NO_MOVE_EVAL= 4;
         public final int MOVE_TIME = 5;
-
 
         private long[] counters;
         public Logger() {
@@ -315,6 +315,46 @@ public class FJPlayer2048 {
             return String.format("Cache hit: %f. Leaf: %f. LowProb: %f. NoMove: %f",
                     percent(counters[0], counters[1] + counters[0]), percent(counters[LEAF_EVALS], evals()),
                     percent(counters[LOW_PROB_EVAL], evals()), percent(counters[NO_MOVE_EVAL], evals()));
+        }
+    }
+
+    public class FinalStats {
+        final double timeTaken;
+        final long movesMade;
+        final double movesPerSecond;
+        final long finalScore;
+
+        public FinalStats(double timeTaken, long movesMade, long finalScore) {
+            this.timeTaken = timeTaken;
+            this.movesMade = movesMade;
+            this.movesPerSecond = movesMade / timeTaken;
+            this.finalScore = finalScore;
+        }
+
+        public double getTimeTaken() {
+            return timeTaken;
+        }
+
+        public long getMovesMade() {
+            return movesMade;
+        }
+
+        public double getMovesPerSecond() {
+            return movesPerSecond;
+        }
+
+        public long getFinalScore() {
+            return finalScore;
+        }
+
+        @Override
+        public String toString() {
+            return "FinalStats{" +
+                    "timeTaken=" + timeTaken +
+                    ", movesMade=" + movesMade +
+                    ", movesPerSecond=" + movesPerSecond +
+                    ", finalScore=" + finalScore +
+                    '}';
         }
     }
 }
