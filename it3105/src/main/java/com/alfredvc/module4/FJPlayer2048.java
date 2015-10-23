@@ -116,10 +116,10 @@ public class FJPlayer2048 {
     }
 
     private Move serialGetNextMove(long currentBoard) {
-        double[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0f),
-                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveDown(currentBoard), 1.0f),
-                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0f),
-                zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0f)};
+        double[] evals = {zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveUp(currentBoard), 1.0),
+                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveDown(currentBoard), 1.0),
+                zeroOrEvalMove(0, maxDepth, currentBoard, logic.moveLeft(currentBoard), 1.0),
+                zeroOrEvalMove(0,maxDepth, currentBoard, logic.moveRight(currentBoard), 1.0)};
         double max = Double.MIN_VALUE;
         int maxI = 4;
         for (int i = 0; i < 4; i++) {

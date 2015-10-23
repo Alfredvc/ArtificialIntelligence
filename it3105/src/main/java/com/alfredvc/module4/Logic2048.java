@@ -16,15 +16,13 @@ public class Logic2048 {
 
     private float[] evals;
 
-    private long posRandomSeed = 1337;
     private Random posRandom;
-    private long numRandomSeed = 1234567891;
     private Random numRandom;
 
 
     public Logic2048(){
-        this.posRandom = new Random(posRandomSeed);
-        this.numRandom = new Random(numRandomSeed);
+        this.posRandom = new Random(1);
+        this.numRandom = new Random(1);
         precalculate();
     }
 
@@ -43,29 +41,29 @@ public class Logic2048 {
         }
     }
 
-    private double calculateEval(char row){
-        double SCORE_LOST_PENALTY = 200000.0f;
-        double SCORE_MONOTONICITY_POWER = 4.0f;
-        double SCORE_MONOTONICITY_WEIGHT = 47.0f;
-        double SCORE_SUM_POWER = 3.5f;
-        double SCORE_SUM_WEIGHT = 11.0f;
-        double SCORE_MERGES_WEIGHT = 700.0f;
-        double SCORE_EMPTY_WEIGHT = 270.0f;
-        // Heuristic score
+    private double calculateEval(char inRow){
+        double NO_MOVE_PENALTY = 200000.0f;
+        double MONOTONICITY_POWER = 4.0f;
+        double MONOTONICITY_WEIGHT = 47.0f;
+        double SUM_POWER = 3.5f;
+        double SUM_WEIGHT = 11.0f;
+        double MERGES_WEIGHT = 700.0f;
+        double EMPTY_WEIGHT = 270.0f;
+
         double sum = 0;
         int empty = 0;
         int merges = 0;
 
-        char[] line = { (char) (row >> 12 & 0xf),
-        (char) (row >> 8 & 0xf),
-        (char) (row >> 4 & 0xf),
-        (char) (row & 0xf)};
+        char[] row = { (char) (inRow >> 12 & 0xf),
+                        (char) (inRow >> 8 & 0xf),
+                        (char) (inRow >> 4 & 0xf),
+                        (char) (inRow & 0xf)};
 
         int prev = 0;
         int counter = 0;
         for (int i = 0; i < 4; ++i) {
-            int rank = line[i];
-            sum += Math.pow(rank, SCORE_SUM_POWER);
+            int rank = row[i];
+            sum += Math.pow(rank, SUM_POWER);
             if (rank == 0) {
                 empty++;
             } else {
@@ -85,18 +83,18 @@ public class Logic2048 {
         double monotonicity_left = 0;
         double monotonicity_right = 0;
         for (int i = 1; i < 4; ++i) {
-            if (line[i-1] > line[i]) {
-                monotonicity_left += Math.pow(line[i-1], SCORE_MONOTONICITY_POWER) - Math.pow(line[i], SCORE_MONOTONICITY_POWER);
+            if (row[i-1] > row[i]) {
+                monotonicity_left += Math.pow(row[i-1], MONOTONICITY_POWER) - Math.pow(row[i], MONOTONICITY_POWER);
             } else {
-                monotonicity_right += Math.pow(line[i], SCORE_MONOTONICITY_POWER) - Math.pow(line[i-1], SCORE_MONOTONICITY_POWER);
+                monotonicity_right += Math.pow(row[i], MONOTONICITY_POWER) - Math.pow(row[i-1], MONOTONICITY_POWER);
             }
         }
 
-        return  (SCORE_LOST_PENALTY +
-                SCORE_EMPTY_WEIGHT * empty +
-                SCORE_MERGES_WEIGHT * merges -
-                SCORE_MONOTONICITY_WEIGHT * Double.min(monotonicity_left, monotonicity_right) -
-                SCORE_SUM_WEIGHT * sum);
+        return  (NO_MOVE_PENALTY +
+                EMPTY_WEIGHT * empty +
+                MERGES_WEIGHT * merges -
+                MONOTONICITY_WEIGHT * Double.min(monotonicity_left, monotonicity_right) -
+                SUM_WEIGHT * sum);
 
     }
 
@@ -115,7 +113,6 @@ public class Logic2048 {
 
         return emptyCells[r0] + emptyCells[r1] + emptyCells[r2] + emptyCells[r3]
                 + emptyCells[c0] + emptyCells[c1] + emptyCells[c2] + emptyCells[c3];
-                //+ getFactorR0(r0) + getFactorR1(r1) + getFactorR2(r2);
     }
 
     public long moveUp(long inputBoard) {
@@ -303,7 +300,7 @@ public class Logic2048 {
     }
 
     public long generateRandomTwoOrFour(long board) {
-        char toSet = (char) (numRandom.nextFloat() < 0.9 ? 1 : 2);
+        char toSet = (char) (numRandom.nextInt(10) < 9 ? 1 : 2);
         int zeroes = Logic2048.getEmptyCountInBoard(board);
         if (zeroes == 0) return board;
         int cell = posRandom.nextInt(zeroes);
