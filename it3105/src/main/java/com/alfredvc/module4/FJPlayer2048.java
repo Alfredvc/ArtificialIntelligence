@@ -3,6 +3,7 @@ package com.alfredvc.module4;
 
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -18,6 +19,7 @@ public class FJPlayer2048 {
     }
 
     private final Mode mode;
+    private ForkJoinPool pool;
 
     private static final double PROB_LIMIT = 0.0001;
 
@@ -56,7 +58,7 @@ public class FJPlayer2048 {
     }
 
     public FJPlayer2048(int depth, Mode mode, Logic2048 logic2048) {
-        //this.pool = new ForkJoinPool(CONCURRENCY_LEVEL);
+        this.pool = new ForkJoinPool();
         this.mode = mode;
         this.logic = logic2048;
         this.l = new Logger();

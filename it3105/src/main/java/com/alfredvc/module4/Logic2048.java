@@ -19,10 +19,15 @@ public class Logic2048 {
     private Random posRandom;
     private Random numRandom;
 
+    public Logic2048(int posRandom, int numRandom) {
+        this.posRandom = new Random(posRandom);
+        this.numRandom = new Random(numRandom);
+        precalculate();
+    }
 
     public Logic2048(){
-        this.posRandom = new Random(1);
-        this.numRandom = new Random(1);
+        this.posRandom = new Random();
+        this.numRandom = new Random();
         precalculate();
     }
 
@@ -70,13 +75,15 @@ public class Logic2048 {
                 if (prev == rank) {
                     counter++;
                 } else if (counter > 0) {
-                    merges += 1 + counter;
+                    if (prev < 2) {
+                        merges += 1 + counter;
+                    }
                     counter = 0;
                 }
                 prev = rank;
             }
         }
-        if (counter > 0) {
+        if (counter > 0 && prev < 2) {
             merges += 1 + counter;
         }
 
@@ -90,11 +97,11 @@ public class Logic2048 {
             }
         }
 
-        return  (NO_MOVE_PENALTY +
+        return  NO_MOVE_PENALTY +
                 EMPTY_WEIGHT * empty +
                 MERGES_WEIGHT * merges -
-                MONOTONICITY_WEIGHT * Double.min(monotonicity_left, monotonicity_right) -
-                SUM_WEIGHT * sum);
+                MONOTONICITY_WEIGHT * Double.min(monotonicity_left, monotonicity_right)
+                - SUM_WEIGHT * sum;
 
     }
 
