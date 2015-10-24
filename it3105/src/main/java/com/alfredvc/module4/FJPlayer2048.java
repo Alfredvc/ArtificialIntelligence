@@ -1,6 +1,7 @@
 package com.alfredvc.module4;
 
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
@@ -69,8 +70,8 @@ public class FJPlayer2048 {
 
     public FinalStats play() {
         game = new Game2048(logic);
-        game.start();
-        game.autoRefresh(true);
+        //game.start();
+        //game.autoRefresh(true);
         long currentBoard = game.getBoard();
         long start = System.nanoTime();
         Move nextMove;
@@ -106,8 +107,8 @@ public class FJPlayer2048 {
             moved++;
             //System.out.println(l);
         }
-        game.setBoard(currentBoard);
-        game.repaint();
+        //game.setBoard(currentBoard);
+        //game.repaint();
         long finish = System.nanoTime();
         double taken = (finish - start) / 1000000000.0;
         return new FinalStats(taken, moved, logic.score(currentBoard));
@@ -320,7 +321,7 @@ public class FJPlayer2048 {
         }
     }
 
-    public class FinalStats {
+    public static class FinalStats {
         final double timeTaken;
         final long movesMade;
         final double movesPerSecond;
@@ -349,14 +350,16 @@ public class FJPlayer2048 {
             return finalScore;
         }
 
+        private String formatted(double d) {
+            return String.format("%.2f", d);
+        }
+
         @Override
         public String toString() {
-            return "FinalStats{" +
-                    "timeTaken=" + timeTaken +
+            return "timeTaken=" + formatted(timeTaken) +
                     ", movesMade=" + movesMade +
-                    ", movesPerSecond=" + movesPerSecond +
-                    ", finalScore=" + finalScore +
-                    '}';
+                    ", movesPerSecond=" + formatted(movesPerSecond) +
+                    ", finalScore=" + finalScore;
         }
     }
 }
