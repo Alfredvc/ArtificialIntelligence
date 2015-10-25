@@ -1,5 +1,6 @@
 package com.alfredvc.module4;
 
+import java.util.Map;
 import java.util.Random;
 import java.util.StringJoiner;
 
@@ -40,10 +41,51 @@ public class Logic2048 {
         while (true) {
             left[c] = _moveRowLeft(c);
             right[c] = reverseRow(_moveRowLeft(reverseRow(c)));
-            emptyCells[c] = calculateEval(c);
+            emptyCells[c] = myCalculateEval(c);
             if (c == 65535) break;
             c++;
         }
+    }
+
+    private double myCalculateEval(char inRow){
+        double total = 100000;
+        char[] row = { (char) (inRow >> 12 & 0xf),
+                (char) (inRow >> 8 & 0xf),
+                (char) (inRow >> 4 & 0xf),
+                (char) (inRow & 0xf)};
+
+        double perfectRight = 0;
+        double perfectLeft = 0;
+        int sortedRight = 0;
+        int sortedLeft = 0;
+        int maxI = -1;
+        int max = 0;
+
+        for(int i = 0; i < 4; i++) {
+            if (row[i] > max) {
+                max = row[i];
+                maxI = i;
+            }
+        }
+
+        for (int i = 1; i < 4; i++) {
+            if (row[i-1] == row[i] - 1) perfectLeft+= row[i];
+            if (row[i-1] == row[i] + 1) perfectRight+= row[i];
+//            if (row[i-1] > row[i]) sortedLeft++;
+//            if (row[i-1] < row[i]) sortedRight++;
+//            if (row[i-1] == row[i]) total += Math.pow(row[i], 2) * 3;
+        }
+        total += Math.max(perfectLeft, perfectRight) * 3;
+//        total += Math.max(sortedLeft, sortedRight) * Math.max(25, (Math.pow(max, 2)/4));
+        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.max(50, Math.pow(row[0], 2));
+        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.max(50, Math.pow(row[3], 2));
+        if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.max(100, Math.pow(row[0], 2) * 2);
+        if (row[3] > row[1] && row[3] > row[2] && row[3] > row[0]) total += Math.max(100, Math.pow(row[3], 2) * 2);
+//        for (int i = 0; i < 4; i++) {
+//            total += row[i] * 3;
+//        }
+        total += calculateEmptyCountInRow(inRow) * 90;
+        return total;
     }
 
     private double calculateEval(char inRow){
@@ -60,9 +102,9 @@ public class Logic2048 {
         int merges = 0;
 
         char[] row = { (char) (inRow >> 12 & 0xf),
-                        (char) (inRow >> 8 & 0xf),
-                        (char) (inRow >> 4 & 0xf),
-                        (char) (inRow & 0xf)};
+                (char) (inRow >> 8 & 0xf),
+                (char) (inRow >> 4 & 0xf),
+                (char) (inRow & 0xf)};
 
         int prev = 0;
         int counter = 0;

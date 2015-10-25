@@ -70,8 +70,8 @@ public class FJPlayer2048 {
 
     public FinalStats play() {
         game = new Game2048(logic);
-        //game.start();
-        //game.autoRefresh(true);
+        game.start();
+        game.autoRefresh(true);
         long currentBoard = game.getBoard();
         long start = System.nanoTime();
         Move nextMove;
@@ -193,7 +193,7 @@ public class FJPlayer2048 {
         }
         l.increase(l.CACHE_MISS);
 
-        if (depth > 1 || mode == Mode.SERIAL) {
+        if (depth > 1 || mode == Mode.SERIAL || prob < 0.02) {
             double[] evals = {zeroOrEvalMove(depth+1, maxDepth, board, logic.moveUp(board), prob),
                     zeroOrEvalMove(depth+1, maxDepth, board, logic.moveDown(board), prob),
                     zeroOrEvalMove(depth+1, maxDepth, board, logic.moveLeft(board), prob),

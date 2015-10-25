@@ -26,7 +26,7 @@ public class Player2048Test {
     @Ignore
     @Test
     public void testOne() throws IOException {
-        FJPlayer2048 p = new FJPlayer2048(2, FJPlayer2048.Mode.PARALLEL, new Logic2048());
+        FJPlayer2048 p = new FJPlayer2048(7, FJPlayer2048.Mode.PARALLEL, new Logic2048());
         System.out.println(p.play());
         System.in.read();
     }
