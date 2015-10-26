@@ -2,6 +2,17 @@ package com.alfredvc.module4;
 
 import com.google.common.io.Files;
 
+import org.apache.commons.math3.analysis.MultivariateFunction;
+import org.apache.commons.math3.optim.ConvergenceChecker;
+import org.apache.commons.math3.optim.InitialGuess;
+import org.apache.commons.math3.optim.MaxEval;
+import org.apache.commons.math3.optim.PointValuePair;
+import org.apache.commons.math3.optim.SimpleBounds;
+import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
+import org.apache.commons.math3.optim.nonlinear.scalar.MultivariateOptimizer;
+import org.apache.commons.math3.optim.nonlinear.scalar.ObjectiveFunction;
+import org.apache.commons.math3.optim.nonlinear.scalar.noderiv.CMAESOptimizer;
+import org.apache.commons.math3.random.MersenneTwister;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -23,10 +34,26 @@ import java.util.stream.Collectors;
  * Created by erpa_ on 10/10/2015.
  */
 public class Player2048Test {
+
+    @Ignore
+    @Test
+    public void optimize() throws IOException {
+        int maxIters = 150;
+        final MultivariateOptimizer optimizer=new CMAESOptimizer(maxIters, 1E-9, true, 3, 50, new MersenneTwister(42), false, (iteration, previous, current) -> false);
+
+        final PointValuePair result=optimizer.optimize(GoalType.MAXIMIZE, new MaxEval(maxIters), new InitialGuess(Logic2048.DEFAULT_PARAMS), new ObjectiveFunction(point ->
+            new FJPlayer2048(4, FJPlayer2048.Mode.PARALLEL, new Logic2048(point), false).play().getFinalScore()
+        ), new CMAESOptimizer.Sigma(new double[]{5, 30, 5, 5, 500}), new CMAESOptimizer.PopulationSize(7), new SimpleBounds(new double[]{0,0,0,0,0},new double[]{10, 100, 10 , 10, 10000}));
+        System.out.println(Arrays.toString(result.getPoint()));
+        FJPlayer2048 p = new FJPlayer2048(7, FJPlayer2048.Mode.PARALLEL, new Logic2048(result.getPoint()), true);
+        System.out.println(p.play());
+        System.in.read();
+    }
+
     @Ignore
     @Test
     public void testOne() throws IOException {
-        FJPlayer2048 p = new FJPlayer2048(7, FJPlayer2048.Mode.PARALLEL, new Logic2048());
+        FJPlayer2048 p = new FJPlayer2048(7, FJPlayer2048.Mode.PARALLEL, new Logic2048(), true);
         System.out.println(p.play());
         System.in.read();
     }
@@ -39,7 +66,7 @@ public class Player2048Test {
         int sum = 0;
         for (int i = 0; i < tries; i++) {
 
-            FJPlayer2048 p = new FJPlayer2048(10, FJPlayer2048.Mode.PARALLEL, new Logic2048(i,i));
+            FJPlayer2048 p = new FJPlayer2048(10, FJPlayer2048.Mode.PARALLEL, new Logic2048(i,i), false);
             finalStats[i] = p.play();
             System.out.println(finalStats[i]);
             sum += finalStats[i].finalScore;
@@ -86,7 +113,7 @@ public class Player2048Test {
 
         @Override
         protected FJPlayer2048.FinalStats compute() {
-            FJPlayer2048 p = new FJPlayer2048(i, FJPlayer2048.Mode.SERIAL, new Logic2048());
+            FJPlayer2048 p = new FJPlayer2048(i, FJPlayer2048.Mode.SERIAL, new Logic2048(), false);
             return p.play();
         }
     }

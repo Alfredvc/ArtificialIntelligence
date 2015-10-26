@@ -27,6 +27,7 @@ public class FJPlayer2048 {
     private final char two;
     private final char four;
     private final Logger l;
+    private final boolean show;
 
     private long[] counters = {0,0};
 
@@ -55,10 +56,10 @@ public class FJPlayer2048 {
     }
 
     public FJPlayer2048(int depth) {
-        this(depth, Mode.PARALLEL, new Logic2048());
+        this(depth, Mode.PARALLEL, new Logic2048(), true);
     }
 
-    public FJPlayer2048(int depth, Mode mode, Logic2048 logic2048) {
+    public FJPlayer2048(int depth, Mode mode, Logic2048 logic2048, boolean show) {
         this.pool = new ForkJoinPool();
         this.mode = mode;
         this.logic = logic2048;
@@ -66,12 +67,15 @@ public class FJPlayer2048 {
         this.maxDepth = depth;
         two = 0x1;
         four = 0x2;
+        this.show = show;
     }
 
     public FinalStats play() {
         game = new Game2048(logic);
-        game.start();
-        game.autoRefresh(true);
+        if(show) {
+            game.start();
+            game.autoRefresh(true);
+        }
         long currentBoard = game.getBoard();
         long start = System.nanoTime();
         Move nextMove;
@@ -107,8 +111,6 @@ public class FJPlayer2048 {
             moved++;
             //System.out.println(l);
         }
-        //game.setBoard(currentBoard);
-        //game.repaint();
         long finish = System.nanoTime();
         double taken = (finish - start) / 1000000000.0;
         return new FinalStats(taken, moved, logic.score(currentBoard));
