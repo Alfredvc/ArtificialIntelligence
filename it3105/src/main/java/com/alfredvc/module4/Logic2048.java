@@ -72,20 +72,20 @@ public class Logic2048 {
 //        }
 //        total += Math.max(lt, gt);
 
-//        double sum = 0;
-//
-//        for (int i = 0; i < 4; i++){
-//            sum += row[i];
-//        }
-//
-//        total += sum;
+        double sum = 0;
 
-        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.max(40, Math.pow(row[0], 2));
-        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.max(40, Math.pow(row[3], 2));
-        if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.max(80, Math.pow(row[0], 2) * 3);
-        if (row[3] > row[1] && row[3] > row[2] && row[3] > row[0]) total += Math.max(80, Math.pow(row[3], 2) * 3);
+        for (int i = 0; i < 4; i++){
+            sum += row[i];
+        }
 
-        total += calculateEmptyCountInRow(inRow) * 60;
+        total += Math.pow(sum, 2);
+
+        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.max(40, Math.pow(row[0], 2)*3);
+        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.max(40, Math.pow(row[3], 2))*3;
+        if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.max(80, Math.pow(row[0], 2) * 9);
+        if (row[3] > row[1] && row[3] > row[2] && row[3] > row[0]) total += Math.max(80, Math.pow(row[3], 2) * 9);
+
+        total += calculateEmptyCountInRow(inRow) * 300;
         return total;
     }
 
