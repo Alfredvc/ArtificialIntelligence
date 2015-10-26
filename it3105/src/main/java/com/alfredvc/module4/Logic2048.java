@@ -87,8 +87,8 @@ public class Logic2048 {
 //
 //        total += Math.pow(sum, 2);
 //
-        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.pow(row[0], 1.7)*1.5;
-        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.pow(row[3], 1.7)*1.5;
+        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.pow(row[0], 1.9)*1.3;
+        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.pow(row[3], 1.9)*1.3;
         if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.pow(row[0], 1.7)*1.5;
         if (row[3] > row[1] && row[3] > row[2] && row[3] > row[0]) total += Math.pow(row[3], 1.7)*1.5;
 
