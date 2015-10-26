@@ -15,10 +15,18 @@ public class Logic2048 {
 
     private double[] emptyCells;
 
+    public static final double[] DEFAULT_PARAMS = {2, 3, 2, 2, 60};
+    private double[] params = DEFAULT_PARAMS;
+
     private float[] evals;
 
     private Random posRandom;
     private Random numRandom;
+
+    public Logic2048(double[] params) {
+        this();
+        this.params = params;
+    }
 
     public Logic2048(int posRandom, int numRandom) {
         this.posRandom = new Random(posRandom);
@@ -56,19 +64,18 @@ public class Logic2048 {
 
         double perfectRight = 0;
         double perfectLeft = 0;
-
+        double same = 0;
 
         for (int i = 1; i < 4; i++) {
-            if (row[i-1] == row[i]) perfectLeft+= Math.pow(row[i],2);
-//            if (row[i-1] == row[i] + 1) perfectRight+= row[i];
+            if (row[i-1] == row[i]) same += Math.pow(row[i], 2);
         }
-        total += Math.max(perfectLeft, perfectRight) * 3;
+        total += same * 3;
 
 //        double gt = 0;
 //        double lt = 0;
 //        for (int i = 1; i < 4; i++) {
-//            if (row[i-1] < row[i]) lt += Math.max(Math.pow(row[i], 1.7), 40);
-//            if (row[i-1] > row[i]) gt += Math.max(Math.pow(row[i-1], 1.7), 40);
+//            if (row[i-1] < row[i]) lt += Math.pow(row[i], 1.1);
+//            if (row[i-1] > row[i]) gt += Math.pow(row[i-1], 1.1);
 //        }
 //        total += Math.max(lt, gt);
 
@@ -80,12 +87,12 @@ public class Logic2048 {
 //
 //        total += Math.pow(sum, 2);
 //
-        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.max(40, Math.pow(row[0], 2));
-        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.max(40, Math.pow(row[3], 2));
-        if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.max(80, Math.pow(row[0], 2));
-        if (row[3] > row[1] && row[3] > row[2] && row[3] > row[0]) total += Math.max(80, Math.pow(row[3], 2));
+        if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.pow(row[0], 1.7)*1.5;
+        if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.pow(row[3], 1.7)*1.5;
+        if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.pow(row[0], 1.7)*1.5;
+        if (row[3] > row[1] && row[3] > row[2] && row[3] > row[0]) total += Math.pow(row[3], 1.7)*1.5;
 
-        total += calculateEmptyCountInRow(inRow) * 60;
+        total += calculateEmptyCountInRow(inRow) * 40;
         return total;
     }
 
