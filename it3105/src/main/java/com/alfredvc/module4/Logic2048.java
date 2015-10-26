@@ -71,22 +71,6 @@ public class Logic2048 {
         }
         total += same * 3;
 
-//        double gt = 0;
-//        double lt = 0;
-//        for (int i = 1; i < 4; i++) {
-//            if (row[i-1] < row[i]) lt += Math.pow(row[i], 1.1);
-//            if (row[i-1] > row[i]) gt += Math.pow(row[i-1], 1.1);
-//        }
-//        total += Math.max(lt, gt);
-
-//        double sum = 0;
-//
-//        for (int i = 0; i < 4; i++){
-//            sum += Math.pow(row[i], 2);
-//        }
-//
-//        total += Math.pow(sum, 2);
-//
         if (row[0] > row[1] && row[1] > row[2] && row[2] > row[3]) total += Math.pow(row[0], 1.9)*1.4;
         if (row[0] < row[1] && row[1] < row[2] && row[2] < row[3]) total += Math.pow(row[3], 1.9)*1.4;
         if (row[0] > row[1] && row[0] > row[2] && row[0] > row[3]) total += Math.pow(row[0], 1.7)*1.5;
