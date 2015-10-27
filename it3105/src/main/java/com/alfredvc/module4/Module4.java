@@ -1,12 +1,14 @@
 package com.alfredvc.module4;
 
+import java.io.IOException;
+
 /**
  * Created by erpa_ on 10/10/2015.
  */
 public class Module4 {
-    public static void main (String args[]) throws InterruptedException {
-        Player2048 player2048 =  new Player2048(3);
-        Thread.sleep(1000);
-        player2048.play();
+    public static void main (String args[]) throws InterruptedException, IOException {
+        FJPlayer2048 p = new FJPlayer2048(7, FJPlayer2048.Mode.PARALLEL, new Logic2048(), true);
+        System.out.println(p.play());
+        System.in.read();
     }
 }
